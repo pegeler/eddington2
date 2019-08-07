@@ -17,6 +17,6 @@ The *R/* folder is an R package. To install, use `devtools`:
 
 ```r
 if (!require(devtools)) install.packages("devtools")
-devtools::install_github("eddington2/R")
+devtools::install_github("pegeler/eddington2/R")
 ```
 
