@@ -1,4 +1,4 @@
-# eddington
+# eddington2
 Calculating and tracking your Eddington Number for Cycling
 
 The following languages are supported:
@@ -13,9 +13,9 @@ More to come.
 
 ## R package
 
-The R folder is an R package. To install:
+The *R/* folder is an R package. To install, use `devtools`:
 
-```
+```r
 if (!require(devtools)) install.packages("devtools")
 devtools::install_github("eddington2/R")
 ```
