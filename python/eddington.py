@@ -9,12 +9,13 @@ Example:
   This is an example that uses a random ride generator::
 
     import random
+    import eddington
 
     n = 100
 
     x = [random.gammavariate(2,10) for i in range(n)]
 
-    Eddington_number(x)
+    eddington.E_num(x)
 
   You may also use this module from the command line::
 
