@@ -1,7 +1,7 @@
 # eddington2
-A collection of code for calculating your Eddington Number for cycling.
+A collection of code for calculating your Eddington number for cycling.
 
-This repo is a spin-off of a different project where I had the occasion
+This repo is a spin-off of a different project where I had the occasion to
 write a php script for calculating my Eddington number. From there, I have
 treated it as a sort of [programming chrestomathy](http://en.wikipedia.org/wiki/Chrestomathy) project *a la* [Rosetta Code](https://rosettacode.org).
 
@@ -17,8 +17,8 @@ More to come. Please feel free to contribute!
 
 ## The algorithms
 
-There are two basic algorithms used throughout this repo. The first is
-one which relies on sorting the data. Although this is fast enough,
+There are two basic algorithms used throughout this repo. The first
+relies on sorting the data. Although this is fast enough,
 there are situations where the sorting operation can be prohibitively 
 expensive computationally.
 
