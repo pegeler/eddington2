@@ -22,6 +22,10 @@ Example:
 
         $ ./eddington.py ../mock-data/rides.dat
 
+    To print the cumulative Eddington number, use the -c flag.::
+
+        $ ./eddington.py -c ../mock-data/rides.dat
+
 """
 
 
@@ -34,13 +38,21 @@ def E_num(rides) -> int:
     :returns: The Eddington number, E, for the data.
     """
 
-    if not rides:
-        return 0
+    n, E, above = len(rides), 0, 0
+    H = [0 for x in range(n)]
 
-    for E, ride in enumerate(sorted(rides, reverse=True), 1):
-        if ride < E:
-            E -= 1
-            break
+    for i in range(n):
+        ride = int(rides[i])
+
+        if ride > E:
+            above += 1
+
+            if ride < n:
+                H[ride] += 1
+
+            if above > E:
+                E += 1
+                above -= H[E]
 
     return E
 
