@@ -1,5 +1,4 @@
 library(eddington)
-library(ggplot2)
 library(knitr)
 library(papeR)
 
