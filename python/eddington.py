@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Compute the Eddington Number for cycling
+"""Compute the Eddington number for cycling
 
 Created on Sun Sep 23 14:43:48 2018
 
@@ -78,11 +78,20 @@ def E_cum(rides) -> list:
 
 
 if __name__ == "__main__":
-    import sys
+    import argparse
 
-    with open(sys.argv[1]) as f:
-        rides = f.readlines()
+    parser = argparse.ArgumentParser(
+                        description='Compute the Eddington number for cycling.')
+    parser.add_argument('file', help='file containing ride lengths')
+    parser.add_argument('-c', '--cumulative', action='store_true',
+                        help='print the cumulative Eddington number')
 
-    E = E_num([float(i.strip()) for i in rides])
+    args = parser.parse_args()
 
-    print("The Eddington number is: % 3i" % E)
+    with open(args.file) as f:
+        rides = [float(i.strip()) for i in f.readlines()]
+
+    if args.cumulative:
+        print(*E_cum(rides), sep = '\n')
+    else:
+        print('The Eddington number is: {}'.format(E_num(rides)))
