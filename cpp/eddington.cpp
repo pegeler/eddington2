@@ -8,7 +8,7 @@ using namespace std;
 
 void usage(char *prog)
 {
-  cerr << "Usage: " << prog << " [-c] FILE" << endl;
+  cerr << "Usage: " << prog << " [-h] [-c] FILE" << endl;
 }
 
 vector<double> get_rides(string filename)
@@ -79,12 +79,15 @@ int main(int argc, char *argv[])
   bool c = false;
   int opt;
   
-  while ((opt = getopt (argc, argv, "c")) != -1)
+  while ((opt = getopt (argc, argv, "ch")) != -1)
     switch (opt)
       {
       case 'c':
          c = true;
         break;
+      case 'h':
+        usage(argv[0]);
+        return 0;
       case '?':
         usage(argv[0]);
         return 1;
