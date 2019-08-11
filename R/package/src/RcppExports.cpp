@@ -6,34 +6,34 @@
 using namespace Rcpp;
 
 // E_num
-int E_num(NumericVector rides);
+int E_num(NumericVector& rides);
 RcppExport SEXP _eddington_E_num(SEXP ridesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type rides(ridesSEXP);
+    Rcpp::traits::input_parameter< NumericVector& >::type rides(ridesSEXP);
     rcpp_result_gen = Rcpp::wrap(E_num(rides));
     return rcpp_result_gen;
 END_RCPP
 }
 // E_cum
-IntegerVector E_cum(NumericVector rides);
+IntegerVector E_cum(NumericVector& rides);
 RcppExport SEXP _eddington_E_cum(SEXP ridesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type rides(ridesSEXP);
+    Rcpp::traits::input_parameter< NumericVector& >::type rides(ridesSEXP);
     rcpp_result_gen = Rcpp::wrap(E_cum(rides));
     return rcpp_result_gen;
 END_RCPP
 }
 // E_req
-List E_req(NumericVector rides);
+List E_req(NumericVector& rides);
 RcppExport SEXP _eddington_E_req(SEXP ridesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type rides(ridesSEXP);
+    Rcpp::traits::input_parameter< NumericVector& >::type rides(ridesSEXP);
     rcpp_result_gen = Rcpp::wrap(E_req(rides));
     return rcpp_result_gen;
 END_RCPP

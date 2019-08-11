@@ -36,7 +36,7 @@ using namespace Rcpp;
 //' E_num(rides)
 //' @export
 // [[Rcpp::export]]
-int E_num(NumericVector rides) {
+int E_num(NumericVector &rides) {
   int n = rides.size(), E = 0, ride = 0, above = 0;
   IntegerVector H(n);
 
@@ -67,7 +67,7 @@ int E_num(NumericVector rides) {
 //' @return An integer vector the same length as \code{rides}.
 //' @export
 // [[Rcpp::export]]
-IntegerVector E_cum(NumericVector rides) {
+IntegerVector E_cum(NumericVector &rides) {
   int n = rides.size(), running = 0, ride = 0, above = 0;
   IntegerVector E(n), H(n);
 
@@ -98,7 +98,7 @@ IntegerVector E_cum(NumericVector rides) {
 //'   number of rides required to increment by one (\code{req}).
 //' @export
 // [[Rcpp::export]]
-List E_req(NumericVector rides) {
+List E_req(NumericVector &rides) {
   int n = rides.size(), E = 0, ride = 0, above = 0;
   IntegerVector H(n + 2);
 
