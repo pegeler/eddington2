@@ -35,9 +35,9 @@ larger datasets.
 Several of the entries contain algorithm B. If you are using any of this code in
 production, I would check that the particular function definition you are using
 is algorithm B. If not, there is probably another file in the folder which does
-contain algorithm B. (Also, please note that this is licensed under GPL-3 so I
+contain algorithm B. (**Also, please note that this is licensed under GPL-3 so I
 make no claims nor warranty of any kind, including with regard to the fitness of
-this code in a production context---do your own testing!)
+this code in a production context---do your own testing!**)
 
 The two algorithms, A (slow) and B (fast) are shown below in python.
 
@@ -53,7 +53,7 @@ def E_num(rides) -> int:
             E -= 1
             break
 
-return E
+    return E
 ```
 
 ### B (fast)
