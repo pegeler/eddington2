@@ -28,6 +28,10 @@
 #'
 #' # Get the Eddington number
 #' Eddington_number(rides)
-Eddington_number <- function(rides) {
+E_num <- function(rides) {
   sum(sort(rides, decreasing = TRUE) >= seq_along(rides))
+}
+
+E_cum <- function(rides) {
+  vapply(seq_along(rides), function(x) E_num(rides[seq_len(x)]), integer(1))
 }
