@@ -120,4 +120,4 @@ if __name__ == "__main__":
     if args.cumulative:
         print(*E_cum(rides), sep = '\n')
     else:
-        print('The Eddington number is: {}'.format(E_num(rides)))
+        print(E_num(rides))
