@@ -31,7 +31,7 @@ number using base R.
 ## Microbenchmarking
 
 Here I'm comparing the optimized Rcpp code used in the package (`E_num()`) with
-the base R code found in the loose scripts folder (`Eddington_number()`)using 
+the base R code found in the loose scripts folder (`Eddington_number()`) using
 [microbenchmark](https://github.com/joshuaulrich/microbenchmark/). The dataset
 is the [mock data](../mock-data) found in this repo.
 
