@@ -33,7 +33,7 @@ linear time. This is trivial for small datasets but can have a huge impact on
 larger datasets. 
 
 It is also worth noting that with light modifications, it is possible to make
-a database schema so that row updates can calculate the new Eddington number in
+a database schema so that row insertions can calculate the new Eddington number in
 constant time. At the expense of adding an extra table or a few columns, the E
 number for new entries can be computed using a single row that captures the algorithm
 state at the previous iteration, rather than using a rider's entire history for
