@@ -94,14 +94,28 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(
                         description='Compute the Eddington number for cycling.')
-    parser.add_argument('file', help='file containing ride lengths')
+    parser.add_argument('file', nargs='?',
+                        help='file containing ride lengths')
     parser.add_argument('-c', '--cumulative', action='store_true',
                         help='print the cumulative Eddington number')
 
     args = parser.parse_args()
 
-    with open(args.file) as f:
-        rides = [float(i.strip()) for i in f.readlines()]
+    if args.file:
+        with open(args.file) as f:
+            rides = [float(i.strip()) for i in f.readlines()]
+    else:
+        from sys import stdin
+        
+        rides = []
+        
+        for line in stdin:
+            ride = line.strip()
+            
+            if ride:
+                rides.append(float(ride))
+            else:
+                break
 
     if args.cumulative:
         print(*E_cum(rides), sep = '\n')
