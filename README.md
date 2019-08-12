@@ -32,12 +32,13 @@ not require initial sorting of the data. As such, it computes the value in
 linear time. This is trivial for small datasets but can have a huge impact on
 larger datasets. 
 
-Several of the entries contain algorithm B. If you are using any of this code in
-production, I would check that the particular function definition you are using
-is algorithm B. If not, there is probably another file in the folder which does
-contain algorithm B. (**Also, please note that this is licensed under GPL-3 so I
-make no claims nor warranty of any kind, including with regard to the fitness of
-this code in a production context---do your own testing!**)
+It is also worth noting that with light modifications, it is possible to make
+a database schema so that row updates can calculate the new Eddington number in
+constant time. At the expense of adding an extra table or a few columns, the E
+number for new entries can be computed using a single row that captures the algorithm
+state at the previous iteration, rather than using a rider's entire history for
+each new row. I am exploring that in the larger project from which this repo is
+a spin-off. I will share an example of this as it becomes available.
 
 The two algorithms, A (slow) and B (fast) are shown below in python.
 
@@ -79,3 +80,7 @@ def E_num(rides) -> int:
 
     return E
 ```
+
+NOTE: The entries in this repo are a mix of algorithms A and B. If both A and B
+are present for a given langauage, I append _-deprecated_ to the file name
+containing algorithm A.
