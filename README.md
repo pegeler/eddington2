@@ -23,7 +23,7 @@ More to come. Please feel free to contribute!
 There are two basic algorithms used throughout this repo. The first, which I
 creatively call _algorithm A_, relies on sorting the data. Although this is fast
 enough for most use-cases, there are rare situations where the sorting operation
-can be too computationally expesive. Also, this is not conducive to calculation
+can be too computationally expensive. Also, this is not conducive to calculation
 of a cumulative Eddington number, which would otherwise require separate sorting
 operations for every new element of the dataset.
 
