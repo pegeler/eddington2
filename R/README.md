@@ -1,8 +1,8 @@
 # R
 
-Folder contents:
+## Folder contents
 
-## loose
+### _loose/_
 
 These are loose scripts not connected with the package. The _eddington.r_ file
 may be useful in that it calculates the Eddington number in pure R. Therefore,
@@ -14,7 +14,7 @@ and using the R package rather than these loose scripts. Especially because the
 Rcpp version in this folder uses the slower algorithm, whereas the R package
 uses the optimized Rcpp code and is much faster.
 
-## package
+### _package/_
 
 This folder is an R package. To install, use `devtools`:
 
@@ -50,8 +50,8 @@ microbenchmark(E_num(rides), Eddington_number(rides))
 ```
 
 
-You can see that the median time difference is about 96 microseconds on my
-machine, or a factor of 14 faster.
+You can see that the difference in median times is about 96 microseconds on my
+machine, or a factor of 14.
 
 I was inspired to create the new algorithm because of my interest in computing
 a cumulative Eddington number on larger datasets. Let's define a cumulative
