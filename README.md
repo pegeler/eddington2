@@ -21,10 +21,10 @@ More to come. Please feel free to contribute!
 ## The algorithms
 
 There are two basic algorithms used throughout this repo. The first, which I
-creatively call _algorithm A_, relies on sorting the data. Although this is fast 
-enough, there are situations where the sorting operation can be prohibitively 
-expensive computationally. Also, this is not conducive to calculation of a
-cumulative Eddington number, which would otherwise require separate sorting
+creatively call _algorithm A_, relies on sorting the data. Although this is fast
+enough for most use-cases, there are rare situations where the sorting operation
+can be too computationally expesive. Also, this is not conducive to calculation
+of a cumulative Eddington number, which would otherwise require separate sorting
 operations for every new element of the dataset.
 
 Therefore, I have developed a second algorithm (named _algorithm B_) which does 
@@ -79,20 +79,3 @@ def E_num(rides) -> int:
 
     return E
 ```
-
-
-## R package
-
-The *R/package/* folder is an R package. To install, use `devtools`:
-
-```r
-if (!require(devtools)) install.packages("devtools")
-devtools::install_github("pegeler/eddington2/R/package")
-```
-
-The R package uses Rcpp, which requires a development environment. However,
-if you are using the calculation for any production purposes, I highly recommend
-you use it instead of the loose scripts since it implements the more advanced 
-algorithm, which I've found to be upwards of 500x faster in practical cases
-using [microbenchmark](https://github.com/joshuaulrich/microbenchmark/).
-
