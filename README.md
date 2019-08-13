@@ -1,8 +1,11 @@
 # eddington2
 
-A collection of code for calculating your [Eddington number for cycling](https://en.wikipedia.org/wiki/Arthur_Eddington#Eddington_number_for_cycling). 
+A collection of code for calculating your
+[Eddington number for cycling](https://en.wikipedia.org/wiki/Arthur_Eddington#Eddington_number_for_cycling).
 This will also calculate an author's [_h_-index](https://en.wikipedia.org/wiki/H-index),
 which is mathematically equivalent but applied to a different field of interest.
+Both of these numbers are specific applications of computing the side length of a
+[Durfee square](https://en.wikipedia.org/wiki/Durfee_square).
 
 This repo is a spin-off of a different project where I had the occasion to
 write a php script for calculating my Eddington number. From there, I have
@@ -27,13 +30,15 @@ The algorithms used throughout this repo fall into two general categories. The f
 creatively call _algorithm A_, relies on sorting the data. Although this is fast
 enough for most use-cases, there are rare situations where the sorting operation
 can be too computationally expensive. Also, this is not conducive to calculation
-of a cumulative Eddington number, which would otherwise require separate sorting
-operations for every new element of the dataset.
+of a cumulative Eddington number, which would require separate sorting operations
+for every new element of the dataset. This is trivial for small datasets but can
+have a huge impact on larger datasets.
 
 Therefore, I have developed a second algorithm (named _algorithm B_) which does
-not require initial sorting of the data. The new algorithm computes the value in
-linear time. This is trivial for small datasets but can have a huge impact on larger
-datasets. 
+not require initial sorting of the data. The algorithm goes through the data only
+once, keeping a running tally of E, and computing the summary value in linear time.
+Since a running E is calculated as the algorithm iterates over the data, it
+is an efficient way of computing the cumulative E.
 
 It is also worth noting that with light modifications, it is possible to make
 a database schema so that row insertions can calculate the new Eddington number in
@@ -84,6 +89,8 @@ def E_num(rides) -> int:
     return E
 ```
 
-NOTE: The entries in this repo are a mix of algorithms A and B. If both A and B
+## Deprecation
+
+The entries in this repo are a mix of algorithms A and B. If both A and B
 are present for a given langauage, I append _`-deprecated`_ to the file name
 containing algorithm A.
