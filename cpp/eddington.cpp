@@ -11,14 +11,12 @@ void usage(char *prog)
   cerr << "Usage: " << prog << " [-h] [-c] FILE" << endl;
 }
 
-vector<double> get_rides(string filename)
+vector<double> get_rides(istream& input)
 {
   double ride;
-  ifstream file(filename);
-
   vector<double> rides;
 
-  while(file >> ride)
+  while(input >> ride)
   {
     rides.push_back(ride);
   }
@@ -83,7 +81,7 @@ int main(int argc, char *argv[])
     switch (opt)
       {
       case 'c':
-         c = true;
+        c = true;
         break;
       case 'h':
         usage(argv[0]);
@@ -93,15 +91,21 @@ int main(int argc, char *argv[])
         return 1;
       }
 
-  if (optind == argc)
-  {
-    cerr << argv[0] << ": no file specified." << endl;
-    usage(argv[0]);
-    return 1;
-  }
 
   // Read in ride data
-  auto rides = get_rides(argv[optind]);
+  vector<double> rides;
+  
+  if (optind == argc)
+  {
+    rides = get_rides(cin);
+  }
+
+  else
+  {
+    ifstream file(argv[optind]);
+    istream& file_stream = file;
+    rides = get_rides(file_stream);
+  }
 
   // Caluclate E_num and print
   if (!c)
