@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <unistd.h>
+#include <cstring>
 
 using namespace std;
 
@@ -95,7 +96,7 @@ int main(int argc, char *argv[])
   // Read in ride data
   vector<double> rides;
   
-  if (optind == argc)
+  if (optind == argc || !strcmp(argv[optind], "-"))
   {
     rides = get_rides(cin);
   }
