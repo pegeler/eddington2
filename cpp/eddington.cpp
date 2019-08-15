@@ -4,13 +4,17 @@
 #include <string>
 #include <unistd.h>
 #include <cstring>
+#include <unordered_map>
+
 
 using namespace std;
 
 void usage(char *prog)
 {
-  cerr << "Usage: " << prog << " [-h] [-c] FILE" << endl;
+  cerr << "Usage: " << prog << " [-h] [-c] [-s] FILE" << endl;
 }
+
+// Vector-based solution -----------------------------------------------------
 
 vector<double> get_rides(istream& input)
 {
@@ -71,14 +75,43 @@ vector<int> E_cum(vector<double> &rides) {
 
 }
 
+// Stream-based solution ------------------------------------------------------
+
+void E_stream(istream& input) {
+  int ride, running = 0, above = 0;
+  double line;
+  unordered_map<int, int> H;
+
+  while(input >> line)
+  {
+    ride = (int) line;
+    
+    if (ride > running) {
+      above++;
+      H[ride]++;
+
+      if (above > running) {
+        running++;
+        above -= H[running];
+      }
+    }
+
+    cout << running << endl;
+
+  }
+
+}
+
+// Main -----------------------------------------------------------------------
+
 int main(int argc, char *argv[])
 { 
 
   // Read in commandline args
-  bool c = false;
+  bool c = false, s = false;
   int opt;
   
-  while ((opt = getopt (argc, argv, "ch")) != -1)
+  while ((opt = getopt (argc, argv, "chs")) != -1)
     switch (opt)
       {
       case 'c':
@@ -87,11 +120,37 @@ int main(int argc, char *argv[])
       case 'h':
         usage(argv[0]);
         return 0;
+      case 's':
+        s = true;
+        break;
       case '?':
         usage(argv[0]);
         return 1;
       }
 
+  // Stream -------------------------------------------------------------------
+
+  if (s)
+  { 
+
+    if (optind == argc || !strcmp(argv[optind], "-"))
+    {
+      E_stream(cin);
+    }
+
+    else
+    {
+      ifstream file(argv[optind]);
+      istream& file_stream = file;
+      E_stream(file_stream);
+    }
+
+    return 0;
+
+  }
+
+
+  // Vector -------------------------------------------------------------------
 
   // Read in ride data
   vector<double> rides;
