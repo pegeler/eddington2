@@ -11,7 +11,7 @@ using namespace std;
 
 void usage(char *prog)
 {
-  cerr << "Usage: " << prog << " [-h] [-c] [-s] FILE" << endl;
+  cerr << "Usage: " << prog << " [-h] [-cs] FILE" << endl;
 }
 
 // Vector-based solution -----------------------------------------------------
@@ -77,7 +77,7 @@ vector<int> E_cum(vector<double> &rides) {
 
 // Stream-based solution ------------------------------------------------------
 
-void E_stream(istream& input) {
+void E_stream(istream& input, bool const& c) {
   int ride, running = 0, above = 0;
   double line;
   unordered_map<int, int> H;
@@ -96,9 +96,11 @@ void E_stream(istream& input) {
       }
     }
 
-    cout << running << endl;
+    if (c) cout << running << endl;
 
   }
+  
+  if (!c) cout << running << endl;
 
 }
 
@@ -135,14 +137,14 @@ int main(int argc, char *argv[])
 
     if (optind == argc || !strcmp(argv[optind], "-"))
     {
-      E_stream(cin);
+      E_stream(cin, c);
     }
 
     else
     {
       ifstream file(argv[optind]);
       istream& file_stream = file;
-      E_stream(file_stream);
+      E_stream(file_stream, c);
     }
 
     return 0;
