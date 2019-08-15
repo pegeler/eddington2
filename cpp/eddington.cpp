@@ -131,13 +131,13 @@ int main(int argc, char *argv[])
     switch (opt)
       {
       case 'c':
-        c = true;
+        c = 1;
         break;
       case 'h':
         usage(argv[0]);
         return 0;
       case 's':
-        s = true;
+        s = 1;
         break;
       case '?':
         usage(argv[0]);
