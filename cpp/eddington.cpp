@@ -5,13 +5,18 @@
 #include <unistd.h>
 #include <cstring>
 #include <unordered_map>
+#include <getopt.h>
 
 
 using namespace std;
 
 void usage(char *prog)
 {
-  cerr << "Usage: " << prog << " [-h] [-cs] FILE" << endl;
+  cerr 
+    << "Usage: " 
+    << prog 
+    << " [-h | --help] [-c | --cumulative] [-s | --stream] [FILE]" 
+    << endl;
 }
 
 // Vector-based solution -----------------------------------------------------
@@ -110,10 +115,19 @@ int main(int argc, char *argv[])
 { 
 
   // Read in commandline args
-  bool c = false, s = false;
+  int c = 0, s = 0;
   int opt;
   
-  while ((opt = getopt (argc, argv, "chs")) != -1)
+  struct option long_options[] = {
+    
+    {"help",       no_argument, NULL, 'h'},
+    {"cumulative", no_argument, NULL, 'c'},
+    {"stream",     no_argument, NULL, 's'},
+    {0, 0, 0, 0}
+    
+  };
+  
+  while ((opt = getopt_long(argc, argv, "chs", long_options, NULL)) != -1)
     switch (opt)
       {
       case 'c':
