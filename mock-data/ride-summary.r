@@ -20,7 +20,7 @@ E_contribs <- rides[rides$ride_length >= E,]
 kable(
   summarize(
     rides,
-    variables = c("ride_length", "E_cumulative"),
+    variables = c("ride_length", "E"),
     labels = c("Ride Length", "Cumulative E")
   )
 )
@@ -65,7 +65,7 @@ with(rides,
 lines(
   y = c(0, rides$E),
   x = c(0, rides$ride_day),
-  type = "l",
+  type = "s",
   col = "darkred"
 )
 
