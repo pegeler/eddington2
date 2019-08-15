@@ -29,13 +29,12 @@ test_that("E_req works",{
 
   x <- E_req(simdata)
 
-  E_current <- x$E
-  E_new <- E_current + 1L
+  E_next <- x$E + 1L
 
-  enough_rides <- c(simdata, rep(E_current + 1, x$req))
-  not_enough_rides <- c(simdata, rep(E_current + 1, x$req - 1))
+  enough_rides <- c(simdata, rep(E_next, x$req))
+  not_enough_rides <- c(simdata, rep(E_next, x$req - 1))
 
-  expect_true(E_sat(enough_rides, E_new))
-  expect_false(E_sat(not_enough_rides, E_new))
+  expect_true(E_sat(enough_rides, E_next))
+  expect_false(E_sat(not_enough_rides, E_next))
 
 })
