@@ -25,7 +25,7 @@ number is in dark red.
 
 ## Cumulative Eddington Number
 
-This plot provides a needle plot of ride lengths over time. Again, note the 
+This is a needle plot of ride lengths over time. Again, note the 
 summary Eddington number is in dark red.
 
 ![needleplot](needle.png)

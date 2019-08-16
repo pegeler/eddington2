@@ -4,13 +4,22 @@
 #include <string>
 #include <unistd.h>
 #include <cstring>
+#include <unordered_map>
+#include <getopt.h>
+
 
 using namespace std;
 
 void usage(char *prog)
 {
-  cerr << "Usage: " << prog << " [-h] [-c] FILE" << endl;
+  cerr 
+    << "Usage: " 
+    << prog 
+    << " [-h | --help] [-c | --cumulative] [-s | --stream] [FILE]" 
+    << endl;
 }
+
+// Vector-based solution -----------------------------------------------------
 
 vector<double> get_rides(istream& input)
 {
@@ -71,27 +80,93 @@ vector<int> E_cum(vector<double> &rides) {
 
 }
 
+// Stream-based solution ------------------------------------------------------
+
+void E_stream(istream& input, bool const& c) {
+  int ride, running = 0, above = 0;
+  double line;
+  unordered_map<int, int> H;
+
+  while(input >> line)
+  {
+    ride = (int) line;
+    
+    if (ride > running) {
+      above++;
+      H[ride]++;
+
+      if (above > running) {
+        running++;
+        above -= H[running];
+      }
+    }
+
+    if (c) cout << running << endl;
+
+  }
+  
+  if (!c) cout << running << endl;
+
+}
+
+// Main -----------------------------------------------------------------------
+
 int main(int argc, char *argv[])
 { 
 
   // Read in commandline args
-  bool c = false;
+  int c = 0, s = 0;
   int opt;
   
-  while ((opt = getopt (argc, argv, "ch")) != -1)
+  struct option long_options[] = {
+    
+    {"help",       no_argument, NULL, 'h'},
+    {"cumulative", no_argument, NULL, 'c'},
+    {"stream",     no_argument, NULL, 's'},
+    {0, 0, 0, 0}
+    
+  };
+  
+  while ((opt = getopt_long(argc, argv, "chs", long_options, NULL)) != -1)
     switch (opt)
       {
       case 'c':
-        c = true;
+        c = 1;
         break;
       case 'h':
         usage(argv[0]);
         return 0;
+      case 's':
+        s = 1;
+        break;
       case '?':
         usage(argv[0]);
         return 1;
       }
 
+  // Stream -------------------------------------------------------------------
+
+  if (s)
+  { 
+
+    if (optind == argc || !strcmp(argv[optind], "-"))
+    {
+      E_stream(cin, c);
+    }
+
+    else
+    {
+      ifstream file(argv[optind]);
+      istream& file_stream = file;
+      E_stream(file_stream, c);
+    }
+
+    return 0;
+
+  }
+
+
+  // Vector -------------------------------------------------------------------
 
   // Read in ride data
   vector<double> rides;
