@@ -27,11 +27,14 @@
 #' setNames(sort(rides, decreasing = TRUE), seq_along(rides))
 #'
 #' # Get the Eddington number
-#' Eddington_number(rides)
+#' E_num(rides)
+#' @export
 E_num <- function(rides) {
   sum(sort(rides, decreasing = TRUE) >= seq_along(rides))
 }
 
+#' @rdname E_num
+#' @export
 E_cum <- function(rides) {
   vapply(seq_along(rides), function(x) E_num(rides[seq_len(x)]), integer(1))
 }
