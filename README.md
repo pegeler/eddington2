@@ -23,6 +23,7 @@ treated it as a sort of
 * php
 * python
 * R
+* SAS
 * VBA (for use in Microsoft Excel)
 
 More to come. Please feel free to contribute!
