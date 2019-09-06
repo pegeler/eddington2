@@ -15,6 +15,7 @@ treated it as a sort of
 
 ## Languages
 
+* awk
 * bash
 * C
 * C++
