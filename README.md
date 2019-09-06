@@ -15,8 +15,10 @@ treated it as a sort of
 
 ## Languages
 
+* bash
 * C
 * C++
+* FORTRAN 90
 * php
 * python
 * R
