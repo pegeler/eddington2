@@ -62,7 +62,11 @@ contains
                 
                     E = E + 1
                     
-                    above = above - H(E)
+                    if (E .lt. n) then
+
+                        above = above - H(E)
+
+                    endif
                 
                 endif
             
