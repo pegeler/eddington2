@@ -23,12 +23,11 @@ int main(int argc, char *argv[])
     int a[n];
     
         
-    for (int i=0; i<n; i++) 
-    {
-        sscanf(argv[i + 1], "%i", &a[i]);;
+    for (int i=0; i<n; i++) {
+        sscanf(argv[i + 1], "%i", &a[i]);
     }
     
-    printf("Your Eddington number is: % 3i\n", eddington(a, n));
+    printf("%i\n", eddington(a, n));
     
     return 0;
 }
