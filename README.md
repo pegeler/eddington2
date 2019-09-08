@@ -20,6 +20,7 @@ treated it as a sort of
 * C
 * C++
 * FORTRAN 90
+* javascript (look in _docs/_)
 * php
 * python
 * R
