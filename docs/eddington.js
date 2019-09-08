@@ -42,3 +42,9 @@ window.onload = function()
 {
   document.getElementById('rides').addEventListener('change', getFile)
 }
+
+function submitText() {
+   textInput = document.getElementById('text-input').value
+   rides = textInput.split(/\n|,/).map(ride => parseInt(ride))
+   document.getElementById('E').innerHTML = eddington(rides)
+}

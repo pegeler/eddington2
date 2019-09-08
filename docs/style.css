@@ -24,6 +24,16 @@ h2 {
   padding: 1em;
 }
 
+#text-input{
+  width: 100%;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #fefefe;
+  height: 150px;
+}
+
 p {
   padding-left: 1em;
 }
