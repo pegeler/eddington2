@@ -30,7 +30,7 @@ function getFile()
   
   reader.onload = function() 
   {
-    rides = this.result.split('\n').map(line => parseInt(line))
+    rides = this.result.split(/\r*\n|,/).map(line => parseInt(line))
     document.getElementById('E').innerHTML = eddington(rides)    
   }
 
@@ -45,6 +45,6 @@ window.onload = function()
 
 function submitText() {
    textInput = document.getElementById('text-input').value
-   rides = textInput.split(/\n|,/).map(ride => parseInt(ride))
+   rides = textInput.split(/\r*\n|,/).map(ride => parseInt(ride))
    document.getElementById('E').innerHTML = eddington(rides)
 }
