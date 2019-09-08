@@ -21,6 +21,7 @@ treated it as a sort of
 * C++
 * FORTRAN 90
 * javascript (look in _docs/_)
+* MySQL
 * php
 * python
 * R
