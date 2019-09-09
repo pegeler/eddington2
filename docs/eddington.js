@@ -24,7 +24,7 @@ function eddington(rides)
 function getFile()
 {
   
-  file = document.getElementById('rides').files[0]
+  file = document.getElementById('file-input').files[0]
   reader = new FileReader()
   
   
@@ -40,7 +40,7 @@ function getFile()
 
 window.onload = function() 
 {
-  document.getElementById('rides').addEventListener('change', getFile)
+  document.getElementById('file-input').addEventListener('change', getFile)
 }
 
 function submitText() {

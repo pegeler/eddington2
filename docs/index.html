@@ -22,21 +22,28 @@ There are two ways to calculate your Eddington number:
 </ul>
 
 <h2>File Selection</h2>
-<div id='input'>
-<label for='rides'>Select a file:</label>
-<input type='file' id='rides' name='rides' accept='.dat,.txt'>
+
+<div class='file-input'>
+<label for='file-input'>Select a file:</label>
+<input type='file' id='file-input' name='file-input' accept='.dat,.txt'>
 </div>
 
 <h2>Manual Entry</h2>
+
 <div>
 <label for="text-input">Enter rides below:</label>
-<textarea id="text-input" name="text-input" maxlength="1000"></textarea>
+<textarea id="text-input" name="text-input"></textarea>
 <button type="button" onclick="submitText();">Calculate!</button>
 </div>
 
 <h2>Result</h2>
+
 <p><span id='E'><em>no data entered...</em></span>
 
-<footer>&copy;2019 Paul Egeler | Page source on <a href='https://github.com/pegeler/eddington2/'>Github</a></footer>
+<footer>
+&copy;2019 <a href='https://paul.egeler.us/'>Paul Egeler</a> | 
+Page source on <a href='https://github.com/pegeler/eddington2/'>Github</a>
+</footer>
+
 </body>
 </html>

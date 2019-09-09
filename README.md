@@ -29,6 +29,7 @@ number, check out the online calculator
 * php
 * python
 * R
+* Rcpp
 * SAS
 * VBA (for use in Microsoft Excel)
 

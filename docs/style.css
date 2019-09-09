@@ -8,7 +8,8 @@ body {
 
 h1 {
   margin-top: 0;
-  background-color: #cde;
+  color: #f8f8f8;
+  background-color: #487da3;
   border: 1px solid #333;
   border-radius: 5px;
   padding: 1em;
@@ -18,13 +19,13 @@ h2 {
   border-bottom: 3px solid #333;
 }
 
-#input{
+.file-input{
   background-color: #eee;
   border-radius: 5px;
   padding: 1em;
 }
 
-#text-input{
+textarea {
   width: 100%;
   padding: 12px 20px;
   box-sizing: border-box;
@@ -39,14 +40,17 @@ p {
 }
 
 footer {
-  background-color: #cde;
+  color: #f8f8f8;
+  background-color: #487da3;
   border: 1px solid #333;
   border-radius: 5px;
   padding: 20px;
   text-align: center;
 }
 
-a {color: #3b7096;}
+footer a {
+  color: #f8f8f8;
+}
 
 a:link {
     text-decoration: none;
