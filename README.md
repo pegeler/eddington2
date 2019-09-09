@@ -13,6 +13,10 @@ treated it as a sort of
 [programming chrestomathy](http://en.wikipedia.org/wiki/Chrestomathy) project 
 *a la* [Rosetta Code](https://rosettacode.org).
 
+If you're here because you just need a quick way to calculate your Eddington
+number, check out the online calculator
+[here](https://pegeler.github.io/eddington2/).
+
 ## Languages
 
 * awk
