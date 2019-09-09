@@ -1,3 +1,4 @@
+// Define Eddington function
 function eddington(rides)
 {
   n = rides.length
@@ -21,6 +22,13 @@ function eddington(rides)
   return E
 }
 
+// Parse user input into integer array
+function textParse(text)
+{
+  return text.split(/\r*\n|,/).map(ride => parseInt(ride))
+}
+
+// Process file and compute E
 function getFile()
 {
   
@@ -30,7 +38,7 @@ function getFile()
   
   reader.onload = function() 
   {
-    rides = this.result.split(/\r*\n|,/).map(line => parseInt(line))
+    rides = textParse(this.result)
     document.getElementById('E').innerHTML = eddington(rides)    
   }
 
@@ -38,13 +46,15 @@ function getFile()
 
 }
 
+// Create event listener for file-input element
 window.onload = function() 
 {
   document.getElementById('file-input').addEventListener('change', getFile)
 }
 
-function submitText() {
-   textInput = document.getElementById('text-input').value
-   rides = textInput.split(/\r*\n|,/).map(ride => parseInt(ride))
+// Process textarea element and compute E
+function submitText() 
+{
+   rides = textParse(document.getElementById('text-input').value)
    document.getElementById('E').innerHTML = eddington(rides)
 }
