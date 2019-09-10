@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 function eddington($rides) {
   
@@ -14,4 +15,19 @@ function eddington($rides) {
 
   return $E;
 }
+
+if ($argc > 1) {
+
+  $lines = file($argv[1]);
+  foreach ($lines as $line) {
+    $rides[] = (float) $line;
+  }
+
+  echo eddington($rides)."\n";
+
+}
+
+exit;
+
 ?>
+
