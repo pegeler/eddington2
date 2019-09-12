@@ -19,19 +19,19 @@ number, check out the online calculator
 
 ## Languages
 
-* awk
-* bash
-* C
-* C++
-* FORTRAN 90
-* javascript (look in _docs/_)
-* MySQL
-* php
-* python
-* R
-* Rcpp
-* SAS
-* VBA (for use in Microsoft Excel)
+* [awk](awk/)
+* [bash](bash/)
+* [C](c/)
+* [C++](cpp/)
+* [FORTRAN 90](fortran/)
+* [javascript](docs/)
+* [MySQL](mysql/)
+* [php](php/)
+* [python](python)
+* [R](R/)
+* [Rcpp](R/)
+* [SAS](sas/)
+* [VBA](vba/) (for use in Microsoft Excel)
 
 More to come. Please feel free to contribute!
 
