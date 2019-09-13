@@ -19,6 +19,7 @@ number, check out the online calculator
 
 ## Languages
 
+* [GNU APL](apl/)
 * [awk](awk/)
 * [bash](bash/)
 * [C](c/)
