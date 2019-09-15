@@ -26,6 +26,7 @@ number, check out the online calculator
 * [C++](cpp/)
 * [FORTRAN 90](fortran/)
 * [javascript](docs/)
+* [Julia](julia/)
 * [MySQL](mysql/)
 * [php](php/)
 * [python](python)
