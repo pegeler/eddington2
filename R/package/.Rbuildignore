@@ -3,3 +3,4 @@
 ^eddington\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$
+^appveyor\.yml$
