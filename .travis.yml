@@ -3,6 +3,7 @@
 before_install:
  - cd R/package/
 
-language: R
+language: r
+r: devel
 sudo: false
 cache: packages
