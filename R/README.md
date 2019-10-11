@@ -16,6 +16,10 @@ uses the optimized Rcpp code and is much faster.
 
 ### _package/_
 
+[![Travis-CI Build Status](https://travis-ci.org/pegeler/eddington2.svg?branch=master)](https://travis-ci.org/pegeler/eddington2)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/pegeler/eddington2?branch=master&svg=true)](https://ci.appveyor.com/project/pegeler/eddington2)
+
+
 This folder is an R package. To install, use `devtools`:
 
 ```r
