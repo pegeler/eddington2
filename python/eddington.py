@@ -89,7 +89,7 @@ def E_cum(rides) -> list:
     return E
 
 
-if __name__ == "__main__":
+def __main__():
     import argparse
 
     parser = argparse.ArgumentParser(
@@ -106,12 +106,12 @@ if __name__ == "__main__":
             rides = [float(i.strip()) for i in f.readlines()]
     else:
         from sys import stdin
-        
+
         rides = []
-        
+
         for line in stdin:
             ride = line.strip()
-            
+
             if ride:
                 rides.append(float(ride))
             else:
@@ -121,3 +121,7 @@ if __name__ == "__main__":
         print(*E_cum(rides), sep = '\n')
     else:
         print(E_num(rides))
+
+
+if __name__ == "__main__":
+    __main__()
