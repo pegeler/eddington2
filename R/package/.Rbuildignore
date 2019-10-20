@@ -4,3 +4,4 @@
 ^\.Rproj\.user$
 ^data-raw$
 ^appveyor\.yml$
+^README\.Rmd$
