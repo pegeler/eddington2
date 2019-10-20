@@ -163,7 +163,7 @@ legend(
 
 So now that we know that the summary Eddington number was 29 for the year, let's
 see how many more rides of length 30 or greater that we would have needed to
-increment the _E_ to 30.
+increment the _E_ to 30. 
 
 ```{r enext}
 E_next(days$total)

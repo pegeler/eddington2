@@ -73,4 +73,4 @@ if (debug) {
 }
 
 # Saving to file ------------------------------------------------------------
-usethis::use_data(rides, overwrite = TRUE)
+usethis::use_data(rides, overwrite = TRUE, compress = "xz")

@@ -1,3 +1,10 @@
+# eddington 2.1.0 (Release date: 2019-10-20)
+
+Changes:
+
+- Added `rides` simulated dataset.
+- Added a vignette.
+
 # eddington 2.0.0 (Release date: 2019-08-24)
 
 Changes:

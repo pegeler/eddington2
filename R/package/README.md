@@ -38,12 +38,8 @@ Example
 Here is a basic example showing how to get the summary Eddington number of the included **simulated** `rides` dataset. Note that we first have to aggregate ride mileage by date.
 
 ``` r
-suppressPackageStartupMessages({
-  library(eddington)
-  library(dplyr)
-})
-
-data(rides)
+library(eddington)
+library(dplyr)
 
 rides %>%
   group_by(ride_date) %>%
