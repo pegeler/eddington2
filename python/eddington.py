@@ -29,6 +29,12 @@ Example:
 """
 
 
+# https://docs.python.org/3/library/stdtypes.html#dict
+class Counter(dict):
+    def __missing__(self, key):
+        return 0
+
+
 def E_num(rides) -> int:
     """Eddington Number for Cycling
 
@@ -39,7 +45,7 @@ def E_num(rides) -> int:
     """
 
     n, E, above = len(rides), 0, 0
-    H = [0 for x in range(n)]
+    H = Counter()
 
     for i in range(n):
         ride = int(rides[i])
@@ -69,7 +75,7 @@ def E_cum(rides) -> list:
     n = len(rides)
     running, above = 0, 0
     E = []
-    H = [0 for x in range(n)]
+    H = Counter()
 
     for i in range(n):
         ride = int(rides[i])
@@ -106,12 +112,9 @@ def __main__():
             rides = [float(i.strip()) for i in f.readlines()]
     else:
         from sys import stdin
-
         rides = []
-
         for line in stdin:
             ride = line.strip()
-
             if ride:
                 rides.append(float(ride))
             else:
