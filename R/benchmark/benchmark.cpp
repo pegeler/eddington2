@@ -53,7 +53,7 @@ int E_map(NumericVector &rides) {
 // [[Rcpp::export]]
 int E_umap(NumericVector &rides) {
   int n = rides.size(), E = 0, ride = 0, above = 0;
-  std::unordered_map<int, int> H;
+  std::unordered_map<int, int> H(std::min(200, n));
 
   for (int i = 0; i < n; i++) {
     ride = (int) rides[i];
@@ -64,6 +64,7 @@ int E_umap(NumericVector &rides) {
       if (above > E) {
         E++;
         above -= H[E];
+        H.erase(E);
       }
     }
   }
@@ -77,14 +78,18 @@ library(profmem)
 
 E_num <- function(rides) sum(sort(rides, decreasing = TRUE) >= seq_along(rides))
 
+n <- 200L * 25L
 set.seed(2018)
-rides <- rgamma(1e6, shape = 2, scale = 10) # Tried with various powers of 10
+rides <- rgamma(n, shape = 2, scale = 10)
+rides <- 1:n # or n:1 (worst cases)
+rides <- rep(100, n)
 
 microbenchmark(
-  #E_num(rides),
+  E_num(rides),
   E_vec(rides),
   E_map(rides),
-  E_umap(rides))
+  E_umap(rides)
+)
 
 ## For small n (100), Rcpp::IntegerVector is faster
 # Unit: microseconds
@@ -100,14 +105,12 @@ microbenchmark(
 #   E_map(rides)  957.138  965.4295  985.9452  974.392  988.9025 1358.485   100
 #  E_umap(rides)  759.446  767.8320  780.5924  778.066  788.4710  901.169   100
 
-p <- profmem({
-  #E_num(rides)
+profmem({
+  E_num(rides)
   E_vec(rides)
   E_map(rides)
   E_umap(rides)
 })
-
-p
 
 ## For small n (100), Rcpp::IntegerVector has a little extra overhead
 # Memory allocations:
@@ -126,4 +129,12 @@ p
 # 3     alloc    2544  E_map()
 # 4     alloc    2544 E_umap()
 # total       4007672
+#
+## Conclusion: For realistic datasets, IntegerVector is the best choice (as far
+# as speed). Sparse vector utilization could lead to memory waste in very large
+# datasets and it is a little bit slower. However, large datasets (>1e5) are
+# unlikely for most usage. In addition, map/unordered_map are suseptable to
+# pathological cases (such as 1:n) where n is large. In the rare cases where
+# a use-case would benefit from unordered_map, compiling a separate function
+# would be recommended.
 */
