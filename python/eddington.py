@@ -47,8 +47,8 @@ def E_num(rides) -> int:
     n, E, above = len(rides), 0, 0
     H = Counter()
 
-    for i in range(n):
-        ride = int(rides[i])
+    for r in rides:
+        ride = int(r)
 
         if ride > E:
             above += 1
@@ -77,8 +77,8 @@ def E_cum(rides) -> list:
     E = []
     H = Counter()
 
-    for i in range(n):
-        ride = int(rides[i])
+    for r in rides:
+        ride = int(r)
 
         if ride > running:
             above += 1
@@ -100,23 +100,22 @@ def __main__():
 
     parser = argparse.ArgumentParser(
                         description='Compute the Eddington number for cycling.')
-    parser.add_argument('file', nargs='?',
-                        help='file containing ride lengths')
+    parser.add_argument('files', nargs='*',
+                        help='file(s) containing ride lengths')
     parser.add_argument('-c', '--cumulative', action='store_true',
                         help='print the cumulative Eddington number')
 
     args = parser.parse_args()
 
-    if args.file:
-        with open(args.file) as f:
-            rides = [float(i.strip()) for i in f.readlines()]
+    rides = []
+    if args.files:
+        for f in args.files:
+            rides.extend([float(i.strip()) for i in open(f).readlines()])
     else:
         from sys import stdin
-        rides = []
         for line in stdin:
-            ride = line.strip()
-            if ride:
-                rides.append(float(ride))
+            if line:
+                rides.append(float(line.strip()))
             else:
                 break
 
