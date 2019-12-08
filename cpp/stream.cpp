@@ -8,7 +8,7 @@ using namespace std;
 void E(istream& input) {
   int ride, running = 0, above = 0;
   double line;
-  unordered_map<int, int> H;
+  unordered_map<int, int> H(150);
 
   while(input >> line)
   {
@@ -21,6 +21,7 @@ void E(istream& input) {
       if (above > running) {
         running++;
         above -= H[running];
+        H.erase(running);
       }
     }
 
