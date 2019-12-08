@@ -85,7 +85,7 @@ vector<int> E_cum(vector<double> &rides) {
 void E_stream(istream& input, bool const& c) {
   int ride, running = 0, above = 0;
   double line;
-  unordered_map<int, int> H;
+  unordered_map<int, int> H(150);
 
   while(input >> line)
   {
@@ -98,6 +98,7 @@ void E_stream(istream& input, bool const& c) {
       if (above > running) {
         running++;
         above -= H[running];
+        H.erase(running);
       }
     }
 

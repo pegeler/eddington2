@@ -58,7 +58,7 @@ def E_num(rides) -> int:
 
             if above > E:
                 E += 1
-                above -= H[E]
+                above -= H.pop(E, 0)
 
     return E
 
@@ -88,7 +88,7 @@ def E_cum(rides) -> list:
 
             if above > running:
                 running += 1
-                above -= H[running]
+                above -= H.pop(running, 0)
 
         E.append(running)
 
