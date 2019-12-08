@@ -5,4 +5,5 @@ setup(name="eddington",
       author="Paul Egeler",
       url="https://github.com/pegeler/eddington2/",
       license="GPL-3",
-      py_modules = ["eddington"])
+      package_dir = {"eddington": "src"},
+      packages = ["eddington"])
