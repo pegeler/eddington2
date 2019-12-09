@@ -17,10 +17,9 @@ if args.files:
         rides.extend([float(i.strip()) for i in open(f).readlines()])
 else:
     for line in stdin:
-        if line:
-            rides.append(float(line.strip()))
-        else:
-            break
+        ride = line.strip()
+        if ride: rides.append(float(ride))
+        else: break
 
 if args.cumulative:
     print(*E_cum(rides), sep = '\n')
