@@ -111,7 +111,7 @@ class Eddington {
         }
       }
 
-      if (c) cout << running << endl;
+      if (c) print();
 
     }
 
