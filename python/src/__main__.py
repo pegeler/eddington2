@@ -3,6 +3,7 @@ from sys import stdin
 from .eddington import E_num, E_cum
 
 parser = argparse.ArgumentParser(
+                    prog='python3 -m eddington',
                     description='Compute the Eddington number for cycling.')
 parser.add_argument('files', nargs='*',
                     help='file(s) containing ride lengths')
@@ -14,7 +15,7 @@ args = parser.parse_args()
 rides = []
 if args.files:
     for f in args.files:
-        rides.extend([float(i.strip()) for i in open(f).readlines()])
+        rides.extend(float(i.strip()) for i in open(f).readlines())
 else:
     for line in stdin:
         ride = line.strip()

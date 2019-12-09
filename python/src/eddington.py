@@ -40,7 +40,7 @@ class Eddington:
         if self.current >= target:
             return 0
         else:
-            return target - sum([v for k, v in self.H.items() if k >= target])
+            return target - sum(v for k, v in self.H.items() if k >= target)
 
 
 def E_num(rides) -> int:

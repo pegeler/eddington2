@@ -12,10 +12,11 @@ using namespace std;
 
 void usage(char *prog)
 {
-  cerr 
-    << "Usage: " 
-    << prog 
-    << " [-h | --help] [-c | --cumulative] [-s | --stream] [FILE]" 
+  cerr
+    << "Usage: "
+    << prog
+    << " [-h|--help] [-c|--cumulative] [-s|--stream]"
+    << " [FILE [FILE...]]"
     << endl;
 }
 
@@ -30,7 +31,7 @@ vector<double> get_rides(istream& input)
   {
     rides.push_back(ride);
   }
- 
+
   return rides;
 
 }
@@ -82,52 +83,64 @@ vector<int> E_cum(vector<double> &rides) {
 
 // Stream-based solution ------------------------------------------------------
 
-void E_stream(istream& input, bool const& c) {
-  int ride, running = 0, above = 0;
-  double line;
-  unordered_map<int, int> H(150);
+class Eddington {
+  private:
 
-  while(input >> line)
-  {
-    ride = (int) line;
-    
-    if (ride > running) {
-      above++;
-      H[ride]++;
+    int above=0;
+    int running=0;
+    unordered_map<int, int> H = unordered_map<int, int>(150);
 
-      if (above > running) {
-        running++;
-        above -= H[running];
-        H.erase(running);
+  public:
+
+  void update(istream& input, bool const& c) {
+    int ride;
+    double line;
+
+    while(input >> line)
+    {
+      ride = (int) line;
+
+      if (ride > running) {
+        above++;
+        H[ride]++;
+
+        if (above > running) {
+          running++;
+          above -= H[running];
+          H.erase(running);
+        }
       }
+
+      if (c) cout << running << endl;
+
     }
 
-    if (c) cout << running << endl;
-
   }
-  
-  if (!c) cout << running << endl;
 
-}
+  void print(void) {
+    cout << running << endl;
+  }
+
+};
 
 // Main -----------------------------------------------------------------------
 
 int main(int argc, char *argv[])
-{ 
+{
 
   // Read in commandline args
   int c = 0, s = 0;
   int opt;
-  
+
   struct option long_options[] = {
-    
+
     {"help",       no_argument, NULL, 'h'},
     {"cumulative", no_argument, NULL, 'c'},
     {"stream",     no_argument, NULL, 's'},
     {0, 0, 0, 0}
-    
+
   };
-  
+
   while ((opt = getopt_long(argc, argv, "chs", long_options, NULL)) != -1)
     switch (opt)
       {
@@ -148,19 +161,22 @@ int main(int argc, char *argv[])
   // Stream -------------------------------------------------------------------
 
   if (s)
-  { 
+  {
+    Eddington e;
 
-    if (optind == argc || !strcmp(argv[optind], "-"))
-    {
-      E_stream(cin, c);
+    if (optind == argc || !strcmp(argv[optind], "-")) {
+      e.update(cin, c);
     }
 
-    else
-    {
-      ifstream file(argv[optind]);
-      istream& file_stream = file;
-      E_stream(file_stream, c);
+    else {
+      for ( int i = optind; i < argc; i++ ) {
+        ifstream file(argv[i]);
+        istream& file_stream = file;
+        e.update(file_stream, c);
+      }
     }
+
+    if (!c) e.print();
 
     return 0;
 
@@ -171,28 +187,27 @@ int main(int argc, char *argv[])
 
   // Read in ride data
   vector<double> rides;
-  
-  if (optind == argc || !strcmp(argv[optind], "-"))
-  {
+
+  if (optind == argc || !strcmp(argv[optind], "-")) {
     rides = get_rides(cin);
   }
 
-  else
-  {
-    ifstream file(argv[optind]);
-    istream& file_stream = file;
-    rides = get_rides(file_stream);
+  else {
+    for ( int i = optind; i < argc; i++ ) {
+      ifstream file(argv[i]);
+      istream& file_stream = file;
+      vector<double> tmp = get_rides(file_stream);
+      rides.insert(rides.end(), tmp.begin(), tmp.end());
+    }
   }
 
   // Caluclate E_num and print
-  if (!c)
-  {
+  if (!c) {
     cout << E_num(rides) << endl;
   }
 
   // Else print E_cum
-  else 
-  {
+  else {
     auto E = E_cum(rides);
 
     for ( auto const &i : E ) {
