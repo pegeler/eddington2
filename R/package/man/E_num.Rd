@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{E_num}
 \alias{E_num}
-\title{Get the Eddington Number for Cycling}
+\title{Get the Eddington number for cycling}
 \usage{
 E_num(rides)
 }

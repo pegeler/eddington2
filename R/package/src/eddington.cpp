@@ -2,7 +2,7 @@
 
 using namespace Rcpp;
 
-//' Get the Eddington Number for Cycling
+//' Get the Eddington number for cycling
 //'
 //' Gets the Eddington number for cycling. The Eddington Number for cycling,
 //' \emph{E}, is the maximum number where a cyclist has ridden \emph{E} miles in

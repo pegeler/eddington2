@@ -1,7 +1,9 @@
 Package: eddington
 Title: Compute a Cyclist's Eddington Number
-Version: 2.0.0
-Authors@R: person('Paul', 'Egeler', email = 'paulegeler@gmail.com', role = c('aut','cre'))
+Version: 2.1.0
+Authors@R: c(
+    person('Paul', 'Egeler', email = 'paulegeler@gmail.com', role = c('aut','cre')),
+    person('Tashi', 'Reigle', role = 'ctb'))
 Description: Functions to compute a cyclist's Eddington number, including
     efficiently computing cumulative E over a vector. These functions may also
     be used for h-indices for authors. Both are specific applications of
