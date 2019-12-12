@@ -4,8 +4,8 @@
 #include <string>
 #include <unistd.h>
 #include <cstring>
-#include <unordered_map>
 #include <getopt.h>
+#include "EddingtonClass.h"
 
 
 using namespace std;
@@ -80,48 +80,6 @@ vector<int> E_cum(vector<double> &rides) {
   return E;
 
 }
-
-// Stream-based solution ------------------------------------------------------
-
-class Eddington {
-  private:
-
-    int above=0;
-    int running=0;
-    unordered_map<int, int> H = unordered_map<int, int>(150);
-
-  public:
-
-  void update(istream& input, bool const& c) {
-    int ride;
-    double line;
-
-    while(input >> line)
-    {
-      ride = (int) line;
-
-      if (ride > running) {
-        above++;
-        H[ride]++;
-
-        if (above > running) {
-          running++;
-          above -= H[running];
-          H.erase(running);
-        }
-      }
-
-      if (c) print();
-
-    }
-
-  }
-
-  void print(void) {
-    cout << running << endl;
-  }
-
-};
 
 // Main -----------------------------------------------------------------------
 
