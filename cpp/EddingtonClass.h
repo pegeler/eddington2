@@ -25,4 +25,4 @@ class Eddington {
 
 }; // Eddington
 
-#endif
+#endif // EddingtonClass_H
