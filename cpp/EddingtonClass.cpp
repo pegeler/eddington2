@@ -43,7 +43,7 @@ int Eddington::next() {
 }
 
 int Eddington::required(int target) {
-  if ( running > target ) return 0;
+  if ( running >= target ) return 0;
   if ( target == running + 1 ) return this->next();
 
   int sum=0;

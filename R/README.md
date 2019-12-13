@@ -14,6 +14,13 @@ and using the R package rather than these loose scripts. Especially because the
 Rcpp version in this folder uses the slower algorithm, whereas the R package
 uses the optimized Rcpp code and is much faster.
 
+A third approach would be to use the `Eddington`
+[R6 class](https://cran.r-project.org/package=R6). This has the advantage of
+maintaining state, so that updates can be applied as new data comes in. However,
+it is still much slower than the optimized Rcpp code included in the
+package, such that the Rcpp code could recompute the data several times in
+the span of time it would take for the R6 object to compute the data once.
+
 ### _package/_
 
 [![Travis-CI Build Status](https://travis-ci.org/pegeler/eddington2.svg?branch=master)](https://travis-ci.org/pegeler/eddington2)
