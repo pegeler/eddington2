@@ -6,7 +6,7 @@ library(R6)
 #' The class will maintain a running tally, allowing for efficient updates
 #' as new rides come in.
 #'
-#' #' @examples
+#' @examples
 #' # Randomly generate a set of 15 rides
 #' rides <- rgamma(15, shape = 2, scale = 10)
 #'
