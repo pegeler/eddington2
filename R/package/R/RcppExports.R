@@ -69,3 +69,7 @@ E_next <- function(rides) {
     .Call('_eddington_E_next', PACKAGE = 'eddington', rides)
 }
 
+# Register entry points for exported C++ functions
+methods::setLoadAction(function(ns) {
+    .Call('_eddington_RcppExport_registerCCallable', PACKAGE = 'eddington')
+})

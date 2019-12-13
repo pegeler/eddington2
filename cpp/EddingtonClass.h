@@ -23,6 +23,6 @@ class Eddington {
     int next();
     int required(int target);
 
-};
+}; // Eddington
 
 #endif
