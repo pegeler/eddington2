@@ -17,13 +17,13 @@ library(R6)
 #' e <- Eddington$new(rides)
 #'
 #' # Get the Eddington number
-#' e$E_current(rides)
+#' e$current(rides)
 #'
 #' # Update with new data
 #' e$update(rep(25, 10))
 #'
 #' # See the new data
-#' e$E_cumulative
+#' e$cumulative
 #' @export
 Eddington <- R6::R6Class(
   "Eddington",
@@ -70,11 +70,11 @@ Eddington <- R6::R6Class(
     #' @param target Target Eddington number
     #' @return An integer representing the number of rides of target length
     #'   needed to achieve the target number.
-    required = function(target){
+    n2target = function(target){
       if ( target <= private$.running ) {
         return(0L)
       } else if ( target == private$.running + 1L ) {
-        return(self$E_next)
+        return(self$n2next)
       } else {
         keys <- private$.H$keys()
         target - sum(private$.H$find(keys[keys >= target]))
@@ -89,13 +89,13 @@ Eddington <- R6::R6Class(
   ),
   active = list(
     #' @field The current Eddington number.
-    E_current = function(){ private$.running },
+    current = function(){ private$.running },
 
     #' @field A vector of cumulative Eddington numbers.
-    E_cumulative = function(){ private$.cumulative },
+    cumulative = function(){ private$.cumulative },
 
     #' @field The number of rides needed to get to the next Eddington number.
-    E_next = function(){ private$.running + 1L - private$.above },
+    n2next = function(){ private$.running + 1L - private$.above },
 
     #' @field The number of rides in the data.
     n = function(){ length(private$.cumulative) }
