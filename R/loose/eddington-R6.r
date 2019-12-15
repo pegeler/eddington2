@@ -1,10 +1,7 @@
-library(hashmap)
-library(R6)
-
-#' An R6 Class for Tracking Eddington Numbers for Cycling
+#' @title An R6 Class for Tracking Eddington Numbers for Cycling
 #'
-#' The class will maintain a running tally, allowing for efficient updates
-#' as new rides come in.
+#' @description The class will maintain a running tally, allowing for efficient
+#'   updates as new rides come in.
 #'
 #' @examples
 #' # Randomly generate a set of 15 rides
@@ -34,9 +31,12 @@ Eddington <- R6::R6Class(
     #' @param rides A vector of rides
     #' @return A new `Eddington` object
     initialize = function(rides){
+      private$.H <- hashmap::hashmap(1:200, rep(0L, 200))
       if ( !missing(rides) ) self$update(rides)
       },
 
+    #' @description
+    #' Print the current Eddington number.
     print = function(){
       cat("Current Eddington Number is:", private$.running, "\n")
       invisible(self)
@@ -88,23 +88,23 @@ Eddington <- R6::R6Class(
     satisfied = function(target){ private$.running >= target }
   ),
   active = list(
-    #' @field The current Eddington number.
+    #' @field current The current Eddington number.
     current = function(){ private$.running },
 
-    #' @field A vector of cumulative Eddington numbers.
+    #' @field cumulative A vector of cumulative Eddington numbers.
     cumulative = function(){ private$.cumulative },
 
-    #' @field The number of rides needed to get to the next Eddington number.
+    #' @field n2next The number of rides needed to get to the next Eddington number.
     n2next = function(){ private$.running + 1L - private$.above },
 
-    #' @field The number of rides in the data.
+    #' @field n The number of rides in the data.
     n = function(){ length(private$.cumulative) }
   ),
   private = list(
     .running = 0L,
     .above = 0L,
     .cumulative = integer(0L),
-    .H = hashmap(1:200, rep(0L, 200)),
+    .H = NULL,
     .incr_H = function(key) {
       private$.H[[key]] <- 1L +
         if ( private$.H$has_key(key) ) private$.H[[key]] else 0L
