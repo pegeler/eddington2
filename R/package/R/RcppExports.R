@@ -69,6 +69,18 @@ E_next <- function(rides) {
     .Call('_eddington_E_next', PACKAGE = 'eddington', rides)
 }
 
+initialize_hashmap <- function() {
+    .Call('_eddington_initialize_hashmap', PACKAGE = 'eddington')
+}
+
+internal_update <- function(rides, running, above, H) {
+    .Call('_eddington_internal_update', PACKAGE = 'eddington', rides, running, above, H)
+}
+
+internal_n2target <- function(target, H) {
+    .Call('_eddington_internal_n2target', PACKAGE = 'eddington', target, H)
+}
+
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
     .Call('_eddington_RcppExport_registerCCallable', PACKAGE = 'eddington')
