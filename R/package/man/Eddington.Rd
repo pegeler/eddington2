@@ -18,7 +18,7 @@ setNames(sort(rides, decreasing = TRUE), seq_along(rides))
 e <- Eddington$new(rides)
 
 # Get the Eddington number
-e$current(rides)
+e$current
 
 # Update with new data
 e$update(rep(25, 10))
