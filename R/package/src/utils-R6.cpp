@@ -18,8 +18,8 @@ List internal_update(
     int above,
     XPtr< std::unordered_map<int, int> > H)
 {
-  int ride;
-  IntegerVector cumulative;
+  int ride=0;
+  IntegerVector cumulative( rides.size() );
 
   for ( int i=0; i < rides.size(); i++ )
   {
@@ -35,14 +35,13 @@ List internal_update(
         H->erase(running);
       }
     }
-    cumulative.push_back(running);
+    cumulative[i] = running;
   }
 
   return List::create(
     _["running"]    = running,
     _["above"]      = above,
     _["cumulative"] = cumulative);
-
 }
 
 // [[Rcpp::export]]

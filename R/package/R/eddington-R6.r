@@ -30,8 +30,9 @@ Eddington <- R6::R6Class(
     #' Create a new Eddington object.
     #' @param rides A vector of rides
     #' @return A new `Eddington` object
-    initialize = function(rides) {
+    initialize = function(rides, keep.cumulative = TRUE) {
       private$.H <- initialize_hashmap()
+      if ( !keep.cumulative ) private$.cumulative <- NULL
       if ( !missing(rides) ) self$update(rides)
       },
 
@@ -47,9 +48,11 @@ Eddington <- R6::R6Class(
     #' @param rides A vector of rides
     update = function(rides) {
       result <- internal_update(rides, private$.running, private$.above, private$.H)
-      private$.running    <- result[["running"]]
-      private$.above      <- result[["above"]]
-      private$.cumulative <- c(private$.cumulative, result[["cumulative"]])
+      private$.n            <- private$.n + length(rides)
+      private$.running      <- result[["running"]]
+      private$.above        <- result[["above"]]
+      if ( !is.null(private$.cumulative) )
+        private$.cumulative <- c(private$.cumulative, result[["cumulative"]])
       invisible(self)
       },
 
@@ -77,20 +80,47 @@ Eddington <- R6::R6Class(
   ),
   active = list(
     #' @field current The current Eddington number.
-    current = function() { private$.running },
+    current = function(value) {
+      if ( missing(value) ) {
+        return(private$.running)
+      } else  {
+        stop("Data member is read only.", call. = FALSE)
+      }
+      },
 
     #' @field cumulative A vector of cumulative Eddington numbers.
-    cumulative = function() { private$.cumulative },
+    cumulative = function(value) {
+      if ( is.null(private$.cumulative) ) {
+        stop("Cumulative Eddington Number is not being tracked", call. = FALSE)
+      } else if ( missing(value) ) {
+        return(private$.cumulative)
+      } else  {
+        stop("Data member is read only.", call. = FALSE)
+      }
+      },
 
     #' @field n2next The number of rides needed to get to the next Eddington number.
-    n2next = function() { private$.running + 1L - private$.above },
+    n2next = function(value) {
+      if ( missing(value) ) {
+        return(private$.running + 1L - private$.above)
+      } else  {
+        stop("Data member is read only.", call. = FALSE)
+      }
+      },
 
     #' @field n The number of rides in the data.
-    n = function() { length(private$.cumulative) }
+    n = function(value) {
+      if ( missing(value) ) {
+        return(private$.n )
+      } else  {
+        stop("Data member is read only.", call. = FALSE)
+      }
+      }
   ),
   private = list(
     .running = 0L,
     .above = 0L,
+    .n = 0L,
     .cumulative = integer(0L),
     .H = NULL
   )
