@@ -1,13 +1,21 @@
 Package: eddington
 Title: Compute a Cyclist's Eddington Number
-Version: 2.1.0
+Version: 2.1.1
 Authors@R: c(
     person('Paul', 'Egeler', email = 'paulegeler@gmail.com', role = c('aut','cre')),
     person('Tashi', 'Reigle', role = 'ctb'))
-Description: Functions to compute a cyclist's Eddington number, including
-    efficiently computing cumulative E over a vector. These functions may also
-    be used for h-indices for authors. Both are specific applications of
-    computing the side length of a Durfee square.
+Description: Compute a cyclist's Eddington number, including efficiently
+    computing cumulative E over a vector. A cyclist's Eddington number
+    <https://en.wikipedia.org/wiki/Arthur_Eddington#Eddington_number_for_cycling>
+    is the maximum number satisfying the condition such that a cyclist has
+    ridden E miles or greater in E days. The algorithm in this package is an
+    improvement over the conventional approach because both summary statistics
+    and cumulative statistics can be computed in linear time, since it does not
+    require initial sorting of the data. These functions may also be used for
+    computing h-indices for authors, a metric described by Hirsch (2005)
+    <doi:10.1073/pnas.0507655102>. Both are specific applications of computing
+    the side length of a Durfee square 
+    <https://en.wikipedia.org/wiki/Durfee_square>.
 License: GPL (>=2)
 Encoding: UTF-8
 LazyData: true
@@ -23,6 +31,6 @@ Suggests:
     rmarkdown,
     dplyr
 VignetteBuilder: knitr
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 URL: https://github.com/pegeler/eddington2
 BugReports: https://github.com/pegeler/eddington2/issues

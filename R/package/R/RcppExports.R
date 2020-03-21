@@ -3,15 +3,16 @@
 
 #' Get the Eddington number for cycling
 #'
-#' Gets the Eddington number for cycling. The Eddington Number for cycling,
-#' \emph{E}, is the maximum number where a cyclist has ridden \emph{E} miles in
-#' \emph{E} days.
+#' Gets the \href{https://en.wikipedia.org/wiki/Arthur_Eddington#Eddington_number_for_cycling}{Eddington number for cycling}.
+#' The Eddington Number for cycling, \emph{E}, is the
+#' maximum number where a cyclist has ridden \emph{E} miles in \emph{E} days.
 #'
-#' The Eddington Number for cycling is a specialized application of a concept
-#' in integer partition theory related to computing the side length of a
+#' The Eddington Number for cycling is related to computing the rank of an
+#' integer partition, which is the same as computing its
 #' \href{https://en.wikipedia.org/wiki/Durfee_square}{Durfee square}. Another
 #' relevant application of this principle is computing the
-#' \href{https://en.wikipedia.org/wiki/H-index}{Hirsch index} for publications.
+#' \href{https://doi.org/10.1073/pnas.0507655102}{Hirsch index} for
+#' publications.
 #'
 #' This is not to be confused with the
 #' \href{https://en.wikipedia.org/wiki/Eddington_number}{Eddington Number in
@@ -27,7 +28,6 @@
 #' @seealso \code{\link{E_cum}}, \code{\link{E_next}}, \code{\link{E_req}},
 #'   \code{\link{E_sat}}
 #'
-#' @references http://www2.lowell.edu/users/jch/mtb/e.html
 #' @examples
 #' # Randomly generate a set of 15 rides
 #' rides <- rgamma(15, shape = 2, scale = 10)
@@ -58,6 +58,8 @@ E_cum <- function(rides) {
 }
 
 #' Get the number of rides required to increment to the next Eddington number
+#'
+#' Get the number of rides required to increment to the next Eddington number.
 #'
 #' @inheritParams E_num
 #' @seealso \code{\link{E_cum}}, \code{\link{E_num}}, \code{\link{E_req}},

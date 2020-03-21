@@ -15,16 +15,17 @@ An integer which is the Eddington cycling number for the
   data provided.
 }
 \description{
-Gets the Eddington number for cycling. The Eddington Number for cycling,
-\emph{E}, is the maximum number where a cyclist has ridden \emph{E} miles in
-\emph{E} days.
+Gets the \href{https://en.wikipedia.org/wiki/Arthur_Eddington#Eddington_number_for_cycling}{Eddington number for cycling}.
+The Eddington Number for cycling, \emph{E}, is the
+maximum number where a cyclist has ridden \emph{E} miles in \emph{E} days.
 }
 \details{
-The Eddington Number for cycling is a specialized application of a concept
-in integer partition theory related to computing the side length of a
+The Eddington Number for cycling is related to computing the rank of an
+integer partition, which is the same as computing its
 \href{https://en.wikipedia.org/wiki/Durfee_square}{Durfee square}. Another
 relevant application of this principle is computing the
-\href{https://en.wikipedia.org/wiki/H-index}{Hirsch index} for publications.
+\href{https://doi.org/10.1073/pnas.0507655102}{Hirsch index} for
+publications.
 
 This is not to be confused with the
 \href{https://en.wikipedia.org/wiki/Eddington_number}{Eddington Number in
@@ -40,9 +41,6 @@ setNames(sort(rides, decreasing = TRUE), seq_along(rides))
 
 # Get the Eddington number
 E_num(rides)
-}
-\references{
-http://www2.lowell.edu/users/jch/mtb/e.html
 }
 \seealso{
 \code{\link{E_cum}}, \code{\link{E_next}}, \code{\link{E_req}},
