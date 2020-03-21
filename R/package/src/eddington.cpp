@@ -10,9 +10,9 @@ using namespace Rcpp;
 //' maximum number where a cyclist has ridden \emph{E} miles in \emph{E} days.
 //'
 //' The Eddington Number for cycling is related to computing the rank of an
-//' integer partition, which is the same as computing its
+//' integer partition, which is the same as computing the side length of its
 //' \href{https://en.wikipedia.org/wiki/Durfee_square}{Durfee square}. Another
-//' relevant application of this principle is computing the
+//' relevant application of this metric is computing the
 //' \href{https://doi.org/10.1073/pnas.0507655102}{Hirsch index} for
 //' publications.
 //'
