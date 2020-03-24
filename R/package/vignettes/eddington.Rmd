@@ -29,8 +29,8 @@ library(dplyr)
 
 One statistic that cyclists might be interested to track is their Eddington
 number. The Eddington number for cycling, _E_, is the maximum number where a
-cyclist has ridden _E_ miles in _E_ days. So to get a number of 30, you need to
-have ridden 30 miles or more on 30 separate days.
+cyclist has ridden _E_ miles on _E_ distinct days. So to get a number of 30, you
+need to have ridden 30 miles or more on 30 separate days.
 
 This package allows the user to compute Eddington numbers and more. For example,
 users can determine if a specific Eddington number is satisfied or how many

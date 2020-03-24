@@ -6,8 +6,8 @@ using namespace Rcpp;
 //' Get the Eddington number for cycling
 //'
 //' Gets the \href{https://en.wikipedia.org/wiki/Arthur_Eddington#Eddington_number_for_cycling}{Eddington number for cycling}.
-//' The Eddington Number for cycling, \emph{E}, is the
-//' maximum number where a cyclist has ridden \emph{E} miles in \emph{E} days.
+//' The Eddington Number for cycling, \emph{E}, is the maximum number where a
+//' cyclist has ridden \emph{E} miles on \emph{E} distinct days.
 //'
 //' The Eddington Number for cycling is related to computing the rank of an
 //' integer partition, which is the same as computing the side length of its

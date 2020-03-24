@@ -17,14 +17,16 @@ library(dplyr)
 # eddington
 
 <!-- badges: start -->
+[![CRAN\_version](http://www.r-pkg.org/badges/version/eddington)](https://cran.r-project.org/package=eddington)
+[![Number\_of\_Downloads](https://cranlogs.r-pkg.org/badges/grand-total/eddington)](https://cran.r-project.org/package=eddington)
 [![Travis-CI Build Status](https://travis-ci.org/pegeler/eddington2.svg?branch=master)](https://travis-ci.org/pegeler/eddington2)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/pegeler/eddington2?branch=master&svg=true)](https://ci.appveyor.com/project/pegeler/eddington2)
 <!-- badges: end -->
 
 One statistic that cyclists are known to track is their Eddington number. The
 Eddington number for cycling, _E_, is the maximum number where a cyclist has
-ridden _E_ miles in _E_ days. So to get a number of 30, you need to have ridden
-30 miles or more on 30 separate days.
+ridden _E_ miles on _E_ distinct days. So to get a number of 30, you need to
+have ridden 30 miles or more on 30 separate days.
 
 This package provides functions to compute a cyclist's Eddington number,
 including efficiently computing cumulative _E_ over a vector. These functions
@@ -33,7 +35,6 @@ computing the side length of a Durfee square.
 
 ## Installation
 
-<!--
 You can install the released version of eddington from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
@@ -41,12 +42,6 @@ install.packages("eddington")
 ```
 
 And the development version from [GitHub](https://github.com/) with:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("pegeler/eddington2")
-```
--->
 
 ``` r
 # install.packages("devtools")

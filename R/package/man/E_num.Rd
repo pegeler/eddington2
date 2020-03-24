@@ -16,8 +16,8 @@ An integer which is the Eddington cycling number for the
 }
 \description{
 Gets the \href{https://en.wikipedia.org/wiki/Arthur_Eddington#Eddington_number_for_cycling}{Eddington number for cycling}.
-The Eddington Number for cycling, \emph{E}, is the
-maximum number where a cyclist has ridden \emph{E} miles in \emph{E} days.
+The Eddington Number for cycling, \emph{E}, is the maximum number where a
+cyclist has ridden \emph{E} miles on \emph{E} distinct days.
 }
 \details{
 The Eddington Number for cycling is related to computing the rank of an
