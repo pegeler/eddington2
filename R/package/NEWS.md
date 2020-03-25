@@ -1,3 +1,17 @@
+# eddington 2.1.2 (Release date: 2020-03-24)
+
+Changes:
+
+- Further refinement of documentation.
+
+# eddington 2.1.1 (Release date: 2020-03-21)
+
+**First CRAN release**
+
+Changes:
+
+- Improved documentation.
+
 # eddington 2.1.0 (Release date: 2019-10-20)
 
 Changes:
