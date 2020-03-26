@@ -5,21 +5,20 @@
 ### _loose/_
 
 These are loose scripts not connected with the package. The _eddington.r_ file
-may be useful in that it calculates the Eddington number in pure R. Therefore,
-you do not need a development environment to use it, unlike the R package in the
-other folder.
-
-If you have a development environment and want faster code, I recommend installing 
-and using the R package rather than these loose scripts. Especially because the
-Rcpp version in this folder uses the slower algorithm, whereas the R package
+may be useful in that it calculates the Eddington number in pure R. However, it
+is much slower than functions in the package available on [CRAN](https://cran.r-project.org/package=eddington).
+Additionally, the Rcpp version in this folder uses the slower algorithm, whereas the R package
 uses the optimized Rcpp code and is much faster.
 
-A third approach would be to use the `Eddington`
+Another approach would be to use the `Eddington`
 [R6 class](https://cran.r-project.org/package=R6). This has the advantage of
 maintaining state, so that updates can be applied as new data comes in. However,
 it is still much slower than the optimized Rcpp code included in the
 package, such that the Rcpp code could recompute the data several times in
 the span of time it would take for the R6 object to compute the data once.
+
+On the other hand, there is an experimental optimized R6 class using C++ code in the package
+available on the _R6_ branch. You will need a development environment to build/install it.
 
 ### _package/_
 
