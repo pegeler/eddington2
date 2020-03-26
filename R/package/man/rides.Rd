@@ -4,11 +4,13 @@
 \name{rides}
 \alias{rides}
 \title{A year of simulated bicycle ride mileages}
-\format{A data frame with 250 rows and 2 variables:
+\format{
+A data frame with 250 rows and 2 variables:
 \describe{
   \item{ride_date}{date the ride occurred}
   \item{ride_length}{the length in miles}
-}}
+}
+}
 \usage{
 rides
 }

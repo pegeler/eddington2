@@ -23,6 +23,9 @@ E_sat <- function(rides, candidate) {
 #' Determine the number of additional rides required to achieve a specified
 #' Eddington number
 #'
+#' Determine the number of additional rides required to achieve a specified
+#' Eddington number.
+#'
 #' @inheritParams E_num
 #' @param candidate The Eddington number to test for.
 #' @seealso \code{\link{E_cum}}, \code{\link{E_next}}, \code{\link{E_num}},

@@ -19,7 +19,7 @@ An integer vector of length 1. Returns \code{0L} if \emph{E} is
 }
 \description{
 Determine the number of additional rides required to achieve a specified
-Eddington number
+Eddington number.
 }
 \seealso{
 \code{\link{E_cum}}, \code{\link{E_next}}, \code{\link{E_num}},
