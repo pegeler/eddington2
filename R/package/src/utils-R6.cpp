@@ -56,6 +56,21 @@ int internal_n2target(
   return target - completed_rides;
 }
 
+// [[Rcpp::export]]
+DataFrame internal_get_hashmap(
+    XPtr< std::unordered_map<int, int> > H)
+{
+  IntegerVector ride_len, ride_count;
+  for ( auto it = H->begin(); it != H->end(); ++it ) {
+    ride_len.push_back(it->first);
+    ride_count.push_back(it->second);
+  }
+  return DataFrame::create(
+    _["ride_length"] = ride_len,
+    _["ride_count"] = ride_count
+  );
+}
+
 /*** R
 rides <- rgamma(15, shape = 2, scale = 10)
 running <- above <- 0L

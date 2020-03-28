@@ -36,6 +36,8 @@ e$cumulative
 \item{\code{n2next}}{The number of rides needed to get to the next Eddington number.}
 
 \item{\code{n}}{The number of rides in the data.}
+
+\item{\code{H}}{The hash map of rides above the current Eddington number.}
 }
 \if{html}{\out{</div>}}
 }
@@ -52,16 +54,20 @@ e$cumulative
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new Eddington object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Eddington$new(rides)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Eddington$new(rides, keep.cumulative = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{rides}}{A vector of rides}
+
+\item{\code{keep.cumulative}}{logical, indicating whether to keep a vector of
+cumulative Eddington numbers}
 }
 \if{html}{\out{</div>}}
 }
@@ -71,6 +77,7 @@ A new `Eddington` object
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
+\if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
 Print the current Eddington number.
 \subsection{Usage}{
@@ -80,6 +87,7 @@ Print the current Eddington number.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-update"></a>}}
+\if{latex}{\out{\hypertarget{method-update}{}}}
 \subsection{Method \code{update()}}{
 Add new rides to the existing `Eddington` object.
 \subsection{Usage}{
@@ -96,6 +104,7 @@ Add new rides to the existing `Eddington` object.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-n2target"></a>}}
+\if{latex}{\out{\hypertarget{method-n2target}{}}}
 \subsection{Method \code{n2target()}}{
 Get the number of rides of a specified length to get to a target
 Eddington number.
@@ -117,6 +126,7 @@ An integer representing the number of rides of target length
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-satisfied"></a>}}
+\if{latex}{\out{\hypertarget{method-satisfied}{}}}
 \subsection{Method \code{satisfied()}}{
 Test if an Eddington number is satisfied.
 \subsection{Usage}{
@@ -136,6 +146,7 @@ Logical
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

@@ -83,6 +83,10 @@ internal_n2target <- function(target, H) {
     .Call('_eddington_internal_n2target', PACKAGE = 'eddington', target, H)
 }
 
+internal_get_hashmap <- function(H) {
+    .Call('_eddington_internal_get_hashmap', PACKAGE = 'eddington', H)
+}
+
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
     .Call('_eddington_RcppExport_registerCCallable', PACKAGE = 'eddington')

@@ -29,6 +29,8 @@ Eddington <- R6::R6Class(
     #' @description
     #' Create a new Eddington object.
     #' @param rides A vector of rides
+    #' @param keep.cumulative logical, indicating whether to keep a vector of
+    #'   cumulative Eddington numbers
     #' @return A new `Eddington` object
     initialize = function(rides, keep.cumulative = TRUE) {
       private$.H <- initialize_hashmap()
@@ -86,7 +88,7 @@ Eddington <- R6::R6Class(
       } else  {
         stop("Data member is read only.", call. = FALSE)
       }
-      },
+    },
 
     #' @field cumulative A vector of cumulative Eddington numbers.
     cumulative = function(value) {
@@ -97,7 +99,7 @@ Eddington <- R6::R6Class(
       } else  {
         stop("Data member is read only.", call. = FALSE)
       }
-      },
+    },
 
     #' @field n2next The number of rides needed to get to the next Eddington number.
     n2next = function(value) {
@@ -106,7 +108,7 @@ Eddington <- R6::R6Class(
       } else  {
         stop("Data member is read only.", call. = FALSE)
       }
-      },
+    },
 
     #' @field n The number of rides in the data.
     n = function(value) {
@@ -115,7 +117,19 @@ Eddington <- R6::R6Class(
       } else  {
         stop("Data member is read only.", call. = FALSE)
       }
+    },
+
+    #' @field H The hash map of rides above the current Eddington number.
+    H = function(value) {
+      if ( missing(value) ) {
+        H <- internal_get_hashmap(private$.H)
+        H <- H[order(H$ride_length),]
+        row.names(H) <- NULL
+        return(H)
+      } else  {
+        stop("Data member is read only.", call. = FALSE)
       }
+    }
   ),
   private = list(
     .running = 0L,

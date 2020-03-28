@@ -48,3 +48,27 @@ test_that("E_req works",{
   expect_equal(E_req(simdata, ref_next), x$req)
 
 })
+
+test_that("Eddington class works",{ # WIP
+
+  e <- Eddington$new(simdata)
+
+  # current
+  expect_equal(e$current, E_ref)
+
+  # cumulative
+  expect_equal(e$cumulative, E_cum(simdata))
+
+  # n2next
+  expect_equal(e$n2next, E_next(simdata)$req)
+
+  # n
+  expect_equal(e$n, length(simdata))
+
+  # TODO: H, n2target, satisfied, clone
+
+  # update
+  e$update(rep(25, 10))
+  expect_equal(e$cumulative, E_cum(c(simdata, rep(25, 10))))
+
+})

@@ -146,6 +146,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// internal_get_hashmap
+DataFrame internal_get_hashmap(XPtr< std::unordered_map<int, int> > H);
+RcppExport SEXP _eddington_internal_get_hashmap(SEXP HSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< XPtr< std::unordered_map<int, int> > >::type H(HSEXP);
+    rcpp_result_gen = Rcpp::wrap(internal_get_hashmap(H));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 // validate (ensure exported C++ functions exist before calling them)
 static int _eddington_RcppExport_validate(const char* sig) { 
@@ -174,6 +185,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_eddington_initialize_hashmap", (DL_FUNC) &_eddington_initialize_hashmap, 0},
     {"_eddington_internal_update", (DL_FUNC) &_eddington_internal_update, 4},
     {"_eddington_internal_n2target", (DL_FUNC) &_eddington_internal_n2target, 2},
+    {"_eddington_internal_get_hashmap", (DL_FUNC) &_eddington_internal_get_hashmap, 1},
     {"_eddington_RcppExport_registerCCallable", (DL_FUNC) &_eddington_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}
 };
