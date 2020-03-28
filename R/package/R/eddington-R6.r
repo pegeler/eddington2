@@ -123,7 +123,7 @@ Eddington <- R6::R6Class(
     H = function(value) {
       if ( missing(value) ) {
         H <- internal_get_hashmap(private$.H)
-        H <- H[order(H$ride_length),]
+        H <- H[order(H$lengths),]
         row.names(H) <- NULL
         return(H)
       } else  {
