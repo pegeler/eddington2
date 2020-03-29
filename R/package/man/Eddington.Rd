@@ -49,7 +49,6 @@ e$cumulative
 \item \href{#method-update}{\code{Eddington$update()}}
 \item \href{#method-n2target}{\code{Eddington$n2target()}}
 \item \href{#method-satisfied}{\code{Eddington$satisfied()}}
-\item \href{#method-clone}{\code{Eddington$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
@@ -142,23 +141,6 @@ Test if an Eddington number is satisfied.
 }
 \subsection{Returns}{
 Logical
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Eddington$clone(deep = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
 }
 }
 }

@@ -24,6 +24,12 @@
 #' @export
 Eddington <- R6::R6Class(
   "Eddington",
+
+  # Note cloneable because of XPtr see #4
+  # https://github.com/r-lib/R6/issues/178
+  # https://github.com/r-lib/R6/issues/179
+  cloneable = FALSE,
+
   public = list(
 
     #' @description
