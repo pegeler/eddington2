@@ -1,23 +1,19 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Compute the Eddington number for cycling"""
-
-
-# https://docs.python.org/3/library/stdtypes.html#dict
-class Counter(dict):
-    def __missing__(self, key):
-        return 0
+from collections import Counter
 
 
 class Eddington:
     """A class for tracking Eddington Number for Cycling"""
 
-    def __init__(self, rides):
+    def __init__(self, rides=None):
         self.above = 0
         self.current = 0
         self.cumulative = []
         self.H = Counter()
-        self.update(rides)
+        if rides:
+            self.update(rides)
 
     def update(self, rides):
         for r in rides:
@@ -101,3 +97,35 @@ def E_cum(rides) -> list:
         E.append(running)
 
     return E
+
+
+if __name__ == '__main__':
+    import argparse
+    from sys import stdin
+    
+    parser = argparse.ArgumentParser(
+                        prog='python3 -m eddington',
+                        description='Compute the Eddington number for cycling.')
+    parser.add_argument('files', nargs='*',
+                        help='file(s) containing ride lengths')
+    parser.add_argument('-c', '--cumulative', action='store_true',
+                        help='print the cumulative Eddington number')
+    
+    args = parser.parse_args()
+    
+    rides = []
+    if args.files:
+        for f in args.files:
+            rides.extend(float(i.strip()) for i in open(f).readlines())
+    else:
+        for line in stdin:
+            ride = line.strip()
+            if ride: 
+                rides.append(float(ride))
+            else: 
+                break
+    
+    if args.cumulative:
+        print(*E_cum(rides), sep = '\n')
+    else:
+        print(E_num(rides))
