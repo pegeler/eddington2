@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Compute the Eddington number for cycling"""
+from __future__ import print_function
 from collections import Counter
 
 
@@ -39,7 +40,7 @@ class Eddington:
             return target - sum(v for k, v in self.H.items() if k >= target)
 
 
-def E_num(rides) -> int:
+def E_num(rides):
     """Eddington Number for Cycling
 
     :param rides: A list of mileages for each ride.
@@ -67,7 +68,7 @@ def E_num(rides) -> int:
     return E
 
 
-def E_cum(rides) -> list:
+def E_cum(rides):
     """Cumulative Eddington Number for Cycling
 
     :param rides: A list of mileages for each ride.
