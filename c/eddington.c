@@ -1,33 +1,87 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <getopt.h>
 
-int compare (const void * a, const void * b)
-{
-  return ( *(int*)b - *(int*)a );
+#define MAX_LEN 1000
+
+void usage(char *prog) {
+  fprintf(
+    stderr,
+    "Usage:\n  %s"
+    " [-c|--cumulative]"
+    " [-h|--help]"
+    //" [FILE [FILE...]]" TODO
+    "\n",
+    prog
+  );
 }
 
-int eddington(int a[], int n)
-{
-  qsort (a, n, sizeof(int), compare);
-  int E = 0;
-  for (; E < n; E++) {
-    if (a[E] < E + 1) break;
-  }
-
-  return E;
-}
- 
 int main(int argc, char *argv[])
 {
-    int n = argc - 1;
-    int a[n];
-    
-        
-    for (int i=0; i<n; i++) {
-        sscanf(argv[i + 1], "%i", &a[i]);
+
+  char line[MAX_LEN];
+  int len = 10;
+  int n, c, opt;
+  int *r = calloc(len, sizeof(int));
+
+  n = c = opt = 0;
+
+  struct option long_options[] = {
+    {"help",       no_argument, NULL, 'h'},
+    {"cumulative", no_argument, NULL, 'c'},
+    {0, 0, 0, 0}
+  };
+
+  while ((opt = getopt_long(argc, argv, "ch", long_options, NULL)) != -1)
+    switch (opt) {
+      case 'c':
+        c = 1;
+        break;
+      case 'h':
+        usage(argv[0]);
+        return 0;
+      case '?':
+        usage(argv[0]);
+        return 1;
     }
-    
-    printf("%i\n", eddington(a, n));
-    
-    return 0;
+
+  // Read in file
+  for (; fgets(line, MAX_LEN, stdin) != NULL; n++) {
+    if (n >= len) {
+      len *= 2;
+      r = realloc(r, len * sizeof(int));
+    }
+    r[n] = (int) atof(line);
+  }
+
+  r = realloc(r, n * sizeof(int));
+
+  // Initialize histogram
+  int *h = calloc(n, sizeof(int));
+  for (int i=0; i < n; i++)
+    h[i] = 0;
+
+  // Run the algorithm
+  int E = 0;
+  for (int i=0, above=0; i < n; i++) {
+    if (r[i] > E) {
+      above++;
+      if (r[i] < n) {
+        h[r[i]]++;
+      }
+      if (above > E) {
+        E++;
+        above -= h[E];
+       }
+    }
+    // Cumulative print
+    if (c)
+      printf("%d\n", E);
+  }
+
+  // Summary print if no cumulative
+  if (!c)
+    printf("%d\n", E);
+
+  return 0;
 }
