@@ -66,7 +66,7 @@ The two algorithms, A (slow) and B (fast) are shown below in python.
 ### A (slow)
 
 ```python
-def E_num(rides) -> int:
+def E_num(rides):
     if not rides:
         return 0
 
@@ -81,13 +81,13 @@ def E_num(rides) -> int:
 ### B (fast)
 
 ```python
-def E_num(rides) -> int:
+def E_num(rides):
 
     n, E, above = len(rides), 0, 0
-    H = [0 for x in range(n)]
+    H = [0]*(n + 1)
 
-    for i in range(n):
-        ride = int(rides[i])
+    for r in rides:
+        ride = int(r)
 
         if ride > E:
             above += 1

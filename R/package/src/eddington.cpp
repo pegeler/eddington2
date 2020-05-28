@@ -43,18 +43,14 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 int E_num(NumericVector &rides) {
   int n = rides.size(), E = 0, ride = 0, above = 0;
-  IntegerVector H(n);
+  IntegerVector H(n + 1);
 
   for (int i = 0; i < n; i++) {
     ride = (int) rides[i];
     if (ride > E) {
       above++;
       if (ride < n) H[ride]++;
-
-      if (above > E) {
-        E++;
-        above -= H[E];
-      }
+      if (above > E) above -= H[++E];
     }
   }
 
@@ -75,18 +71,14 @@ int E_num(NumericVector &rides) {
 // [[Rcpp::export]]
 IntegerVector E_cum(NumericVector &rides) {
   int n = rides.size(), running = 0, ride = 0, above = 0;
-  IntegerVector E(n), H(n);
+  IntegerVector E(n), H(n + 1);
 
   for (int i = 0; i < n; i++) {
     ride = (int) rides[i];
     if (ride > running) {
       above++;
       if (ride < n) H[ride]++;
-
-      if (above > running) {
-        running++;
-        above -= H[running];
-      }
+      if (above > running) above -= H[++running];
     }
 
     E[i] = running;
@@ -116,11 +108,7 @@ List E_next(NumericVector &rides) {
     if (ride > E) {
       above++;
       H[std::min(ride, n + 1)]++;
-
-      if (above > E) {
-        E++;
-        above -= H[E];
-      }
+      if (above > E) above -= H[++E];
     }
   }
 
