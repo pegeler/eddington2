@@ -1,5 +1,6 @@
 ^Meta$
 ^doc$
+^docs$
 ^eddington\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$

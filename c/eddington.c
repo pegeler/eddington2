@@ -57,22 +57,15 @@ int main(int argc, char *argv[])
   r = realloc(r, n * sizeof(int));
 
   // Initialize histogram
-  int *h = calloc(n, sizeof(int));
-  for (int i=0; i < n; i++)
-    h[i] = 0;
+  int *h = calloc(n + 1, sizeof(int));
 
   // Run the algorithm
   int E = 0;
   for (int i=0, above=0; i < n; i++) {
     if (r[i] > E) {
       above++;
-      if (r[i] < n) {
-        h[r[i]]++;
-      }
-      if (above > E) {
-        E++;
-        above -= h[E];
-       }
+      if (r[i] < n) h[r[i]]++;
+      if (above > E) above -= h[++E];
     }
     // Cumulative print
     if (c)

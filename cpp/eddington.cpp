@@ -38,18 +38,14 @@ vector<double> get_rides(istream& input)
 
 int E_num(vector<double> &rides) {
   int n = rides.size(), E = 0, ride = 0, above = 0;
-  vector<int> H(n, 0);
+  vector<int> H(n + 1, 0);
 
   for ( int i = 0; i < n; i++ ) {
     ride = (int) rides[i];
     if (ride > E) {
       above++;
       if (ride < n) H[ride]++;
-
-      if (above > E) {
-        E++;
-        above -= H[E];
-      }
+      if (above > E) above -= H[++E];
     }
   }
 
@@ -59,18 +55,14 @@ int E_num(vector<double> &rides) {
 
 vector<int> E_cum(vector<double> &rides) {
   int n = rides.size(), running = 0, ride = 0, above = 0;
-  vector<int> E(n, 0), H(n, 0);
+  vector<int> E(n, 0), H(n + 1, 0);
 
   for ( int i = 0; i < n; i++ ) {
     ride = (int) rides[i];
     if (ride > running) {
       above++;
       if (ride < n) H[ride]++;
-
-      if (above > running) {
-        running++;
-        above -= H[running];
-      }
+      if (above > running) above -= H[++running];
     }
 
     E[i] = running;

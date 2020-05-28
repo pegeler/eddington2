@@ -84,7 +84,7 @@ def E_num(rides):
 def E_num(rides):
 
     n, E, above = len(rides), 0, 0
-    H = [0]*n
+    H = [0]*(n + 1)
 
     for r in rides:
         ride = int(r)
