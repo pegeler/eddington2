@@ -37,7 +37,7 @@ int pop(int key)
 {
   unsigned int hashval = hash(key);
   Node *prev = NULL;
-  int val = 0;
+  int val;
 
   for (Node *curr = h[hashval]; curr != NULL; curr = curr->next) {
     if (curr->key == key) {
