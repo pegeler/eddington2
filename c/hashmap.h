@@ -2,15 +2,25 @@
 #define HASHMAP_H
 
 #include <stdlib.h>
+#include <stdio.h>
+#include "primes.h"
 
 typedef struct node {
-  int key;
-  int val;
+  uint32 key;
+  uint32 val;
   struct node *next;
 } Node;
 
-Node *get(int key);
-void ins(int key);
-int pop(int key);
+typedef struct hashmap {
+  Node **nodes;
+  uint32 buckets;
+  uint32 size;
+} Hashmap;
+
+Hashmap *h_init(uint32 size);
+Node  *h_get(Hashmap *h,  uint32 key);
+void   h_ins(Hashmap *h,  uint32 key);
+uint32 h_pop(Hashmap *h,  uint32 key);
+uint32 h_resize(Hashmap *h);
 
 #endif

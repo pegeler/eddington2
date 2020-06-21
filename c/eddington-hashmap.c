@@ -4,6 +4,7 @@
 #include "hashmap.h"
 
 #define MAX_LEN 1000
+#define DEFAULT_BUCKETS 199
 
 void usage(char *prog) {
   fprintf(
@@ -20,6 +21,7 @@ void usage(char *prog) {
 int main(int argc, char *argv[])
 {
 
+  Hashmap *h = h_init(DEFAULT_BUCKETS);
   char line[MAX_LEN];
   int E, above, r, c, opt;
   E = above = r = c = opt = 0;
@@ -45,11 +47,11 @@ int main(int argc, char *argv[])
 
 
   while (fgets(line, MAX_LEN, stdin) != NULL) {
-    r = (int) atof(line);
+    r = (uint32) atof(line);
     if (r > E) {
       above++;
-      ins(r);
-      if (above > E) above -= pop(++E);
+      h_ins(h, r);
+      if (above > E) above -= h_pop(h, ++E);
     }
     // Cumulative print
     if (c)
