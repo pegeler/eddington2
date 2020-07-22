@@ -25,6 +25,7 @@ number, check out the online calculator
 * [C](c/)
 * [C++](cpp/)
 * [FORTRAN 90](fortran/)
+* [java](java/)
 * [javascript](docs/)
 * [Julia](julia/)
 * [MySQL](mysql/)
