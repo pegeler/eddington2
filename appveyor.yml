@@ -17,7 +17,7 @@ cache:
 # Adapt as necessary starting from here
 
 environment:
-  R_VERSION: release
+  # R_VERSION: release
   PKGTYPE: both
   USE_RTOOLS: true
 
