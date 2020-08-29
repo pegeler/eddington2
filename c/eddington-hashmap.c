@@ -12,7 +12,7 @@ void usage(char *prog) {
     "Usage:\n  %s"
     " [-c|--cumulative]"
     " [-h|--help]"
-    //" [FILE [FILE...]]" TODO
+    /* " [FILE [FILE...]]" TODO */
     "\n",
     prog
   );
@@ -47,19 +47,18 @@ int main(int argc, char *argv[])
 
 
   while (fgets(line, MAX_LEN, stdin) != NULL) {
-    r = (uint32) atof(line);
+    r = atoi(line);
     if (r > E) {
       above++;
       h_ins(h, r);
       if (above > E) above -= h_pop(h, ++E);
     }
-    // Cumulative print
-    if (c)
+
+    if (c) /* Cumulative print */
       printf("%d\n", E);
   }
 
-  // Summary print if no cumulative
-  if (!c)
+  if (!c) /* Summary print if no cumulative */
     printf("%d\n", E);
 
   return 0;
