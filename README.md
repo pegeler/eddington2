@@ -115,23 +115,26 @@ O(n&nbsp;log&nbsp;n) time, **Algorithm B** has &theta;(n) time complexity and us
 
 ### Improvement over sorting
 
-The next obvious improvement over using comparison sort would have been counting
-sort. In fact, **Algorithm B** is very comparable to, but a little faster than,
-counting sort. They both use a tally. Compared to **Algorithm B**'s O(n),
-counting sort has a time complexity of O(n&nbsp;+&nbsp;k) and space complexity of 
-O(n&nbsp;+&nbsp;k), where k is the range of the input vector. This is a big improvement
-over comparison sort. Plus, in real-world cycling data, k will be sufficiently
-small as to be meaningless. But in pathological cases, a large k can be
-problematic. In addition, a counting sort tends to iterate through the data
-several times, meaning that it could be a couple of factors slower for any given
-n.
+The next obvious improvement over using comparison sort would have been an
+integer sorting algorithm such as counting sort. In fact, **Algorithm B** is
+very comparable to, but a little faster than, counting sort. They both use a
+tally. Compared to comparison sort's expected O(n&nbsp;log&nbsp;n) time
+complexity and **Algorithm B**'s &theta;(n), counting sort falls in between the
+two with O(n&nbsp;+&nbsp;k) and space complexity of O(n&nbsp;+&nbsp;k), where k
+is the range of the input vector. As a bonus, k will be sufficiently small as to
+be meaningless in real-world cycling data. But there are some considerations to
+review. In pathological cases, a large k can be problematic. Also, counting sort
+tends to iterate through the data several times, meaning that it could be a
+couple of factors slower for any given n.
 
 Further, neither out-of-the-box comparison sort nor counting sort facilitate
 computation of the cumulative statistic since previous effort of sorting is not
 conserved as the we iterate through the growing vector of data. As a result,
 time complexity grows to &#8721;O(n&nbsp;+&nbsp;k) for counting sort, which
 approximately reduces to O(n^2) if we ignore k. Of course, using comparison sort
-would be much worse. Meanwhile, **Algorithm B** remains &theta;(n).
+would be much worse. Meanwhile, **Algorithm B** remains &theta;(n). It is
+because of the particularly bad performance of computing the cumulative
+statistic using sorting that I developed **Algorithm B**.
 
 #### Disclaimer
 
