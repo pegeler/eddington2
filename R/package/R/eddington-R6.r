@@ -3,6 +3,19 @@
 #' @description The class will maintain a running tally, allowing for efficient
 #'   updates as new rides come in.
 #'
+#' @section Warning:
+#'
+#' A current limitation is that `Eddington` objects cannot be serialized. That
+#' is to say, they cannot be carried between sessions using `saveRDS` or `save`
+#' and then loaded later using `readRDS` or `load`. Related to this limitation,
+#' cloning of `Eddington` objects is disabled.
+#'
+#' The underlying state is stored as a C++ hash table, which the R session
+#' tracks with a pointer. When attempting to serialize or clone an `Eddington`
+#' object, the reference to that pointer can be lost or corrupted, which will
+#' result in undefined behavior. Future versions of this class will address
+#' these problems.
+#'
 #' @examples
 #' # Randomly generate a set of 15 rides
 #' rides <- rgamma(15, shape = 2, scale = 10)

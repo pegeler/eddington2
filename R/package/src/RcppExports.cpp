@@ -126,12 +126,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // update_
-List update_(NumericVector rides, int running, int above, XPtr< std::unordered_map<int, int> > H);
+List update_(IntegerVector rides, int running, int above, XPtr< std::unordered_map<int, int> > H);
 RcppExport SEXP _eddington_update_(SEXP ridesSEXP, SEXP runningSEXP, SEXP aboveSEXP, SEXP HSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type rides(ridesSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type rides(ridesSEXP);
     Rcpp::traits::input_parameter< int >::type running(runningSEXP);
     Rcpp::traits::input_parameter< int >::type above(aboveSEXP);
     Rcpp::traits::input_parameter< XPtr< std::unordered_map<int, int> > >::type H(HSEXP);

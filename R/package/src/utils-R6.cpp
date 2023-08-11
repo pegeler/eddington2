@@ -13,17 +13,16 @@ XPtr< std::unordered_map<int, int> > initialize_hashmap() {
 
 // [[Rcpp::export]]
 List update_(
-    NumericVector rides,
+    IntegerVector rides,
     int running,
     int above,
     XPtr< std::unordered_map<int, int> > H)
 {
-  int ride=0;
   IntegerVector cumulative( rides.size() );
 
-  for ( int i=0; i < rides.size(); i++ )
+  for ( R_xlen_t i=0; i < rides.size(); i++ )
   {
-    ride = (int) rides[i];
+    int ride = rides[i];
 
     if ( ride > running ) {
       above++;
