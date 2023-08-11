@@ -18,6 +18,7 @@ List update_(
     int above,
     XPtr< std::unordered_map<int, int> > H)
 {
+  // TODO: Combine this with the E_cum function
   IntegerVector cumulative( rides.size() );
 
   for ( R_xlen_t i=0; i < rides.size(); i++ )
@@ -44,7 +45,7 @@ List update_(
 }
 
 // [[Rcpp::export]]
-int n2target_(
+int get_number_to_target(
     int target,
     XPtr< std::unordered_map<int, int> > H)
 {
@@ -56,7 +57,7 @@ int n2target_(
 }
 
 // [[Rcpp::export]]
-DataFrame get_hashmap_(
+DataFrame get_hashmap(
     XPtr< std::unordered_map<int, int> > H)
 {
   IntegerVector lengths, counts;

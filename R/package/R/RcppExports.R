@@ -79,12 +79,12 @@ update_ <- function(rides, running, above, H) {
     .Call('_eddington_update_', PACKAGE = 'eddington', rides, running, above, H)
 }
 
-n2target_ <- function(target, H) {
-    .Call('_eddington_n2target_', PACKAGE = 'eddington', target, H)
+get_number_to_target <- function(target, H) {
+    .Call('_eddington_get_number_to_target', PACKAGE = 'eddington', target, H)
 }
 
-get_hashmap_ <- function(H) {
-    .Call('_eddington_get_hashmap_', PACKAGE = 'eddington', H)
+get_hashmap <- function(H) {
+    .Call('_eddington_get_hashmap', PACKAGE = 'eddington', H)
 }
 
 # Register entry points for exported C++ functions

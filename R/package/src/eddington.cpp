@@ -66,8 +66,7 @@ std::pair<int, int> compute_eddington_number(IntegerVector &rides) {
 //' @export
 // [[Rcpp::export]]
 int E_num(IntegerVector &rides) {
-  auto result = compute_eddington_number(rides);
-  return result.first;
+  return compute_eddington_number(rides).first;
 }
 
 //' Calculate the cumulative Eddington number

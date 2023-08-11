@@ -139,26 +139,26 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// n2target_
-int n2target_(int target, XPtr< std::unordered_map<int, int> > H);
-RcppExport SEXP _eddington_n2target_(SEXP targetSEXP, SEXP HSEXP) {
+// get_number_to_target
+int get_number_to_target(int target, XPtr< std::unordered_map<int, int> > H);
+RcppExport SEXP _eddington_get_number_to_target(SEXP targetSEXP, SEXP HSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< int >::type target(targetSEXP);
     Rcpp::traits::input_parameter< XPtr< std::unordered_map<int, int> > >::type H(HSEXP);
-    rcpp_result_gen = Rcpp::wrap(n2target_(target, H));
+    rcpp_result_gen = Rcpp::wrap(get_number_to_target(target, H));
     return rcpp_result_gen;
 END_RCPP
 }
-// get_hashmap_
-DataFrame get_hashmap_(XPtr< std::unordered_map<int, int> > H);
-RcppExport SEXP _eddington_get_hashmap_(SEXP HSEXP) {
+// get_hashmap
+DataFrame get_hashmap(XPtr< std::unordered_map<int, int> > H);
+RcppExport SEXP _eddington_get_hashmap(SEXP HSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtr< std::unordered_map<int, int> > >::type H(HSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_hashmap_(H));
+    rcpp_result_gen = Rcpp::wrap(get_hashmap(H));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -189,8 +189,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_eddington_E_next", (DL_FUNC) &_eddington_E_next, 1},
     {"_eddington_initialize_hashmap", (DL_FUNC) &_eddington_initialize_hashmap, 0},
     {"_eddington_update_", (DL_FUNC) &_eddington_update_, 4},
-    {"_eddington_n2target_", (DL_FUNC) &_eddington_n2target_, 2},
-    {"_eddington_get_hashmap_", (DL_FUNC) &_eddington_get_hashmap_, 1},
+    {"_eddington_get_number_to_target", (DL_FUNC) &_eddington_get_number_to_target, 2},
+    {"_eddington_get_hashmap", (DL_FUNC) &_eddington_get_hashmap, 1},
     {"_eddington_RcppExport_registerCCallable", (DL_FUNC) &_eddington_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}
 };

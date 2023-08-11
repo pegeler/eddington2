@@ -16,10 +16,10 @@ and then loaded later using `readRDS` or `load`. Related to this limitation,
 cloning of `Eddington` objects is disabled.
 
 The underlying state is stored as a C++ hash table, which the R session
-tracks with a pointer. When attempting to serialize or clone an `Eddington`
-object, the reference to that pointer can be lost or corrupted, which will
-result in undefined behavior. Future versions of this class will address
-these problems.
+tracks with an external pointer. When attempting to serialize or clone an
+`Eddington` object, the reference can be lost or corrupted, which will result
+in undefined behavior. Future versions of this class will address these
+problems.
 }
 
 \examples{
@@ -48,11 +48,11 @@ e$cumulative
 
 \item{\code{cumulative}}{A vector of cumulative Eddington numbers.}
 
-\item{\code{n2next}}{The number of rides needed to get to the next Eddington number.}
+\item{\code{numberToNext}}{The number of rides needed to get to the next Eddington number.}
 
 \item{\code{n}}{The number of rides in the data.}
 
-\item{\code{H}}{The hash map of rides above the current Eddington number.}
+\item{\code{hashmap}}{The hash map of rides above the current Eddington number.}
 }
 \if{html}{\out{</div>}}
 }
@@ -62,7 +62,7 @@ e$cumulative
 \item \href{#method-Eddington-new}{\code{Eddington$new()}}
 \item \href{#method-Eddington-print}{\code{Eddington$print()}}
 \item \href{#method-Eddington-update}{\code{Eddington$update()}}
-\item \href{#method-Eddington-n2target}{\code{Eddington$n2target()}}
+\item \href{#method-Eddington-numberToTarget}{\code{Eddington$numberToTarget()}}
 \item \href{#method-Eddington-satisfied}{\code{Eddington$satisfied()}}
 }
 }
@@ -117,13 +117,13 @@ Add new rides to the existing `Eddington` object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Eddington-n2target"></a>}}
-\if{latex}{\out{\hypertarget{method-Eddington-n2target}{}}}
-\subsection{Method \code{n2target()}}{
+\if{html}{\out{<a id="method-Eddington-numberToTarget"></a>}}
+\if{latex}{\out{\hypertarget{method-Eddington-numberToTarget}{}}}
+\subsection{Method \code{numberToTarget()}}{
 Get the number of rides of a specified length to get to a target
 Eddington number.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Eddington$n2target(target)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Eddington$numberToTarget(target)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

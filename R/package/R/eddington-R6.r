@@ -11,10 +11,10 @@
 #' cloning of `Eddington` objects is disabled.
 #'
 #' The underlying state is stored as a C++ hash table, which the R session
-#' tracks with a pointer. When attempting to serialize or clone an `Eddington`
-#' object, the reference to that pointer can be lost or corrupted, which will
-#' result in undefined behavior. Future versions of this class will address
-#' these problems.
+#' tracks with an external pointer. When attempting to serialize or clone an
+#' `Eddington` object, the reference can be lost or corrupted, which will result
+#' in undefined behavior. Future versions of this class will address these
+#' problems.
 #'
 #' @examples
 #' # Randomly generate a set of 15 rides
@@ -52,9 +52,13 @@ Eddington <- R6::R6Class(
     #'   cumulative Eddington numbers
     #' @return A new `Eddington` object
     initialize = function(rides, keep.cumulative = TRUE) {
-      private$.H <- initialize_hashmap()
-      if ( !keep.cumulative ) private$.cumulative <- NULL
-      if ( !missing(rides) ) self$update(rides)
+      private$.hashmap <- initialize_hashmap()
+      if ( !keep.cumulative ) {
+        private$.cumulative <- NULL
+      }
+      if ( !missing(rides) ) {
+        self$update(rides)
+      }
       },
 
     #' @description
@@ -68,7 +72,7 @@ Eddington <- R6::R6Class(
     #' Add new rides to the existing `Eddington` object.
     #' @param rides A vector of rides
     update = function(rides) {
-      result <- update_(rides, private$.running, private$.above, private$.H)
+      result <- update_(rides, private$.running, private$.above, private$.hashmap)
       private$.n            <- private$.n + length(rides)
       private$.running      <- result[["running"]]
       private$.above        <- result[["above"]]
@@ -83,13 +87,13 @@ Eddington <- R6::R6Class(
     #' @param target Target Eddington number
     #' @return An integer representing the number of rides of target length
     #'   needed to achieve the target number.
-    n2target = function(target) {
+    numberToTarget = function(target) {
       if ( target <= private$.running ) {
         return(0L)
       } else if ( target == private$.running + 1L ) {
-        return(self$n2next)
+        return(self$numberToNext)
       } else {
-        n2target_(target, private$.H)
+        get_number_to_target(target, private$.hashmap)
       }
       },
 
@@ -121,8 +125,8 @@ Eddington <- R6::R6Class(
       }
     },
 
-    #' @field n2next The number of rides needed to get to the next Eddington number.
-    n2next = function(value) {
+    #' @field numberToNext The number of rides needed to get to the next Eddington number.
+    numberToNext = function(value) {
       if ( missing(value) ) {
         return(private$.running + 1L - private$.above)
       } else  {
@@ -139,13 +143,13 @@ Eddington <- R6::R6Class(
       }
     },
 
-    #' @field H The hash map of rides above the current Eddington number.
-    H = function(value) {
+    #' @field hashmap The hash map of rides above the current Eddington number.
+    hashmap = function(value) {
       if ( missing(value) ) {
-        H <- get_hashmap_(private$.H)
-        H <- H[order(H$lengths),]
-        row.names(H) <- NULL
-        return(H)
+        h <- get_hashmap(private$.hashmap)
+        h <- h[order(h$lengths),]
+        row.names(h) <- NULL
+        return(h)
       } else  {
         stop("Data member is read only.", call. = FALSE)
       }
@@ -157,6 +161,6 @@ Eddington <- R6::R6Class(
     .above = 0L,
     .n = 0L,
     .cumulative = integer(0L),
-    .H = NULL
+    .hashmap = NULL
   )
 )

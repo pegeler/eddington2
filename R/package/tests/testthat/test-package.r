@@ -47,15 +47,30 @@ test_that("Eddington class works",{ # WIP
   # cumulative
   expect_equal(e$cumulative, E_cum(simdata))
 
-  # n2next
-  expect_equal(e$n2next, E_next(simdata)$req)
+  # Number to next and target
+  expect_equal(e$numberToNext, E_next(simdata)$req)
+  expect_equal(e$numberToTarget(27), E_req(simdata, 27))
+
+  # satisfied
+  expect_true(e$satisfied(e$current))
+  expect_true(e$satisfied(e$current - 1L))
+  expect_false(e$satisfied(e$current + 1L))
 
   # n
   expect_equal(e$n, length(simdata))
 
-  # TODO: H, n2target, satisfied, clone
+  # Get hashmap
+  hashmap <- e$hashmap
+  expect_s3_class(e$hashmap, "data.frame")
+  expect_true(all(hashmap[["lengths"]] > e$current))
+  expect_true(all(names(hashmap) == c("lengths", "counts")))
+  expect_true(nrow(hashmap) > 0)
+
+  # clone is disabled
+  expect_false(exists("clone", envir = e))
 
   # update
+  e <- Eddington$new(simdata)
   e$update(rep(25, 10))
   expect_equal(e$cumulative, E_cum(c(simdata, rep(25, 10))))
 
