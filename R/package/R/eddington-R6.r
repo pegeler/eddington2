@@ -55,7 +55,7 @@ Eddington <- R6::R6Class(
     #' Add new rides to the existing `Eddington` object.
     #' @param rides A vector of rides
     update = function(rides) {
-      result <- internal_update(rides, private$.running, private$.above, private$.H)
+      result <- update_(rides, private$.running, private$.above, private$.H)
       private$.n            <- private$.n + length(rides)
       private$.running      <- result[["running"]]
       private$.above        <- result[["above"]]
@@ -76,7 +76,7 @@ Eddington <- R6::R6Class(
       } else if ( target == private$.running + 1L ) {
         return(self$n2next)
       } else {
-        internal_n2target(target, private$.H)
+        n2target_(target, private$.H)
       }
       },
 
@@ -86,6 +86,7 @@ Eddington <- R6::R6Class(
     #' @return Logical
     satisfied = function(target) { private$.running >= target }
   ),
+
   active = list(
     #' @field current The current Eddington number.
     current = function(value) {
@@ -128,7 +129,7 @@ Eddington <- R6::R6Class(
     #' @field H The hash map of rides above the current Eddington number.
     H = function(value) {
       if ( missing(value) ) {
-        H <- internal_get_hashmap(private$.H)
+        H <- get_hashmap_(private$.H)
         H <- H[order(H$lengths),]
         row.names(H) <- NULL
         return(H)
@@ -137,6 +138,7 @@ Eddington <- R6::R6Class(
       }
     }
   ),
+
   private = list(
     .running = 0L,
     .above = 0L,

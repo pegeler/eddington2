@@ -44,16 +44,16 @@ e$cumulative
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{Eddington$new()}}
-\item \href{#method-print}{\code{Eddington$print()}}
-\item \href{#method-update}{\code{Eddington$update()}}
-\item \href{#method-n2target}{\code{Eddington$n2target()}}
-\item \href{#method-satisfied}{\code{Eddington$satisfied()}}
+\item \href{#method-Eddington-new}{\code{Eddington$new()}}
+\item \href{#method-Eddington-print}{\code{Eddington$print()}}
+\item \href{#method-Eddington-update}{\code{Eddington$update()}}
+\item \href{#method-Eddington-n2target}{\code{Eddington$n2target()}}
+\item \href{#method-Eddington-satisfied}{\code{Eddington$satisfied()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-Eddington-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Eddington-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new Eddington object.
 \subsection{Usage}{
@@ -75,8 +75,8 @@ A new `Eddington` object
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-Eddington-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Eddington-print}{}}}
 \subsection{Method \code{print()}}{
 Print the current Eddington number.
 \subsection{Usage}{
@@ -85,8 +85,8 @@ Print the current Eddington number.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-update"></a>}}
-\if{latex}{\out{\hypertarget{method-update}{}}}
+\if{html}{\out{<a id="method-Eddington-update"></a>}}
+\if{latex}{\out{\hypertarget{method-Eddington-update}{}}}
 \subsection{Method \code{update()}}{
 Add new rides to the existing `Eddington` object.
 \subsection{Usage}{
@@ -102,8 +102,8 @@ Add new rides to the existing `Eddington` object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-n2target"></a>}}
-\if{latex}{\out{\hypertarget{method-n2target}{}}}
+\if{html}{\out{<a id="method-Eddington-n2target"></a>}}
+\if{latex}{\out{\hypertarget{method-Eddington-n2target}{}}}
 \subsection{Method \code{n2target()}}{
 Get the number of rides of a specified length to get to a target
 Eddington number.
@@ -124,8 +124,8 @@ An integer representing the number of rides of target length
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-satisfied"></a>}}
-\if{latex}{\out{\hypertarget{method-satisfied}{}}}
+\if{html}{\out{<a id="method-Eddington-satisfied"></a>}}
+\if{latex}{\out{\hypertarget{method-Eddington-satisfied}{}}}
 \subsection{Method \code{satisfied()}}{
 Test if an Eddington number is satisfied.
 \subsection{Usage}{

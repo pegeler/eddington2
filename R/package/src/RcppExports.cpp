@@ -8,12 +8,17 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // E_num
-int E_num(NumericVector& rides);
+int E_num(IntegerVector& rides);
 static SEXP _eddington_E_num_try(SEXP ridesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< NumericVector& >::type rides(ridesSEXP);
+    Rcpp::traits::input_parameter< IntegerVector& >::type rides(ridesSEXP);
     rcpp_result_gen = Rcpp::wrap(E_num(rides));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
@@ -43,11 +48,11 @@ RcppExport SEXP _eddington_E_num(SEXP ridesSEXP) {
     return rcpp_result_gen;
 }
 // E_cum
-IntegerVector E_cum(NumericVector& rides);
+IntegerVector E_cum(IntegerVector& rides);
 static SEXP _eddington_E_cum_try(SEXP ridesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< NumericVector& >::type rides(ridesSEXP);
+    Rcpp::traits::input_parameter< IntegerVector& >::type rides(ridesSEXP);
     rcpp_result_gen = Rcpp::wrap(E_cum(rides));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
@@ -77,11 +82,11 @@ RcppExport SEXP _eddington_E_cum(SEXP ridesSEXP) {
     return rcpp_result_gen;
 }
 // E_next
-List E_next(NumericVector& rides);
+List E_next(IntegerVector& rides);
 static SEXP _eddington_E_next_try(SEXP ridesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< NumericVector& >::type rides(ridesSEXP);
+    Rcpp::traits::input_parameter< IntegerVector& >::type rides(ridesSEXP);
     rcpp_result_gen = Rcpp::wrap(E_next(rides));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
@@ -120,9 +125,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// internal_update
-List internal_update(NumericVector rides, int running, int above, XPtr< std::unordered_map<int, int> > H);
-RcppExport SEXP _eddington_internal_update(SEXP ridesSEXP, SEXP runningSEXP, SEXP aboveSEXP, SEXP HSEXP) {
+// update_
+List update_(NumericVector rides, int running, int above, XPtr< std::unordered_map<int, int> > H);
+RcppExport SEXP _eddington_update_(SEXP ridesSEXP, SEXP runningSEXP, SEXP aboveSEXP, SEXP HSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -130,30 +135,30 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type running(runningSEXP);
     Rcpp::traits::input_parameter< int >::type above(aboveSEXP);
     Rcpp::traits::input_parameter< XPtr< std::unordered_map<int, int> > >::type H(HSEXP);
-    rcpp_result_gen = Rcpp::wrap(internal_update(rides, running, above, H));
+    rcpp_result_gen = Rcpp::wrap(update_(rides, running, above, H));
     return rcpp_result_gen;
 END_RCPP
 }
-// internal_n2target
-int internal_n2target(int target, XPtr< std::unordered_map<int, int> > H);
-RcppExport SEXP _eddington_internal_n2target(SEXP targetSEXP, SEXP HSEXP) {
+// n2target_
+int n2target_(int target, XPtr< std::unordered_map<int, int> > H);
+RcppExport SEXP _eddington_n2target_(SEXP targetSEXP, SEXP HSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< int >::type target(targetSEXP);
     Rcpp::traits::input_parameter< XPtr< std::unordered_map<int, int> > >::type H(HSEXP);
-    rcpp_result_gen = Rcpp::wrap(internal_n2target(target, H));
+    rcpp_result_gen = Rcpp::wrap(n2target_(target, H));
     return rcpp_result_gen;
 END_RCPP
 }
-// internal_get_hashmap
-DataFrame internal_get_hashmap(XPtr< std::unordered_map<int, int> > H);
-RcppExport SEXP _eddington_internal_get_hashmap(SEXP HSEXP) {
+// get_hashmap_
+DataFrame get_hashmap_(XPtr< std::unordered_map<int, int> > H);
+RcppExport SEXP _eddington_get_hashmap_(SEXP HSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtr< std::unordered_map<int, int> > >::type H(HSEXP);
-    rcpp_result_gen = Rcpp::wrap(internal_get_hashmap(H));
+    rcpp_result_gen = Rcpp::wrap(get_hashmap_(H));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -162,9 +167,9 @@ END_RCPP
 static int _eddington_RcppExport_validate(const char* sig) { 
     static std::set<std::string> signatures;
     if (signatures.empty()) {
-        signatures.insert("int(*E_num)(NumericVector&)");
-        signatures.insert("IntegerVector(*E_cum)(NumericVector&)");
-        signatures.insert("List(*E_next)(NumericVector&)");
+        signatures.insert("int(*E_num)(IntegerVector&)");
+        signatures.insert("IntegerVector(*E_cum)(IntegerVector&)");
+        signatures.insert("List(*E_next)(IntegerVector&)");
     }
     return signatures.find(sig) != signatures.end();
 }
@@ -183,9 +188,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_eddington_E_cum", (DL_FUNC) &_eddington_E_cum, 1},
     {"_eddington_E_next", (DL_FUNC) &_eddington_E_next, 1},
     {"_eddington_initialize_hashmap", (DL_FUNC) &_eddington_initialize_hashmap, 0},
-    {"_eddington_internal_update", (DL_FUNC) &_eddington_internal_update, 4},
-    {"_eddington_internal_n2target", (DL_FUNC) &_eddington_internal_n2target, 2},
-    {"_eddington_internal_get_hashmap", (DL_FUNC) &_eddington_internal_get_hashmap, 1},
+    {"_eddington_update_", (DL_FUNC) &_eddington_update_, 4},
+    {"_eddington_n2target_", (DL_FUNC) &_eddington_n2target_, 2},
+    {"_eddington_get_hashmap_", (DL_FUNC) &_eddington_get_hashmap_, 1},
     {"_eddington_RcppExport_registerCCallable", (DL_FUNC) &_eddington_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}
 };

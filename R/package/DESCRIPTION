@@ -31,7 +31,7 @@ Suggests:
     rmarkdown,
     dplyr
 VignetteBuilder: knitr
-RoxygenNote: 7.1.0
+RoxygenNote: 7.2.3
 URL: https://github.com/pegeler/eddington2
 BugReports: https://github.com/pegeler/eddington2/issues
 SystemRequirements: C++11

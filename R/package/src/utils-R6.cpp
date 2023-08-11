@@ -12,7 +12,7 @@ XPtr< std::unordered_map<int, int> > initialize_hashmap() {
 }
 
 // [[Rcpp::export]]
-List internal_update(
+List update_(
     NumericVector rides,
     int running,
     int above,
@@ -45,7 +45,7 @@ List internal_update(
 }
 
 // [[Rcpp::export]]
-int internal_n2target(
+int n2target_(
     int target,
     XPtr< std::unordered_map<int, int> > H)
 {
@@ -57,7 +57,7 @@ int internal_n2target(
 }
 
 // [[Rcpp::export]]
-DataFrame internal_get_hashmap(
+DataFrame get_hashmap_(
     XPtr< std::unordered_map<int, int> > H)
 {
   IntegerVector lengths, counts;
@@ -75,5 +75,5 @@ DataFrame internal_get_hashmap(
 rides <- rgamma(15, shape = 2, scale = 10)
 running <- above <- 0L
 H <- initialize_hashmap()
-internal_update(rides, running, above, H)
+update_(rides, running, above, H)
 */

@@ -1,7 +1,31 @@
 // [[Rcpp::interfaces(r, cpp)]]
 #include <Rcpp.h>
+#include <algorithm>
+#include <unordered_map>
+#include <utility>
+#include <climits>
 
 using namespace Rcpp;
+
+std::pair<int, int> compute_eddington_number(IntegerVector &rides) {
+  int n = std::min<R_xlen_t>(rides.size(), INT_MAX - 1);
+  int e = 0;
+  int above = 0;
+  std::unordered_map<int, int> dist_table(150);
+
+  for (auto ride : rides) {
+    if (ride > e) {
+      above++;
+      dist_table[std::min(ride, n + 1)]++;
+      if (above > e) {
+        above -= dist_table[++e];
+        dist_table.erase(e);
+      }
+    }
+  }
+
+  return {e, above};
+}
 
 //' Get the Eddington number for cycling
 //'
@@ -41,20 +65,9 @@ using namespace Rcpp;
 //' E_num(rides)
 //' @export
 // [[Rcpp::export]]
-int E_num(NumericVector &rides) {
-  int n = rides.size(), E = 0, ride = 0, above = 0;
-  IntegerVector H(n + 1);
-
-  for (int i = 0; i < n; i++) {
-    ride = (int) rides[i];
-    if (ride > E) {
-      above++;
-      if (ride < n) H[ride]++;
-      if (above > E) above -= H[++E];
-    }
-  }
-
-  return E;
+int E_num(IntegerVector &rides) {
+  auto result = compute_eddington_number(rides);
+  return result.first;
 }
 
 //' Calculate the cumulative Eddington number
@@ -69,23 +82,30 @@ int E_num(NumericVector &rides) {
 //' @return An integer vector the same length as \code{rides}.
 //' @export
 // [[Rcpp::export]]
-IntegerVector E_cum(NumericVector &rides) {
-  int n = rides.size(), running = 0, ride = 0, above = 0;
-  IntegerVector E(n), H(n + 1);
+IntegerVector E_cum(IntegerVector &rides) {
+  int running = 0;
+  int above = 0;
+  std::unordered_map<int, int> dist_table(150);
+  IntegerVector e(rides.size());
 
-  for (int i = 0; i < n; i++) {
-    ride = (int) rides[i];
+  for (R_xlen_t i = 0; i < rides.size(); i++) {
+    int ride = rides[i];
     if (ride > running) {
       above++;
-      if (ride < n) H[ride]++;
-      if (above > running) above -= H[++running];
+      if (ride < rides.size()) {
+        dist_table[ride]++;
+      }
+      if (above > running) {
+        above -= dist_table[++running];
+        dist_table.erase(running);
+      }
     }
 
-    E[i] = running;
+    e[i] = running;
 
   }
 
-  return E;
+  return e;
 }
 
 //' Get the number of rides required to increment to the next Eddington number
@@ -99,25 +119,18 @@ IntegerVector E_cum(NumericVector &rides) {
 //'   number of rides required to increment by one (\code{req}).
 //' @export
 // [[Rcpp::export]]
-List E_next(NumericVector &rides) {
-  int n = rides.size(), E = 0, ride = 0, above = 0;
-  IntegerVector H(n + 2);
-
-  for (int i = 0; i < n; i++) {
-    ride = (int) rides[i];
-    if (ride > E) {
-      above++;
-      H[std::min(ride, n + 1)]++;
-      if (above > E) above -= H[++E];
-    }
-  }
-
+List E_next(IntegerVector &rides) {
+  auto result = compute_eddington_number(rides);
   List out = List::create(
-    _["E"] = E,
-    _["req"] = E + 1 - above
+    _["E"] = result.first,
+    _["req"] = result.first + 1 - result.second
   );
 
   out.attr("class") = "E_next";
 
   return out;
 }
+
+/*** R
+E_num(c(2.2, 1.1, 3.3))
+*/

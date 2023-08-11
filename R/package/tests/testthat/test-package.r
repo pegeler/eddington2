@@ -49,6 +49,8 @@ test_that("E_req works",{
 
 })
 
+context("Testing R6 class")
+
 test_that("Eddington class works",{ # WIP
 
   e <- Eddington$new(simdata)
