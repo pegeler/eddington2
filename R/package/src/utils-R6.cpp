@@ -3,36 +3,39 @@
 
 using namespace Rcpp;
 
-// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::plugins(cpp17)]]
+
+
 // [[Rcpp::export]]
-XPtr< std::unordered_map<int, int> > initialize_hashmap() {
+XPtr<std::unordered_map<int, int>> initialize_hashmap() {
   std::unordered_map<int, int>* umap = new std::unordered_map<int, int>(150);
-  XPtr< std::unordered_map<int, int> > p(umap, true);
-  return p;
+  XPtr<std::unordered_map<int, int>> xptr(umap, true);
+  return xptr;
 }
+
 
 // [[Rcpp::export]]
 List update_(
-    IntegerVector rides,
+    const IntegerVector& rides,
     int running,
     int above,
-    XPtr< std::unordered_map<int, int> > H)
+    XPtr<std::unordered_map<int, int>> hashmap)
 {
   // TODO: Combine this with the E_cum function
   IntegerVector cumulative( rides.size() );
 
-  for ( R_xlen_t i=0; i < rides.size(); i++ )
+  for (R_xlen_t i=0; i < rides.size(); i++)
   {
     int ride = rides[i];
 
     if ( ride > running ) {
       above++;
-      (*H)[ride]++;
+      (*hashmap)[ride]++;
 
       if ( above > running ) {
         running++;
-        above -= (*H)[running];
-        H->erase(running);
+        above -= (*hashmap)[running];
+        hashmap->erase(running);
       }
     }
     cumulative[i] = running;
@@ -44,24 +47,25 @@ List update_(
     _["cumulative"] = cumulative);
 }
 
+
 // [[Rcpp::export]]
 int get_number_to_target(
     int target,
-    XPtr< std::unordered_map<int, int> > H)
+    XPtr<std::unordered_map<int, int>> hashmap)
 {
   int completed_rides = 0;
-  for ( auto it = H->begin(); it != H->end(); ++it )
+  for (auto it = hashmap->begin(); it != hashmap->end(); ++it)
     if ( it->first >= target )
       completed_rides += it->second;
   return target - completed_rides;
 }
 
+
 // [[Rcpp::export]]
-DataFrame get_hashmap(
-    XPtr< std::unordered_map<int, int> > H)
+DataFrame get_hashmap(XPtr<std::unordered_map<int, int>> hashmap)
 {
   IntegerVector lengths, counts;
-  for ( auto it = H->begin(); it != H->end(); ++it ) {
+  for (auto it = hashmap->begin(); it != hashmap->end(); ++it) {
     lengths.push_back(it->first);
     counts.push_back(it->second);
   }
@@ -71,9 +75,10 @@ DataFrame get_hashmap(
   );
 }
 
+
 /*** R
 rides <- rgamma(15, shape = 2, scale = 10)
 running <- above <- 0L
-H <- initialize_hashmap()
-update_(rides, running, above, H)
+hashmap <- initialize_hashmap()
+update_(rides, running, above, hashmap)
 */

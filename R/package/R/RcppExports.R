@@ -75,16 +75,16 @@ initialize_hashmap <- function() {
     .Call('_eddington_initialize_hashmap', PACKAGE = 'eddington')
 }
 
-update_ <- function(rides, running, above, H) {
-    .Call('_eddington_update_', PACKAGE = 'eddington', rides, running, above, H)
+update_ <- function(rides, running, above, hashmap) {
+    .Call('_eddington_update_', PACKAGE = 'eddington', rides, running, above, hashmap)
 }
 
-get_number_to_target <- function(target, H) {
-    .Call('_eddington_get_number_to_target', PACKAGE = 'eddington', target, H)
+get_number_to_target <- function(target, hashmap) {
+    .Call('_eddington_get_number_to_target', PACKAGE = 'eddington', target, hashmap)
 }
 
-get_hashmap <- function(H) {
-    .Call('_eddington_get_hashmap', PACKAGE = 'eddington', H)
+get_hashmap <- function(hashmap) {
+    .Call('_eddington_get_hashmap', PACKAGE = 'eddington', hashmap)
 }
 
 # Register entry points for exported C++ functions
