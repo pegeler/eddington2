@@ -43,6 +43,7 @@ number, check out the online calculator
 * [R](R/)
 * [Rcpp](R/)
 * [SAS](sas/)
+* [Scala](scala/)
 * [VBA](vba/) (for use in Microsoft Excel)
 
 More to come. Please feel free to contribute!
