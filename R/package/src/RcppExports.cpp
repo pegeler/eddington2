@@ -8,17 +8,12 @@
 
 using namespace Rcpp;
 
-#ifdef RCPP_USE_GLOBAL_ROSTREAM
-Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
-Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
-#endif
-
 // E_num
-int E_num(const IntegerVector& rides);
+int E_num(NumericVector& rides);
 static SEXP _eddington_E_num_try(SEXP ridesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< const IntegerVector& >::type rides(ridesSEXP);
+    Rcpp::traits::input_parameter< NumericVector& >::type rides(ridesSEXP);
     rcpp_result_gen = Rcpp::wrap(E_num(rides));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
@@ -48,11 +43,11 @@ RcppExport SEXP _eddington_E_num(SEXP ridesSEXP) {
     return rcpp_result_gen;
 }
 // E_cum
-IntegerVector E_cum(const IntegerVector& rides);
+IntegerVector E_cum(NumericVector& rides);
 static SEXP _eddington_E_cum_try(SEXP ridesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< const IntegerVector& >::type rides(ridesSEXP);
+    Rcpp::traits::input_parameter< NumericVector& >::type rides(ridesSEXP);
     rcpp_result_gen = Rcpp::wrap(E_cum(rides));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
@@ -82,11 +77,11 @@ RcppExport SEXP _eddington_E_cum(SEXP ridesSEXP) {
     return rcpp_result_gen;
 }
 // E_next
-List E_next(const IntegerVector& rides);
+List E_next(NumericVector& rides);
 static SEXP _eddington_E_next_try(SEXP ridesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< const IntegerVector& >::type rides(ridesSEXP);
+    Rcpp::traits::input_parameter< NumericVector& >::type rides(ridesSEXP);
     rcpp_result_gen = Rcpp::wrap(E_next(rides));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
@@ -115,61 +110,14 @@ RcppExport SEXP _eddington_E_next(SEXP ridesSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// initialize_hashmap
-XPtr<std::unordered_map<int, int>> initialize_hashmap();
-RcppExport SEXP _eddington_initialize_hashmap() {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(initialize_hashmap());
-    return rcpp_result_gen;
-END_RCPP
-}
-// update_
-List update_(const IntegerVector& rides, int running, int above, XPtr<std::unordered_map<int, int>> hashmap);
-RcppExport SEXP _eddington_update_(SEXP ridesSEXP, SEXP runningSEXP, SEXP aboveSEXP, SEXP hashmapSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const IntegerVector& >::type rides(ridesSEXP);
-    Rcpp::traits::input_parameter< int >::type running(runningSEXP);
-    Rcpp::traits::input_parameter< int >::type above(aboveSEXP);
-    Rcpp::traits::input_parameter< XPtr<std::unordered_map<int, int>> >::type hashmap(hashmapSEXP);
-    rcpp_result_gen = Rcpp::wrap(update_(rides, running, above, hashmap));
-    return rcpp_result_gen;
-END_RCPP
-}
-// get_number_to_target
-int get_number_to_target(int target, XPtr<std::unordered_map<int, int>> hashmap);
-RcppExport SEXP _eddington_get_number_to_target(SEXP targetSEXP, SEXP hashmapSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type target(targetSEXP);
-    Rcpp::traits::input_parameter< XPtr<std::unordered_map<int, int>> >::type hashmap(hashmapSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_number_to_target(target, hashmap));
-    return rcpp_result_gen;
-END_RCPP
-}
-// get_hashmap
-DataFrame get_hashmap(XPtr<std::unordered_map<int, int>> hashmap);
-RcppExport SEXP _eddington_get_hashmap(SEXP hashmapSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtr<std::unordered_map<int, int>> >::type hashmap(hashmapSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_hashmap(hashmap));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 // validate (ensure exported C++ functions exist before calling them)
 static int _eddington_RcppExport_validate(const char* sig) { 
     static std::set<std::string> signatures;
     if (signatures.empty()) {
-        signatures.insert("int(*E_num)(const IntegerVector&)");
-        signatures.insert("IntegerVector(*E_cum)(const IntegerVector&)");
-        signatures.insert("List(*E_next)(const IntegerVector&)");
+        signatures.insert("int(*E_num)(NumericVector&)");
+        signatures.insert("IntegerVector(*E_cum)(NumericVector&)");
+        signatures.insert("List(*E_next)(NumericVector&)");
     }
     return signatures.find(sig) != signatures.end();
 }
@@ -187,10 +135,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_eddington_E_num", (DL_FUNC) &_eddington_E_num, 1},
     {"_eddington_E_cum", (DL_FUNC) &_eddington_E_cum, 1},
     {"_eddington_E_next", (DL_FUNC) &_eddington_E_next, 1},
-    {"_eddington_initialize_hashmap", (DL_FUNC) &_eddington_initialize_hashmap, 0},
-    {"_eddington_update_", (DL_FUNC) &_eddington_update_, 4},
-    {"_eddington_get_number_to_target", (DL_FUNC) &_eddington_get_number_to_target, 2},
-    {"_eddington_get_hashmap", (DL_FUNC) &_eddington_get_hashmap, 1},
     {"_eddington_RcppExport_registerCCallable", (DL_FUNC) &_eddington_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}
 };

@@ -24,11 +24,11 @@ namespace eddington {
         }
     }
 
-    inline int E_num(const IntegerVector& rides) {
+    inline int E_num(NumericVector& rides) {
         typedef SEXP(*Ptr_E_num)(SEXP);
         static Ptr_E_num p_E_num = NULL;
         if (p_E_num == NULL) {
-            validateSignature("int(*E_num)(const IntegerVector&)");
+            validateSignature("int(*E_num)(NumericVector&)");
             p_E_num = (Ptr_E_num)R_GetCCallable("eddington", "_eddington_E_num");
         }
         RObject rcpp_result_gen;
@@ -45,11 +45,11 @@ namespace eddington {
         return Rcpp::as<int >(rcpp_result_gen);
     }
 
-    inline IntegerVector E_cum(const IntegerVector& rides) {
+    inline IntegerVector E_cum(NumericVector& rides) {
         typedef SEXP(*Ptr_E_cum)(SEXP);
         static Ptr_E_cum p_E_cum = NULL;
         if (p_E_cum == NULL) {
-            validateSignature("IntegerVector(*E_cum)(const IntegerVector&)");
+            validateSignature("IntegerVector(*E_cum)(NumericVector&)");
             p_E_cum = (Ptr_E_cum)R_GetCCallable("eddington", "_eddington_E_cum");
         }
         RObject rcpp_result_gen;
@@ -66,11 +66,11 @@ namespace eddington {
         return Rcpp::as<IntegerVector >(rcpp_result_gen);
     }
 
-    inline List E_next(const IntegerVector& rides) {
+    inline List E_next(NumericVector& rides) {
         typedef SEXP(*Ptr_E_next)(SEXP);
         static Ptr_E_next p_E_next = NULL;
         if (p_E_next == NULL) {
-            validateSignature("List(*E_next)(const IntegerVector&)");
+            validateSignature("List(*E_next)(NumericVector&)");
             p_E_next = (Ptr_E_next)R_GetCCallable("eddington", "_eddington_E_next");
         }
         RObject rcpp_result_gen;
