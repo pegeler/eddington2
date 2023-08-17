@@ -24,8 +24,8 @@ Rcpp::DataFrame Eddington::getHashmapAsDataframe() {
     lengths.push_back(it->first);
     counts.push_back(it->second);
   }
-  return Rcpp::DataFrame::create(Rcpp::Named("lengths") = lengths,
-                                 Rcpp::Named("counts") = counts);
+  return Rcpp::DataFrame::create(Rcpp::Named("length") = lengths,
+                                 Rcpp::Named("count") = counts);
 }
 
 int Eddington::getNumberToNext() { return m_eddington_number + 1 - m_n_above; }

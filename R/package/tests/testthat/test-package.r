@@ -37,7 +37,7 @@ test_that("E_req works",{
 
 context("Testing R6 class")
 
-test_that("Eddington class works",{ # WIP
+test_that("Eddington class works",{
 
   e <- Eddington$new(simdata)
 
@@ -48,7 +48,7 @@ test_that("Eddington class works",{ # WIP
   expect_equal(e$cumulative, E_cum(simdata))
 
   # Number to next and target
-  expect_equal(e$getNumberToNext, E_next(simdata)$req)
+  expect_equal(e$number_to_next, E_next(simdata)$req)
   expect_equal(e$getNumberToTarget(27), E_req(simdata, 27))
 
   # satisfied
@@ -68,6 +68,48 @@ test_that("Eddington class works",{ # WIP
 
   # clone is disabled
   expect_false(exists("clone", envir = e))
+
+  # update
+  e <- Eddington$new(simdata)
+  e$update(rep(25, 10))
+  expect_equal(e$cumulative, E_cum(c(simdata, rep(25, 10))))
+
+})
+
+
+context("Testing Rcpp Module class")
+
+test_that("EddingtonModule class works",{
+
+  # constuctors
+  e <- EddingtonModule$new()
+
+  e <- EddingtonModule$new(TRUE)
+  e$update(1:3)
+  expect_true(!is.null(e$cumulative))
+
+  e <- EddingtonModule$new(FALSE)
+  e$update(1:3)
+  expect_true(is.null(e$cumulative))
+
+  e <- EddingtonModule$new(simdata, store_cumulative = TRUE)
+
+  # current
+  expect_equal(e$current, E_ref)
+
+  # cumulative
+  expect_equal(e$cumulative, E_cum(simdata))
+
+  # Number to next and target
+  expect_equal(e$getNumberToNext(), E_next(simdata)$req)
+  expect_equal(e$getNumberToTarget(27), E_req(simdata, 27))
+
+  # Get hashmap
+  hashmap <- e$hashmap
+  expect_s3_class(e$hashmap, "data.frame")
+  expect_true(all(hashmap[["length"]] > e$current))
+  expect_true(all(names(hashmap) == c("length", "count")))
+  expect_true(nrow(hashmap) > 0)
 
   # update
   e <- Eddington$new(simdata)

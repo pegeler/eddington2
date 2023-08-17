@@ -111,7 +111,7 @@ Eddington <- R6::R6Class(
       if (target <= private$.running)
         return(0L)
       if (target == private$.running + 1L)
-        return(self$getNumberToNext)
+        return(self$number_to_next)
       n_above <- 0L
       maphash(
         private$.hashmap,
@@ -144,9 +144,9 @@ Eddington <- R6::R6Class(
       private$.cumulative
     },
 
-    #' @field getNumberToNext The number of rides needed to get to the next
+    #' @field number_to_next The number of rides needed to get to the next
     #'  Eddington number.
-    getNumberToNext = function(value) {
+    number_to_next = function(value) {
       if (!missing(value))
         stop("Data member is read only.", call. = FALSE)
       private$.running + 1L - private$.above

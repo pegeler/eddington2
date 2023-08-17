@@ -48,7 +48,7 @@ e$cumulative
 
 \item{\code{cumulative}}{A vector of cumulative Eddington numbers.}
 
-\item{\code{getNumberToNext}}{The number of rides needed to get to the next
+\item{\code{number_to_next}}{The number of rides needed to get to the next
 Eddington number.}
 
 \item{\code{n}}{The number of rides in the data.}
