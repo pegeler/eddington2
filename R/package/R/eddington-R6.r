@@ -85,8 +85,8 @@ Eddington <- R6::R6Class(
 
           if (private$.above > private$.running) {
             private$.running <- private$.running + 1L;
-            n_at_ride <- private$.hashmap[[private$.running, 0L]]
-            private$.above <- private$.above - n_at_ride
+            n_at_dist <- private$.hashmap[[private$.running, 0L]]
+            private$.above <- private$.above - n_at_dist
             remhash(private$.hashmap, private$.running);
           }
         }

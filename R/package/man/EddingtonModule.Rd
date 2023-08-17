@@ -3,14 +3,47 @@
 \name{EddingtonModule}
 \alias{EddingtonModule}
 \title{An Rcpp Module for Tracking Eddington Numbers for Cycling}
-\description{
-An Rcpp Module for Tracking Eddington Numbers for Cycling
+\arguments{
+\item{rides}{An optional vector of values used to initialize the class.}
+
+\item{store_cumulative}{Whether to store a vector of the cumulative Eddington
+number, as accessed from the `cumulative` property.}
 }
+\description{
+A stateful C++ object for computing Eddington numbers.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{current}}{The current Eddington number.}
+
+\item{\code{cumulative}}{A vector of Eddington numbers or `NULL` if `store_cumulative`
+is `FALSE`.}
+
+\item{\code{hashmap}}{A `data.frame` containing the distances and counts above the
+current Eddington number.}
+
+\item{\code{update}}{Update the class state with new data.}
+
+\item{\code{getNumberToNext}}{Get the number of additional distances required to
+reach the next Eddington number.}
+
+\item{\code{getNumberToTarget}}{Get the number of additional distances required to
+reach a target Eddington number.}
+}}
+
 \examples{
-e <- new(EddingtonModule, c(3, 3, 2))
+# Create a class instance with some initial data
+e <- EddingtonModule$new(c(3, 3, 2), store_cumulative = TRUE)
 e$current
 
+# Update with new data and look at the vector of cumulative Eddington numbers.
 e$update(c(3, 3, 5))
 e$cumulative
+
+# Get the number of rides required to reach the next Eddington number and
+# an Eddington number of 4.
+e$getNumberToNext()
+e$getNumberToTarget(4)
 
 }
