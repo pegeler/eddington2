@@ -70,7 +70,7 @@ Eddington <- R6::R6Class(
     #' Add new rides to the existing `Eddington` object.
     #' @param rides A vector of rides
     update = function(rides) {
-        private$.n = private$.n + length(rides)
+        private$.n <- private$.n + length(rides)
         rides <- as.integer(rides)
         if (!is.null(private$.cumulative)) {
           cumulative <- integer(length(rides))
@@ -92,7 +92,7 @@ Eddington <- R6::R6Class(
         }
 
         if (!is.null(private$.cumulative)) {
-          cumulative[i] = private$.running
+          cumulative[i] <- private$.running
         }
       }
       if (!is.null(private$.cumulative)) {
@@ -171,7 +171,7 @@ Eddington <- R6::R6Class(
         private$.hashmap,
         \(k, v) {
           lengths[i] <<- k
-          counts[[i]] <<- v
+          counts[i] <<- v
           i <<- i + 1L
         }
       )
