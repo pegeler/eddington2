@@ -1,48 +1,5 @@
-// [[Rcpp::interfaces(r, cpp)]]
+#include "EddingtonClass.h"
 #include <Rcpp.h>
-#include <optional>
-#include <unordered_map>
-#include <vector>
-
-using namespace Rcpp;
-
-// [[Rcpp::plugins(cpp17)]]
-
-
-struct EddingtonResult {
-  int eddington_number = 0;
-  int n_above = 0;
-  std::optional<std::vector<int>> cumulative;
-};
-
-
-EddingtonResult compute_eddington_number(
-    const IntegerVector& rides, bool store_cumulative = false) {
-  EddingtonResult e;
-  std::unordered_map<int, int> dist_table(150);
-
-  if (store_cumulative) {
-    e.cumulative = std::vector<int>();
-    e.cumulative->reserve(rides.size());
-  }
-
-  for (auto ride : rides) {
-    if (ride > e.eddington_number) {
-      e.n_above++;
-      dist_table[ride]++;
-      if (e.n_above > e.eddington_number) {
-        e.n_above -= dist_table[++e.eddington_number];
-        dist_table.erase(e.eddington_number);
-      }
-    }
-    if (store_cumulative) {
-      e.cumulative->push_back(e.eddington_number);
-    }
-  }
-
-  return e;
-}
-
 
 //' Get the Eddington number for cycling
 //'
@@ -82,11 +39,10 @@ EddingtonResult compute_eddington_number(
 //' E_num(rides)
 //' @export
 // [[Rcpp::export]]
-int E_num(const IntegerVector& rides) {
-  auto e = compute_eddington_number(rides, false);
-  return e.eddington_number;
+int E_num(const Rcpp::IntegerVector &rides) {
+  auto e = Eddington(rides, false);
+  return e.getEddingtonNumber();
 }
-
 
 //' Calculate the cumulative Eddington number
 //'
@@ -100,11 +56,10 @@ int E_num(const IntegerVector& rides) {
 //' @return An integer vector the same length as \code{rides}.
 //' @export
 // [[Rcpp::export]]
-IntegerVector E_cum(const IntegerVector& rides) {
-  auto e = compute_eddington_number(rides, true);
-  return wrap(*e.cumulative);
+Rcpp::IntegerVector E_cum(const Rcpp::IntegerVector &rides) {
+  auto e = Eddington(rides, true);
+  return static_cast<Rcpp::IntegerVector>(e.getCumulativeEddingtonNumber());
 }
-
 
 //' Get the number of rides required to increment to the next Eddington number
 //'
@@ -117,18 +72,14 @@ IntegerVector E_cum(const IntegerVector& rides) {
 //'   number of rides required to increment by one (\code{req}).
 //' @export
 // [[Rcpp::export]]
-List E_next(const IntegerVector& rides) {
-  auto e = compute_eddington_number(rides, false);
-  List out = List::create(
-    _["E"] = e.eddington_number,
-    _["req"] = e.eddington_number + 1 - e.n_above
-  );
+Rcpp::List E_next(const Rcpp::IntegerVector &rides) {
+  auto e = Eddington(rides, false);
+  Rcpp::List out = Rcpp::List::create(Rcpp::Named("E") = e.getEddingtonNumber(),
+                                      Rcpp::Named("req") = e.getNumberToNext());
 
   out.attr("class") = "E_next";
-
   return out;
 }
-
 
 /*** R
 E_num(c(2.2, 1.1, 3.3))

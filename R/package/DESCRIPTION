@@ -1,6 +1,6 @@
 Package: eddington
 Title: Compute a Cyclist's Eddington Number
-Version: 3.1.0
+Version: 4.0.0
 Authors@R: c(
     person('Paul', 'Egeler', email = 'paulegeler@gmail.com', role = c('aut','cre')),
     person('Tashi', 'Reigle', role = 'ctb'))
@@ -24,7 +24,8 @@ LinkingTo:
     Rcpp
 Imports: 
     Rcpp,
-    R6
+    R6,
+    methods
 Suggests: 
     testthat,
     knitr,
@@ -34,4 +35,3 @@ VignetteBuilder: knitr
 RoxygenNote: 7.2.3
 URL: https://github.com/pegeler/eddington2
 BugReports: https://github.com/pegeler/eddington2/issues
-SystemRequirements: C++17

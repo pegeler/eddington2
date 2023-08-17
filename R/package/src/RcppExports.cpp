@@ -14,106 +14,37 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // E_num
-int E_num(const IntegerVector& rides);
-static SEXP _eddington_E_num_try(SEXP ridesSEXP) {
+int E_num(const Rcpp::IntegerVector& rides);
+RcppExport SEXP _eddington_E_num(SEXP ridesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< const IntegerVector& >::type rides(ridesSEXP);
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type rides(ridesSEXP);
     rcpp_result_gen = Rcpp::wrap(E_num(rides));
     return rcpp_result_gen;
-END_RCPP_RETURN_ERROR
-}
-RcppExport SEXP _eddington_E_num(SEXP ridesSEXP) {
-    SEXP rcpp_result_gen;
-    {
-        Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_eddington_E_num_try(ridesSEXP));
-    }
-    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
-    if (rcpp_isInterrupt_gen) {
-        UNPROTECT(1);
-        Rf_onintr();
-    }
-    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
-    if (rcpp_isLongjump_gen) {
-        Rcpp::internal::resumeJump(rcpp_result_gen);
-    }
-    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
-    if (rcpp_isError_gen) {
-        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
-        UNPROTECT(1);
-        Rf_error(CHAR(rcpp_msgSEXP_gen));
-    }
-    UNPROTECT(1);
-    return rcpp_result_gen;
+END_RCPP
 }
 // E_cum
-IntegerVector E_cum(const IntegerVector& rides);
-static SEXP _eddington_E_cum_try(SEXP ridesSEXP) {
+Rcpp::IntegerVector E_cum(const Rcpp::IntegerVector& rides);
+RcppExport SEXP _eddington_E_cum(SEXP ridesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< const IntegerVector& >::type rides(ridesSEXP);
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type rides(ridesSEXP);
     rcpp_result_gen = Rcpp::wrap(E_cum(rides));
     return rcpp_result_gen;
-END_RCPP_RETURN_ERROR
-}
-RcppExport SEXP _eddington_E_cum(SEXP ridesSEXP) {
-    SEXP rcpp_result_gen;
-    {
-        Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_eddington_E_cum_try(ridesSEXP));
-    }
-    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
-    if (rcpp_isInterrupt_gen) {
-        UNPROTECT(1);
-        Rf_onintr();
-    }
-    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
-    if (rcpp_isLongjump_gen) {
-        Rcpp::internal::resumeJump(rcpp_result_gen);
-    }
-    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
-    if (rcpp_isError_gen) {
-        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
-        UNPROTECT(1);
-        Rf_error(CHAR(rcpp_msgSEXP_gen));
-    }
-    UNPROTECT(1);
-    return rcpp_result_gen;
+END_RCPP
 }
 // E_next
-List E_next(const IntegerVector& rides);
-static SEXP _eddington_E_next_try(SEXP ridesSEXP) {
+Rcpp::List E_next(const Rcpp::IntegerVector& rides);
+RcppExport SEXP _eddington_E_next(SEXP ridesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< const IntegerVector& >::type rides(ridesSEXP);
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type rides(ridesSEXP);
     rcpp_result_gen = Rcpp::wrap(E_next(rides));
     return rcpp_result_gen;
-END_RCPP_RETURN_ERROR
-}
-RcppExport SEXP _eddington_E_next(SEXP ridesSEXP) {
-    SEXP rcpp_result_gen;
-    {
-        Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_eddington_E_next_try(ridesSEXP));
-    }
-    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
-    if (rcpp_isInterrupt_gen) {
-        UNPROTECT(1);
-        Rf_onintr();
-    }
-    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
-    if (rcpp_isLongjump_gen) {
-        Rcpp::internal::resumeJump(rcpp_result_gen);
-    }
-    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
-    if (rcpp_isError_gen) {
-        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
-        UNPROTECT(1);
-        Rf_error(CHAR(rcpp_msgSEXP_gen));
-    }
-    UNPROTECT(1);
-    return rcpp_result_gen;
+END_RCPP
 }
 // initialize_hashmap
 XPtr<std::unordered_map<int, int>> initialize_hashmap();
@@ -167,21 +98,17 @@ END_RCPP
 static int _eddington_RcppExport_validate(const char* sig) { 
     static std::set<std::string> signatures;
     if (signatures.empty()) {
-        signatures.insert("int(*E_num)(const IntegerVector&)");
-        signatures.insert("IntegerVector(*E_cum)(const IntegerVector&)");
-        signatures.insert("List(*E_next)(const IntegerVector&)");
     }
     return signatures.find(sig) != signatures.end();
 }
 
 // registerCCallable (register entry points for exported C++ functions)
 RcppExport SEXP _eddington_RcppExport_registerCCallable() { 
-    R_RegisterCCallable("eddington", "_eddington_E_num", (DL_FUNC)_eddington_E_num_try);
-    R_RegisterCCallable("eddington", "_eddington_E_cum", (DL_FUNC)_eddington_E_cum_try);
-    R_RegisterCCallable("eddington", "_eddington_E_next", (DL_FUNC)_eddington_E_next_try);
     R_RegisterCCallable("eddington", "_eddington_RcppExport_validate", (DL_FUNC)_eddington_RcppExport_validate);
     return R_NilValue;
 }
+
+RcppExport SEXP _rcpp_module_boot_eddington_mod();
 
 static const R_CallMethodDef CallEntries[] = {
     {"_eddington_E_num", (DL_FUNC) &_eddington_E_num, 1},
@@ -191,6 +118,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_eddington_update_", (DL_FUNC) &_eddington_update_, 4},
     {"_eddington_get_number_to_target", (DL_FUNC) &_eddington_get_number_to_target, 2},
     {"_eddington_get_hashmap", (DL_FUNC) &_eddington_get_hashmap, 1},
+    {"_rcpp_module_boot_eddington_mod", (DL_FUNC) &_rcpp_module_boot_eddington_mod, 0},
     {"_eddington_RcppExport_registerCCallable", (DL_FUNC) &_eddington_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}
 };

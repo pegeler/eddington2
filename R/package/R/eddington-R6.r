@@ -34,6 +34,7 @@
 #'
 #' # See the new data
 #' e$cumulative
+#' @importFrom R6 R6Class
 #' @export
 Eddington <- R6::R6Class(
   "Eddington",
