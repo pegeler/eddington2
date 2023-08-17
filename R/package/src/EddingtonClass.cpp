@@ -31,14 +31,17 @@ Rcpp::DataFrame Eddington::getHashmapAsDataframe() {
 int Eddington::getNumberToNext() { return m_eddington_number + 1 - m_n_above; }
 
 int Eddington::getNumberToTarget(int target) {
+  if (target == m_eddington_number + 1) {
+    // Early exit for trivial case.
+    return getNumberToNext();
+  }
+
   int completed_rides = 0;
   for (auto it = m_hashmap.begin(); it != m_hashmap.end(); ++it)
     if (it->first >= target)
       completed_rides += it->second;
   return target - completed_rides;
 }
-
-bool Eddington::isSatisfied(int target) { return target >= m_eddington_number; }
 
 void Eddington::update(const Rcpp::IntegerVector &rides) {
   for (auto ride : rides) {

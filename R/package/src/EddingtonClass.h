@@ -18,7 +18,6 @@ public:
   // Member functions
   int getNumberToNext();
   int getNumberToTarget(int target);
-  bool isSatisfied(int target);
   void update(const Rcpp::IntegerVector &rides);
 
 private:

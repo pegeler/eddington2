@@ -7,7 +7,7 @@
 An Rcpp Module for Tracking Eddington Numbers for Cycling
 }
 \examples{
-e <- new(Eddington, c(3, 3, 2))
+e <- new(EddingtonModule, c(3, 3, 2))
 e$current
 
 e$update(c(3, 3, 5))

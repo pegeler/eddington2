@@ -12,7 +12,6 @@ RCPP_MODULE(eddington_mod) {
 
   .method("getNumberToNext", &Eddington::getNumberToNext)
   .method("getNumberToTarget", &Eddington::getNumberToTarget)
-  .method("isSatisfied", &Eddington::isSatisfied)
   .method("update", &Eddington::update)
 
   .property("current", &Eddington::getEddingtonNumber)

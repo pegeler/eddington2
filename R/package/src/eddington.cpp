@@ -58,7 +58,7 @@ int E_num(const Rcpp::IntegerVector &rides) {
 // [[Rcpp::export]]
 Rcpp::IntegerVector E_cum(const Rcpp::IntegerVector &rides) {
   auto e = Eddington(rides, true);
-  return static_cast<Rcpp::IntegerVector>(e.getCumulativeEddingtonNumber());
+  return e.getCumulativeEddingtonNumber().get();
 }
 
 //' Get the number of rides required to increment to the next Eddington number

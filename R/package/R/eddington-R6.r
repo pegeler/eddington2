@@ -53,34 +53,53 @@ Eddington <- R6::R6Class(
     #'   cumulative Eddington numbers
     #' @return A new `Eddington` object
     initialize = function(rides, keep.cumulative = TRUE) {
-      private$.hashmap <- initialize_hashmap()
-      if ( !keep.cumulative ) {
+      if (!keep.cumulative)
         private$.cumulative <- NULL
-      }
-      if ( !missing(rides) ) {
+      if (!missing(rides))
         self$update(rides)
-      }
-      },
+    },
 
     #' @description
     #' Print the current Eddington number.
     print = function() {
       cat("Current Eddington Number is:", private$.running, "\n")
       invisible(self)
-      },
+    },
 
     #' @description
     #' Add new rides to the existing `Eddington` object.
     #' @param rides A vector of rides
     update = function(rides) {
-      result <- update_(rides, private$.running, private$.above, private$.hashmap)
-      private$.n            <- private$.n + length(rides)
-      private$.running      <- result[["running"]]
-      private$.above        <- result[["above"]]
-      if ( !is.null(private$.cumulative) )
-        private$.cumulative <- c(private$.cumulative, result[["cumulative"]])
+        private$.n = private$.n + length(rides)
+        rides <- as.integer(rides)
+        if (!is.null(private$.cumulative)) {
+          cumulative <- integer(length(rides))
+        }
+
+        for (i in seq_along(rides)) {
+          ride <- rides[i]
+
+          if (ride > private$.running) {
+            private$.above <- private$.above + 1L
+            private$.incrementHashmap(ride)
+
+          if (private$.above > private$.running) {
+            private$.running <- private$.running + 1L;
+            n_at_ride <- private$.hashmap[[private$.running, 0L]]
+            private$.above <- private$.above - n_at_ride
+            remhash(private$.hashmap, private$.running);
+          }
+        }
+
+        if (!is.null(private$.cumulative)) {
+          cumulative[i] = private$.running
+        }
+      }
+      if (!is.null(private$.cumulative)) {
+        private$.cumulative <- c(private$.cumulative, cumulative)
+      }
       invisible(self)
-      },
+    },
 
     #' @description
     #' Get the number of rides of a specified length to get to a target
@@ -88,72 +107,77 @@ Eddington <- R6::R6Class(
     #' @param target Target Eddington number
     #' @return An integer representing the number of rides of target length
     #'   needed to achieve the target number.
-    numberToTarget = function(target) {
-      if ( target <= private$.running ) {
+    getNumberToTarget = function(target) {
+      if (target <= private$.running)
         return(0L)
-      } else if ( target == private$.running + 1L ) {
-        return(self$numberToNext)
-      } else {
-        get_number_to_target(target, private$.hashmap)
-      }
-      },
+      if (target == private$.running + 1L)
+        return(self$getNumberToNext)
+      n_above <- 0L
+      maphash(
+        private$.hashmap,
+        \(k, v) if (k >= target) n_above <<- n_above + v
+      )
+      target - n_above
+    },
 
     #' @description
     #' Test if an Eddington number is satisfied.
     #' @param target Target Eddington number
     #' @return Logical
-    satisfied = function(target) { private$.running >= target }
+    isSatisfied = function(target) private$.running >= target
   ),
 
   active = list(
     #' @field current The current Eddington number.
     current = function(value) {
-      if ( missing(value) ) {
-        return(private$.running)
-      } else  {
+      if (!missing(value))
         stop("Data member is read only.", call. = FALSE)
-      }
+      private$.running
     },
 
     #' @field cumulative A vector of cumulative Eddington numbers.
     cumulative = function(value) {
-      if ( is.null(private$.cumulative) ) {
+      if (is.null(private$.cumulative))
         stop("Cumulative Eddington Number is not being tracked", call. = FALSE)
-      } else if ( missing(value) ) {
-        return(private$.cumulative)
-      } else  {
+      if (!missing(value))
         stop("Data member is read only.", call. = FALSE)
-      }
+      private$.cumulative
     },
 
-    #' @field numberToNext The number of rides needed to get to the next Eddington number.
-    numberToNext = function(value) {
-      if ( missing(value) ) {
-        return(private$.running + 1L - private$.above)
-      } else  {
+    #' @field getNumberToNext The number of rides needed to get to the next
+    #'  Eddington number.
+    getNumberToNext = function(value) {
+      if (!missing(value))
         stop("Data member is read only.", call. = FALSE)
-      }
+      private$.running + 1L - private$.above
     },
 
     #' @field n The number of rides in the data.
     n = function(value) {
-      if ( missing(value) ) {
-        return(private$.n )
-      } else  {
+      if (!missing(value))
         stop("Data member is read only.", call. = FALSE)
-      }
+      private$.n
     },
 
     #' @field hashmap The hash map of rides above the current Eddington number.
     hashmap = function(value) {
-      if ( missing(value) ) {
-        h <- get_hashmap(private$.hashmap)
-        h <- h[order(h$lengths),]
-        row.names(h) <- NULL
-        return(h)
-      } else  {
+      if (!missing(value))
         stop("Data member is read only.", call. = FALSE)
-      }
+      nkeys <- numhash(private$.hashmap)
+      i <- 1L
+      lengths <- integer(nkeys)
+      counts <- integer(nkeys)
+      maphash(
+        private$.hashmap,
+        \(k, v) {
+          lengths[i] <<- k
+          counts[[i]] <<- v
+          i <<- i + 1L
+        }
+      )
+      h <- data.frame("length" = lengths, "count" = counts)
+      h <- h[order(h$length),]
+      h
     }
   ),
 
@@ -162,6 +186,11 @@ Eddington <- R6::R6Class(
     .above = 0L,
     .n = 0L,
     .cumulative = integer(0L),
-    .hashmap = NULL
+    .hashmap = hashtab(size = 150L),
+
+    .incrementHashmap = function(ride) {
+      old <- private$.hashmap[[ride, 0L]]
+      private$.hashmap[[ride]] <- old + 1L
+    }
   )
 )

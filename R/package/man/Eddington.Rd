@@ -48,7 +48,8 @@ e$cumulative
 
 \item{\code{cumulative}}{A vector of cumulative Eddington numbers.}
 
-\item{\code{numberToNext}}{The number of rides needed to get to the next Eddington number.}
+\item{\code{getNumberToNext}}{The number of rides needed to get to the next
+Eddington number.}
 
 \item{\code{n}}{The number of rides in the data.}
 
@@ -62,8 +63,8 @@ e$cumulative
 \item \href{#method-Eddington-new}{\code{Eddington$new()}}
 \item \href{#method-Eddington-print}{\code{Eddington$print()}}
 \item \href{#method-Eddington-update}{\code{Eddington$update()}}
-\item \href{#method-Eddington-numberToTarget}{\code{Eddington$numberToTarget()}}
-\item \href{#method-Eddington-satisfied}{\code{Eddington$satisfied()}}
+\item \href{#method-Eddington-getNumberToTarget}{\code{Eddington$getNumberToTarget()}}
+\item \href{#method-Eddington-isSatisfied}{\code{Eddington$isSatisfied()}}
 }
 }
 \if{html}{\out{<hr>}}
@@ -117,13 +118,13 @@ Add new rides to the existing `Eddington` object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Eddington-numberToTarget"></a>}}
-\if{latex}{\out{\hypertarget{method-Eddington-numberToTarget}{}}}
-\subsection{Method \code{numberToTarget()}}{
+\if{html}{\out{<a id="method-Eddington-getNumberToTarget"></a>}}
+\if{latex}{\out{\hypertarget{method-Eddington-getNumberToTarget}{}}}
+\subsection{Method \code{getNumberToTarget()}}{
 Get the number of rides of a specified length to get to a target
 Eddington number.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Eddington$numberToTarget(target)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Eddington$getNumberToTarget(target)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -139,12 +140,12 @@ An integer representing the number of rides of target length
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Eddington-satisfied"></a>}}
-\if{latex}{\out{\hypertarget{method-Eddington-satisfied}{}}}
-\subsection{Method \code{satisfied()}}{
+\if{html}{\out{<a id="method-Eddington-isSatisfied"></a>}}
+\if{latex}{\out{\hypertarget{method-Eddington-isSatisfied}{}}}
+\subsection{Method \code{isSatisfied()}}{
 Test if an Eddington number is satisfied.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Eddington$satisfied(target)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Eddington$isSatisfied(target)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
