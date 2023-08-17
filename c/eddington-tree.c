@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
+#include "tree.h"
 
 #define MAX_LEN 1000
 
@@ -20,11 +21,8 @@ int main(int argc, char *argv[])
 {
 
   char line[MAX_LEN];
-  int len = 10;
-  int n, c, opt;
-  int *r = calloc(len, sizeof(int));
-
-  n = c = opt = 0;
+  int E, above, r, c, opt;
+  E = above = r = c = opt = 0;
 
   struct option long_options[] = {
     {"help",       no_argument, NULL, 'h'},
@@ -45,27 +43,13 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-  // Read in file
+
   while (fgets(line, MAX_LEN, stdin) != NULL) {
-    if (n >= len) {
-      len *= 2;
-      r = realloc(r, len * sizeof(int));
-    }
-    r[n++] = atoi(line);
-  }
-
-  r = realloc(r, n * sizeof(int));
-
-  // Initialize histogram
-  int *h = calloc(n + 1, sizeof(int));
-
-  // Run the algorithm
-  int E = 0;
-  for (int i=0, above=0; i < n; i++) {
-    if (r[i] > E) {
+    r = atoi(line);
+    if (r > E) {
       above++;
-      if (r[i] < n) h[r[i]]++;
-      if (above > E) above -= h[++E];
+      ins(r);
+      if (above > E) above -= pop(++E);
     }
 
     if (c) /* Cumulative print */

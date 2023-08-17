@@ -1,132 +1,170 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Compute the Eddington number for cycling"""
-from __future__ import print_function
-from collections import Counter
+"""
+Tools to compute the Eddington number for cycling.
+
+Can compute both summary Eddington number and a vector of cumulative
+statistics in linear asymptotic time, with relatively low memory overhead.
+The `E_cum` function uses a variant of the algorithm that is a "streaming"
+algorithm, which can track the cumulative Eddington number over inputs of
+unknown size.
+"""
+import argparse
+import sys
+
+from collections import defaultdict
+from collections.abc import Iterable
+from collections.abc import Iterator
+from typing import Optional
 
 
 class Eddington:
-    """A class for tracking Eddington Number for Cycling"""
+    """
+    A class for tracking Eddington Number for cycling.
 
-    def __init__(self, rides=None):
-        self.above = 0
+    :ivar int current: The current Eddington number.
+    :ivar list[int] cumulative: A list of Eddington numbers. Each element
+            represents the Eddington number for the dataset up to that point.
+    """
+
+    def __init__(self, distances: Optional[Iterable[float]] = None):
         self.current = 0
         self.cumulative = []
-        self.H = Counter()
-        if rides:
-            self.update(rides)
+        self._above = 0
+        self._dist_table = defaultdict(int)
+        if distances is not None:
+            self.update(distances)
 
-    def update(self, rides):
-        for r in rides:
-            ride = int(r)
+    def update(self, distances: Iterable[float]):
+        """
+        Update the current and cumulative Eddington number statistics with
+        new data.
+        """
+        for dist in map(int, distances):
+            if dist > self.current:
+                self._above += 1
+                self._dist_table[dist] += 1
 
-            if ride > self.current:
-                self.above += 1
-                self.H[ride] += 1
-
-                if self.above > self.current:
+                if self._above > self.current:
                     self.current += 1
-                    self.above -= self.H.pop(self.current, 0)
+                    self._above -= self._dist_table.pop(self.current, 0)
 
             self.cumulative.append(self.current)
 
-    def next(self):
-        return self.current + 1 - self.above
+    def next(self) -> int:
+        """
+        Report how many distances must be accumulated above the current
+        Eddington number to advance to the next number.
+        """
+        return self.current + 1 - self._above
 
-    def required(self, target):
-        if self.current >= target:
+    def required(self, target: int) -> int:
+        """
+        Report how many distances must be accumulated at or above the `target`
+        Eddington number to achieve that number, given the current state.
+        """
+        if target <= self.current:
             return 0
-        else:
-            return target - sum(v for k, v in self.H.items() if k >= target)
+        if target == self.current + 1:
+            return self.next()
+        above = sum(v for k, v in self._dist_table.items() if k >= target)
+        return target - above
 
 
-def E_num(rides):
-    """Eddington Number for Cycling
-
-    :param rides: A list of mileages for each ride.
-    :type rides: list
-    :rtype: integer
-    :returns: The Eddington number, E, for the data.
+def E_num(distances: list[float]) -> int:
     """
+    Compute the Eddington Number for a dataset.
 
-    n, E, above = len(rides), 0, 0
-    H = Counter()
+    :param distances: A list of distances for each day.
+    :return: The Eddington number, E, for the data.
+    """
+    eddington_number = 0
+    n_above = 0
+    dist_table = defaultdict(int)
 
-    for r in rides:
-        ride = int(r)
+    for dist in map(int, distances):
+        if dist > eddington_number:
+            n_above += 1
 
-        if ride > E:
-            above += 1
+            if dist < len(distances):
+                # Optimization. We don't need to track distances in the
+                # distance table that are greater than the length of the
+                # dataset since the Eddington number can never exceed it.
+                dist_table[dist] += 1
 
-            if ride < n:
-                H[ride] += 1
+            if n_above > eddington_number:
+                eddington_number += 1
+                n_above -= dist_table.pop(eddington_number, 0)
 
-            if above > E:
-                E += 1
-                above -= H.pop(E, 0)
-
-    return E
+    return eddington_number
 
 
-def E_cum(rides):
-    """Cumulative Eddington Number for Cycling
+def E_cum(distances: Iterable[float]) -> Iterator[int]:
+    """
+    Compute the cumulative Eddington Number for cycling.
 
-    :param rides: A list of mileages for each ride.
-    :type rides: list
-    :rtype: list
+    :param Iterable distances: An iterable of distances for each day.
     :returns: The Eddington number, E, for each element in the data.
     """
+    current = 0
+    n_above = 0
+    dist_table = defaultdict(int)
 
-    n = len(rides)
-    running, above = 0, 0
-    E = []
-    H = Counter()
+    for dist in map(int, distances):
+        if dist > current:
+            n_above += 1
+            dist_table[dist] += 1
+            if n_above > current:
+                current += 1
+                n_above -= dist_table.pop(current, 0)
 
-    for r in rides:
-        ride = int(r)
+        yield current
 
-        if ride > running:
-            above += 1
 
-            if ride < n:
-                H[ride] += 1
+def parse_args(argv=None):
+    parser = argparse.ArgumentParser(
+        prog='python3 -m eddington',
+        description='Compute the Eddington number for cycling.')
+    parser.add_argument(
+        'files',
+        nargs='*',
+        help='file(s) containing ride lengths')
+    parser.add_argument(
+        '-c', '--cumulative',
+        action='store_true',
+        help='print the cumulative Eddington number')
 
-            if above > running:
-                running += 1
-                above -= H.pop(running, 0)
+    return parser.parse_args(argv)
 
-        E.append(running)
 
-    return E
+def get_distances_from_files(files):
+    for f in files:
+        with open(f, 'rt') as fh:
+            for line in fh:
+                yield float(line)
+
+
+def get_distances_from_stdin():
+    for line in sys.stdin:
+        if line.strip():
+            yield float(line)
+
+
+def main():
+    args = parse_args()
+
+    if not args.files or args.files == ['-']:
+        distances = get_distances_from_stdin()
+    else:
+        distances = get_distances_from_files(args.files)
+
+    if args.cumulative:
+        print(*E_cum(distances), sep='\n')
+    else:
+        distances = list(distances)
+        eddington_number = E_num(distances)
+        print(eddington_number)
 
 
 if __name__ == '__main__':
-    import argparse
-    from sys import stdin
-    
-    parser = argparse.ArgumentParser(
-                        prog='python3 -m eddington',
-                        description='Compute the Eddington number for cycling.')
-    parser.add_argument('files', nargs='*',
-                        help='file(s) containing ride lengths')
-    parser.add_argument('-c', '--cumulative', action='store_true',
-                        help='print the cumulative Eddington number')
-    
-    args = parser.parse_args()
-    
-    rides = []
-    if args.files:
-        for f in args.files:
-            rides.extend(float(i.strip()) for i in open(f).readlines())
-    else:
-        for line in stdin:
-            ride = line.strip()
-            if ride: 
-                rides.append(float(ride))
-            else: 
-                break
-    
-    if args.cumulative:
-        print(*E_cum(rides), sep = '\n')
-    else:
-        print(E_num(rides))
+    main()

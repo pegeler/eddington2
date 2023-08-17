@@ -3,7 +3,8 @@ from setuptools import setup
 
 
 setup(name='eddington',
-      version='1.0',
+      version='2.0',
+      python_requires='>=3.9',
       author='Paul Egeler',
       description='Compute the Eddington number for cycling',
       url='https://github.com/pegeler/eddington2/',
