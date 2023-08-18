@@ -85,7 +85,8 @@ Eddington <- R6::R6Class(
 
             if (private$.above > private$.running) {
               private$.running <- private$.running + 1L
-              private$.above <- private$.above - private$.hashmap[[private$.running, 0L]]
+              n_above_at_dist <- gethash(private$.hashmap, private$.running, 0L)
+              private$.above <- private$.above - n_above_at_dist
               remhash(private$.hashmap, private$.running);
             }
         }
@@ -175,8 +176,7 @@ Eddington <- R6::R6Class(
         }
       )
       h <- data.frame("length" = lengths, "count" = counts)
-      h <- h[order(h$length),]
-      h
+      h[order(h$length),]
     }
   ),
 
@@ -188,8 +188,8 @@ Eddington <- R6::R6Class(
     .hashmap = NULL,
 
     .incrementHashmap = function(ride) {
-      old <- private$.hashmap[[ride, 0L]]
-      private$.hashmap[[ride]] <- old + 1L
+      old <- gethash(private$.hashmap, ride, 0L)
+      sethash(private$.hashmap, ride, old + 1L)
     }
   )
 )
