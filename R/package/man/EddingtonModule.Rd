@@ -15,6 +15,9 @@ A stateful C++ object for computing Eddington numbers.
 \section{Fields}{
 
 \describe{
+\item{\code{new}}{Constructor. Parameter list may either be empty, `store_cumulative`,
+or `rides` and `store_cumulative`}
+
 \item{\code{current}}{The current Eddington number.}
 
 \item{\code{cumulative}}{A vector of Eddington numbers or `NULL` if `store_cumulative`

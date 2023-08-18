@@ -5,6 +5,8 @@
 #' @param rides An optional vector of values used to initialize the class.
 #' @param store_cumulative Whether to store a vector of the cumulative Eddington
 #'    number, as accessed from the `cumulative` property.
+#' @field new Constructor. Parameter list may either be empty, `store_cumulative`,
+#'    or `rides` and `store_cumulative`
 #' @field current The current Eddington number.
 #' @field cumulative A vector of Eddington numbers or `NULL` if `store_cumulative`
 #'    is `FALSE`.

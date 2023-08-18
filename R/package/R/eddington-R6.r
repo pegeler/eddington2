@@ -10,11 +10,10 @@
 #' and then loaded later using `readRDS` or `load`. Related to this limitation,
 #' cloning of `Eddington` objects is disabled.
 #'
-#' The underlying state is stored as a C++ hash table, which the R session
-#' tracks with an external pointer. When attempting to serialize or clone an
-#' `Eddington` object, the reference can be lost or corrupted, which will result
-#' in undefined behavior. Future versions of this class will address these
-#' problems.
+#' The underlying state is stored as a hash table. When attempting to serialize
+#' or clone an `Eddington` object, the reference can be lost or corrupted, which
+#' will result in undefined behavior. Future versions of this class will address
+#' these problems.
 #'
 #' @examples
 #' # Randomly generate a set of 15 rides
@@ -24,7 +23,7 @@
 #' setNames(sort(rides, decreasing = TRUE), seq_along(rides))
 #'
 #' # Create the Eddington object
-#' e <- Eddington$new(rides)
+#' e <- Eddington$new(rides, store.cumulative = TRUE)
 #'
 #' # Get the Eddington number
 #' e$current
@@ -49,12 +48,13 @@ Eddington <- R6::R6Class(
     #' @description
     #' Create a new Eddington object.
     #' @param rides A vector of rides
-    #' @param keep.cumulative logical, indicating whether to keep a vector of
+    #' @param store.cumulative logical, indicating whether to keep a vector of
     #'   cumulative Eddington numbers
     #' @return A new `Eddington` object
-    initialize = function(rides, keep.cumulative = TRUE) {
-      if (!keep.cumulative)
-        private$.cumulative <- NULL
+    initialize = function(rides, store.cumulative = FALSE) {
+      private$.hashmap <- hashtab(size = 150L)
+      if (store.cumulative)
+        private$.cumulative <- integer(0L)
       if (!missing(rides))
         self$update(rides)
     },
@@ -83,12 +83,11 @@ Eddington <- R6::R6Class(
             private$.above <- private$.above + 1L
             private$.incrementHashmap(ride)
 
-          if (private$.above > private$.running) {
-            private$.running <- private$.running + 1L;
-            n_at_dist <- private$.hashmap[[private$.running, 0L]]
-            private$.above <- private$.above - n_at_dist
-            remhash(private$.hashmap, private$.running);
-          }
+            if (private$.above > private$.running) {
+              private$.running <- private$.running + 1L
+              private$.above <- private$.above - private$.hashmap[[private$.running, 0L]]
+              remhash(private$.hashmap, private$.running);
+            }
         }
 
         if (!is.null(private$.cumulative)) {
@@ -185,8 +184,8 @@ Eddington <- R6::R6Class(
     .running = 0L,
     .above = 0L,
     .n = 0L,
-    .cumulative = integer(0L),
-    .hashmap = hashtab(size = 150L),
+    .cumulative = NULL,
+    .hashmap = NULL,
 
     .incrementHashmap = function(ride) {
       old <- private$.hashmap[[ride, 0L]]

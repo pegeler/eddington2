@@ -39,7 +39,13 @@ context("Testing R6 class")
 
 test_that("Eddington class works",{
 
-  e <- Eddington$new(simdata)
+  # constructor
+  e <- Eddington$new(store.cumulative = FALSE)
+  e$update(1:3)
+  expect_equal(e$current, 2L)
+  expect_error(e$cumulative)
+
+  e <- Eddington$new(simdata, store.cumulative = TRUE)
 
   # current
   expect_equal(e$current, E_ref)
@@ -70,7 +76,7 @@ test_that("Eddington class works",{
   expect_false(exists("clone", envir = e))
 
   # update
-  e <- Eddington$new(simdata)
+  e <- Eddington$new(simdata, store.cumulative = TRUE)
   e$update(rep(25, 10))
   expect_equal(e$cumulative, E_cum(c(simdata, rep(25, 10))))
 
@@ -112,7 +118,7 @@ test_that("EddingtonModule class works",{
   expect_true(nrow(hashmap) > 0)
 
   # update
-  e <- Eddington$new(simdata)
+  e <- EddingtonModule$new(simdata, TRUE)
   e$update(rep(25, 10))
   expect_equal(e$cumulative, E_cum(c(simdata, rep(25, 10))))
 

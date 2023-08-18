@@ -15,11 +15,10 @@ is to say, they cannot be carried between sessions using `saveRDS` or `save`
 and then loaded later using `readRDS` or `load`. Related to this limitation,
 cloning of `Eddington` objects is disabled.
 
-The underlying state is stored as a C++ hash table, which the R session
-tracks with an external pointer. When attempting to serialize or clone an
-`Eddington` object, the reference can be lost or corrupted, which will result
-in undefined behavior. Future versions of this class will address these
-problems.
+The underlying state is stored as a hash table. When attempting to serialize
+or clone an `Eddington` object, the reference can be lost or corrupted, which
+will result in undefined behavior. Future versions of this class will address
+these problems.
 }
 
 \examples{
@@ -30,7 +29,7 @@ rides <- rgamma(15, shape = 2, scale = 10)
 setNames(sort(rides, decreasing = TRUE), seq_along(rides))
 
 # Create the Eddington object
-e <- Eddington$new(rides)
+e <- Eddington$new(rides, store.cumulative = TRUE)
 
 # Get the Eddington number
 e$current
@@ -73,7 +72,7 @@ Eddington number.}
 \subsection{Method \code{new()}}{
 Create a new Eddington object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Eddington$new(rides, keep.cumulative = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Eddington$new(rides, store.cumulative = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -81,7 +80,7 @@ Create a new Eddington object.
 \describe{
 \item{\code{rides}}{A vector of rides}
 
-\item{\code{keep.cumulative}}{logical, indicating whether to keep a vector of
+\item{\code{store.cumulative}}{logical, indicating whether to keep a vector of
 cumulative Eddington numbers}
 }
 \if{html}{\out{</div>}}
