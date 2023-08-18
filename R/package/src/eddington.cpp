@@ -1,7 +1,5 @@
-// [[Rcpp::interfaces(r, cpp)]]
+#include "EddingtonClass.h"
 #include <Rcpp.h>
-
-using namespace Rcpp;
 
 //' Get the Eddington number for cycling
 //'
@@ -41,20 +39,9 @@ using namespace Rcpp;
 //' E_num(rides)
 //' @export
 // [[Rcpp::export]]
-int E_num(NumericVector &rides) {
-  int n = rides.size(), E = 0, ride = 0, above = 0;
-  IntegerVector H(n + 1);
-
-  for (int i = 0; i < n; i++) {
-    ride = (int) rides[i];
-    if (ride > E) {
-      above++;
-      if (ride < n) H[ride]++;
-      if (above > E) above -= H[++E];
-    }
-  }
-
-  return E;
+int E_num(const Rcpp::IntegerVector &rides) {
+  auto e = Eddington(rides, false);
+  return e.getEddingtonNumber();
 }
 
 //' Calculate the cumulative Eddington number
@@ -69,23 +56,9 @@ int E_num(NumericVector &rides) {
 //' @return An integer vector the same length as \code{rides}.
 //' @export
 // [[Rcpp::export]]
-IntegerVector E_cum(NumericVector &rides) {
-  int n = rides.size(), running = 0, ride = 0, above = 0;
-  IntegerVector E(n), H(n + 1);
-
-  for (int i = 0; i < n; i++) {
-    ride = (int) rides[i];
-    if (ride > running) {
-      above++;
-      if (ride < n) H[ride]++;
-      if (above > running) above -= H[++running];
-    }
-
-    E[i] = running;
-
-  }
-
-  return E;
+Rcpp::IntegerVector E_cum(const Rcpp::IntegerVector &rides) {
+  auto e = Eddington(rides, true);
+  return e.getCumulativeEddingtonNumber().get();
 }
 
 //' Get the number of rides required to increment to the next Eddington number
@@ -99,25 +72,17 @@ IntegerVector E_cum(NumericVector &rides) {
 //'   number of rides required to increment by one (\code{req}).
 //' @export
 // [[Rcpp::export]]
-List E_next(NumericVector &rides) {
-  int n = rides.size(), E = 0, ride = 0, above = 0;
-  IntegerVector H(n + 2);
-
-  for (int i = 0; i < n; i++) {
-    ride = (int) rides[i];
-    if (ride > E) {
-      above++;
-      H[std::min(ride, n + 1)]++;
-      if (above > E) above -= H[++E];
-    }
-  }
-
-  List out = List::create(
-    _["E"] = E,
-    _["req"] = E + 1 - above
-  );
+Rcpp::List E_next(const Rcpp::IntegerVector &rides) {
+  auto e = Eddington(rides, false);
+  Rcpp::List out = Rcpp::List::create(Rcpp::Named("E") = e.getEddingtonNumber(),
+                                      Rcpp::Named("req") = e.getNumberToNext());
 
   out.attr("class") = "E_next";
-
   return out;
 }
+
+/*** R
+E_num(c(2.2, 1.1, 3.3))
+E_cum(c(2.2, 1.1, 3.3))
+E_next(c(2.2, 1.1, 3.3))
+*/
