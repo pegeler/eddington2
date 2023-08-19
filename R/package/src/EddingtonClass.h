@@ -2,6 +2,8 @@
 // [[Rcpp::interfaces(r, cpp)]]
 
 #include <Rcpp.h>
+#include <unordered_map>
+#include <vector>
 
 class Eddington {
 public:
@@ -25,5 +27,5 @@ private:
   int m_eddington_number = 0;
   bool m_store_cumulative = false;
   std::unordered_map<int, int> m_hashmap;
-  Rcpp::IntegerVector m_cumulative;
+  std::vector<int> m_cumulative;
 };

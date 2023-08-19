@@ -1,6 +1,7 @@
 #include "EddingtonClass.h"
 
 #include <Rcpp.h>
+#include <vector>
 
 Eddington::Eddington() {}
 
@@ -15,7 +16,7 @@ Eddington::Eddington(const Rcpp::IntegerVector &rides, bool store_cumulative)
 int Eddington::getEddingtonNumber() { return m_eddington_number; }
 
 Rcpp::Nullable<Rcpp::IntegerVector> Eddington::getCumulativeEddingtonNumber() {
-  return m_store_cumulative ? wrap(m_cumulative) : R_NilValue;
+  return m_store_cumulative ? Rcpp::wrap(m_cumulative) : R_NilValue;
 }
 
 Rcpp::DataFrame Eddington::getHashmapAsDataframe() {
@@ -44,6 +45,10 @@ int Eddington::getNumberToTarget(int target) {
 }
 
 void Eddington::update(const Rcpp::IntegerVector &rides) {
+  if (m_store_cumulative) {
+    m_cumulative.reserve(m_cumulative.size() + rides.size());
+  }
+
   for (auto ride : rides) {
     if (ride > m_eddington_number) {
       m_n_above++;
