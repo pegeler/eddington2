@@ -149,14 +149,12 @@ def is_satisfied(distances: Iterable[float], candidate: int) -> bool:
     :param candidate: The Eddington number to test for.
     :return: Whether the candidate Eddington number was achieve in the dataset.
     """
-    assume_sufficient_len = True
-    if isinstance(distances, Sized):
+    if isinstance(distances, Sized) and candidate > len(distances):
         # If the collection implements `__len__`, we can short-circuit the
         # test since a candidate number greater than the length of the data set
         # is an immediate disqualifier.
-        assume_sufficient_len = len(distances) >= candidate
-    return (assume_sufficient_len and
-            _get_qualifiers(distances, candidate) >= candidate)
+        return False
+    return _get_qualifiers(distances, candidate) >= candidate
 
 
 def parse_args(argv=None):
