@@ -5,7 +5,7 @@ import scala.math.Ordering
 import scala.util.Using
 import scala.util.{Try, Success, Failure}
 
-import bike.eddington.Eddington
+import bike.eddington.{Eddington, get_eddington_number}
 
 
 def read_lines(filename: String): Try[Seq[Int]] =
@@ -15,12 +15,6 @@ def read_lines(filename: String): Try[Seq[Int]] =
       .map(_.toDouble.toInt)
       .toSeq
   }
-
-
-def get_eddington_number(rides: Seq[Int]): Int =
-  rides
-    .sorted(Ordering[Int].reverse)
-    .foldLeft(0)((e, current) => if (current > e) e + 1 else e)
 
 
 @main
