@@ -1,5 +1,6 @@
 import eddington
 
+
 class TestEddington:
 
     def testInit(self):
@@ -49,20 +50,39 @@ class TestEddington:
         assert e.required(4) == 3
 
 
-
 def test_free_functions():
     rides = []
 
     # Empty
-    assert eddington.E_num(rides) == 0
-    assert list(eddington.E_cum(rides)) == []
+    assert eddington.get_eddington_number(rides) == 0
+    assert list(eddington.get_cumulative_eddington_number(rides)) == []
 
     # Populate with some rides
     rides.extend([3.3, 2.2, 1.1])
-    assert eddington.E_num(rides) == 2
-    assert list(eddington.E_cum(rides)) == [1, 2, 2]
+    assert eddington.get_eddington_number(rides) == 2
+    assert list(eddington.get_cumulative_eddington_number(rides)) == [1, 2, 2]
 
     # Add more rides
     rides.extend([3.3, 3.3])
-    assert eddington.E_num(rides) == 3
-    assert list(eddington.E_cum(rides)) == [1, 2, 2, 2, 3]
+    assert eddington.get_eddington_number(rides) == 3
+    assert list(eddington.get_cumulative_eddington_number(rides)) == [1, 2, 2, 2, 3]
+
+
+def test_get_n_above():
+    assert eddington._get_qualifiers([], 0) == 0
+    assert eddington._get_qualifiers([1, 2, 3], 1) == 3
+    assert eddington._get_qualifiers([1, 2, 3], 2) == 2
+    assert eddington._get_qualifiers([1, 2, 3], 3) == 1
+    assert eddington._get_qualifiers([1, 2, 3], 4) == 0
+
+
+def test_get_required():
+    assert eddington.get_required([1, 2, 3], 1) == 0
+    assert eddington.get_required([1, 2, 3], 3) == 2
+    assert eddington.get_required([1, 2, 3], 4) == 4
+
+
+def test_is_satisfied():
+    assert eddington.is_satisfied([1, 2, 3], 1)
+    assert eddington.is_satisfied([1, 2, 3], 2)
+    assert not eddington.is_satisfied([1, 2, 3], 3)

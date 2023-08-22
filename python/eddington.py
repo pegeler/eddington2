@@ -5,9 +5,9 @@ Tools to compute the Eddington number for cycling.
 
 Can compute both summary Eddington number and a vector of cumulative
 statistics in linear asymptotic time, with relatively low memory overhead.
-The `E_cum` function uses a variant of the algorithm that is a "streaming"
-algorithm, which can track the cumulative Eddington number over inputs of
-unknown size.
+The `get_cumulative_eddington_number` function uses a variant of the algorithm
+that is a "streaming" algorithm, which can track the cumulative Eddington number
+over inputs of unknown size.
 """
 import argparse
 import sys
@@ -15,6 +15,7 @@ import sys
 from collections import defaultdict
 from collections.abc import Iterable
 from collections.abc import Iterator
+from collections.abc import Sized
 from typing import Optional
 
 
@@ -71,7 +72,7 @@ class Eddington:
         return target - above
 
 
-def E_num(distances: list[float]) -> int:
+def get_eddington_number(distances: list[float]) -> int:
     """
     Compute the Eddington Number for a dataset.
 
@@ -99,7 +100,7 @@ def E_num(distances: list[float]) -> int:
     return eddington_number
 
 
-def E_cum(distances: Iterable[float]) -> Iterator[int]:
+def get_cumulative_eddington_number(distances: Iterable[float]) -> Iterator[int]:
     """
     Compute the cumulative Eddington Number for cycling.
 
@@ -119,6 +120,41 @@ def E_cum(distances: Iterable[float]) -> Iterator[int]:
                 n_above -= dist_table.pop(current, 0)
 
         yield current
+
+
+def _get_qualifiers(distances: Iterable[float], candidate: int) -> int:
+    return sum(1 for d in distances if int(d) >= candidate)
+
+
+def get_required(distances: Iterable[float], candidate: int) -> int:
+    """
+    Determine the number of additional rides required to achieve a specified
+    Eddington number.
+
+    :param distances: An iterable of mileage, where each element represents a
+            single day.
+    :param candidate: The Eddington number to test for.
+    :return: The number of additional days required at or above `candidate`
+        to achieve the candidate Eddington number.
+    """
+    return max(candidate - _get_qualifiers(distances, candidate), 0)
+
+
+def is_satisfied(distances: Iterable[float], candidate: int) -> bool:
+    """
+    Determine if a dataset satisfies a specified Eddington number.
+
+    :param distances: A container of mileage, where each element represents a
+            single day.
+    :param candidate: The Eddington number to test for.
+    :return: Whether the candidate Eddington number was achieve in the dataset.
+    """
+    if isinstance(distances, Sized) and candidate > len(distances):
+        # If the collection implements `__len__`, we can short-circuit the
+        # test since a candidate number greater than the length of the data set
+        # is an immediate disqualifier.
+        return False
+    return _get_qualifiers(distances, candidate) >= candidate
 
 
 def parse_args(argv=None):
@@ -159,10 +195,10 @@ def main():
         distances = get_distances_from_files(args.files)
 
     if args.cumulative:
-        print(*E_cum(distances), sep='\n')
+        print(*get_cumulative_eddington_number(distances), sep='\n')
     else:
         distances = list(distances)
-        eddington_number = E_num(distances)
+        eddington_number = get_eddington_number(distances)
         print(eddington_number)
 
 
