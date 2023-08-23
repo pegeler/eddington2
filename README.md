@@ -39,11 +39,12 @@ number, check out the online calculator
 * [Julia](julia/)
 * [MySQL](mysql/)
 * [php](php/)
-* [python](python)
+* [python](python/)
 * [R](R/)
 * [Rcpp](R/)
 * [SAS](sas/)
 * [Scala](scala/)
+* [Apache Spark](spark/)
 * [VBA](vba/) (for use in Microsoft Excel)
 
 More to come. Please feel free to contribute!
