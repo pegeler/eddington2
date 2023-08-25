@@ -23,10 +23,12 @@ object EddingtonSpark {
       .options(opts)
       .load(filename)
 
+    val window_spec = Window.orderBy(desc("sum_len"))
+
     val result = df
       .groupBy("ride_date")
       .agg(sum("ride_length") as "sum_len")
-      .withColumn("row_num", row_number().over(Window.orderBy(desc("sum_len"))))
+      .withColumn("row_num", row_number().over(window_spec))
       .where("sum_len >= row_num")
       .agg(max("row_num") as "eddington_number")
 
