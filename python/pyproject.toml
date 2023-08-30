@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "eddington"
+authors = [{name = "Paul Egeler"}]
+description = "Compute the Eddington number for cycling"
+requires-python = ">=3.9"
+keywords = ['cycling', 'h-index', 'Durfee square', 'algorithms']
+license = {text = "GPL-3"}
+dynamic = ['version']
+
+[project.urls]
+Homepage = "https://github.com/pegeler/eddington2"
+
+[project.scripts]
+eddington = "eddington:main"
+
+[tool.setuptools]
+py-modules=["eddington"]
+
+[tool.setuptools.dynamic]
+version = {attr = "eddington.__version__"}
+# readme = {file = ["README.md"], content-type = "text/markdown"}

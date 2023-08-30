@@ -18,6 +18,8 @@ from collections.abc import Iterator
 from collections.abc import Sized
 from typing import Optional
 
+__version__ = '3.0.0'
+
 
 class Eddington:
     """
@@ -28,7 +30,7 @@ class Eddington:
             represents the Eddington number for the dataset up to that point.
     """
 
-    def __init__(self, distances: Optional[Iterable[float]] = None):
+    def __init__(self, distances: Optional[Iterable[float]] = None) -> None:
         self.current = 0
         self.cumulative = []
         self._above = 0
@@ -36,7 +38,7 @@ class Eddington:
         if distances is not None:
             self.update(distances)
 
-    def update(self, distances: Iterable[float]):
+    def update(self, distances: Iterable[float]) -> None:
         """
         Update the current and cumulative Eddington number statistics with
         new data.
@@ -157,7 +159,7 @@ def is_satisfied(distances: Iterable[float], candidate: int) -> bool:
     return _get_qualifiers(distances, candidate) >= candidate
 
 
-def parse_args(argv=None):
+def _parse_args(argv=None):
     parser = argparse.ArgumentParser(
         prog='python3 -m eddington',
         description='Compute the Eddington number for cycling.')
@@ -173,26 +175,26 @@ def parse_args(argv=None):
     return parser.parse_args(argv)
 
 
-def get_distances_from_files(files):
+def _get_distances_from_files(files):
     for f in files:
         with open(f, 'rt') as fh:
             for line in fh:
                 yield float(line)
 
 
-def get_distances_from_stdin():
+def _get_distances_from_stdin():
     for line in sys.stdin:
         if line.strip():
             yield float(line)
 
 
 def main():
-    args = parse_args()
+    args = _parse_args()
 
     if not args.files or args.files == ['-']:
-        distances = get_distances_from_stdin()
+        distances = _get_distances_from_stdin()
     else:
-        distances = get_distances_from_files(args.files)
+        distances = _get_distances_from_files(args.files)
 
     if args.cumulative:
         print(*get_cumulative_eddington_number(distances), sep='\n')
