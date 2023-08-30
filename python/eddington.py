@@ -107,7 +107,7 @@ def get_cumulative_eddington_number(distances: Iterable[float]) -> Iterator[int]
     Compute the cumulative Eddington Number for cycling.
 
     :param Iterable distances: An iterable of distances for each day.
-    :returns: The Eddington number, E, for each element in the data.
+    :return: The Eddington number, E, for each element in the data.
     """
     current = 0
     n_above = 0
