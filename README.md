@@ -38,6 +38,7 @@ number, check out the online calculator
 * [javascript](docs/)
 * [Julia](julia/)
 * [MySQL](mysql/)
+* [perl 5](perl/)
 * [php](php/)
 * [python](python/)
 * [R](R/)
