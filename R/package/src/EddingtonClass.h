@@ -1,5 +1,4 @@
 #pragma once
-// [[Rcpp::interfaces(r, cpp)]]
 
 #include <Rcpp.h>
 #include <optional>

@@ -1,5 +1,6 @@
 #include "EddingtonClass.h"
 #include <Rcpp.h>
+// [[Rcpp::interfaces(r, cpp)]]
 
 //' Get the Eddington number for cycling
 //'
