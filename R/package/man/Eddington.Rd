@@ -4,21 +4,23 @@
 \alias{Eddington}
 \title{An R6 Class for Tracking Eddington Numbers for Cycling}
 \description{
-The class will maintain a running tally, allowing for efficient
-  updates as new rides come in.
+An R6 Class for Tracking Eddington Numbers for Cycling
+
+An R6 Class for Tracking Eddington Numbers for Cycling
 }
-\section{Warning}{
+\details{
+The class will maintain the state of the algorithm, allowing for efficient
+updates as new rides come in.
+}
+\section{Warnings}{
 
 
-A current limitation is that `Eddington` objects cannot be serialized. That
-is to say, they cannot be carried between sessions using `saveRDS` or `save`
-and then loaded later using `readRDS` or `load`. Related to this limitation,
-cloning of `Eddington` objects is disabled.
+The implementation uses an experimental base R feature \link[utils:hashtab]{utils::hashtab}.
 
-The underlying state is stored as a hash table. When attempting to serialize
-or clone an `Eddington` object, the reference can be lost or corrupted, which
-will result in undefined behavior. Future versions of this class will address
-these problems.
+Cloning of \code{Eddington} objects is disabled. Additionally, \code{Eddington} objects
+cannot be serialized; they cannot be carried between sessions using
+\link[base:readRDS]{base::saveRDS} or \link[base:save]{base::save} and then loaded later using \link[base:readRDS]{base::readRDS}
+or \link[base:load]{base::load}.
 }
 
 \examples{
@@ -86,7 +88,7 @@ cumulative Eddington numbers}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A new `Eddington` object
+A new \code{Eddington} object
 }
 }
 \if{html}{\out{<hr>}}
@@ -103,7 +105,7 @@ Print the current Eddington number.
 \if{html}{\out{<a id="method-Eddington-update"></a>}}
 \if{latex}{\out{\hypertarget{method-Eddington-update}{}}}
 \subsection{Method \code{update()}}{
-Add new rides to the existing `Eddington` object.
+Add new rides to the existing \code{Eddington} object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Eddington$update(rides)}\if{html}{\out{</div>}}
 }
@@ -135,7 +137,7 @@ Eddington number.
 }
 \subsection{Returns}{
 An integer representing the number of rides of target length
-  needed to achieve the target number.
+needed to achieve the target number.
 }
 }
 \if{html}{\out{<hr>}}

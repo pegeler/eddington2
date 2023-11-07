@@ -20,5 +20,5 @@ number.
 }
 \seealso{
 \code{\link{E_next}}, \code{\link{E_num}}, \code{\link{E_req}},
-  \code{\link{E_sat}}
+\code{\link{E_sat}}
 }

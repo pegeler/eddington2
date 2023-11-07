@@ -12,7 +12,7 @@ day.}
 }
 \value{
 An integer which is the Eddington cycling number for the
-  data provided.
+data provided.
 }
 \description{
 Gets the \href{https://en.wikipedia.org/wiki/Arthur_Eddington#Eddington_number_for_cycling}{Eddington number for cycling}.
@@ -44,5 +44,5 @@ E_num(rides)
 }
 \seealso{
 \code{\link{E_cum}}, \code{\link{E_next}}, \code{\link{E_req}},
-  \code{\link{E_sat}}
+\code{\link{E_sat}}
 }

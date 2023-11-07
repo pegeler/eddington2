@@ -7,7 +7,7 @@
 \item{rides}{An optional vector of values used to initialize the class.}
 
 \item{store_cumulative}{Whether to store a vector of the cumulative Eddington
-number, as accessed from the `cumulative` property.}
+number, as accessed from the \code{cumulative} property.}
 }
 \description{
 A stateful C++ object for computing Eddington numbers.
@@ -15,15 +15,15 @@ A stateful C++ object for computing Eddington numbers.
 \section{Fields}{
 
 \describe{
-\item{\code{new}}{Constructor. Parameter list may either be empty, `store_cumulative`,
-or `rides` and `store_cumulative`}
+\item{\code{new}}{Constructor. Parameter list may either be empty, \code{store_cumulative},
+or \code{rides} and \code{store_cumulative}}
 
 \item{\code{current}}{The current Eddington number.}
 
-\item{\code{cumulative}}{A vector of Eddington numbers or `NULL` if `store_cumulative`
-is `FALSE`.}
+\item{\code{cumulative}}{A vector of Eddington numbers or \code{NULL} if \code{store_cumulative}
+is \code{FALSE}.}
 
-\item{\code{hashmap}}{A `data.frame` containing the distances and counts above the
+\item{\code{hashmap}}{A \code{data.frame} containing the distances and counts above the
 current Eddington number.}
 
 \item{\code{update}}{Update the class state with new data.}
@@ -34,6 +34,14 @@ reach the next Eddington number.}
 \item{\code{getNumberToTarget}}{Get the number of additional distances required to
 reach a target Eddington number.}
 }}
+
+\section{Warning}{
+
+
+\code{EddingtonModule} objects cannot be serialized; they cannot be carried
+between sessions using \link[base:readRDS]{base::saveRDS} or \link[base:save]{base::save} and then loaded later
+using \link[base:readRDS]{base::readRDS} or \link[base:load]{base::load}.
+}
 
 \examples{
 # Create a class instance with some initial data

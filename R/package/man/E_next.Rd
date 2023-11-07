@@ -12,12 +12,12 @@ day.}
 }
 \value{
 A named list with the current Eddington number (\code{E}) and the
-  number of rides required to increment by one (\code{req}).
+number of rides required to increment by one (\code{req}).
 }
 \description{
 Get the number of rides required to increment to the next Eddington number.
 }
 \seealso{
 \code{\link{E_cum}}, \code{\link{E_num}}, \code{\link{E_req}},
-  \code{\link{E_sat}}
+\code{\link{E_sat}}
 }

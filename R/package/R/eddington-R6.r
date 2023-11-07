@@ -1,19 +1,16 @@
-#' @title An R6 Class for Tracking Eddington Numbers for Cycling
+#' An R6 Class for Tracking Eddington Numbers for Cycling
 #'
-#' @description The class will maintain a running tally, allowing for efficient
-#'   updates as new rides come in.
+#' The class will maintain the state of the algorithm, allowing for efficient
+#' updates as new rides come in.
 #'
-#' @section Warning:
+#' @section Warnings:
 #'
-#' A current limitation is that `Eddington` objects cannot be serialized. That
-#' is to say, they cannot be carried between sessions using `saveRDS` or `save`
-#' and then loaded later using `readRDS` or `load`. Related to this limitation,
-#' cloning of `Eddington` objects is disabled.
+#' The implementation uses an experimental base R feature [utils::hashtab].
 #'
-#' The underlying state is stored as a hash table. When attempting to serialize
-#' or clone an `Eddington` object, the reference can be lost or corrupted, which
-#' will result in undefined behavior. Future versions of this class will address
-#' these problems.
+#' Cloning of `Eddington` objects is disabled. Additionally, `Eddington` objects
+#' cannot be serialized; they cannot be carried between sessions using
+#' [base::saveRDS] or [base::save] and then loaded later using [base::readRDS]
+#' or [base::load].
 #'
 #' @examples
 #' # Randomly generate a set of 15 rides
@@ -38,9 +35,7 @@
 Eddington <- R6::R6Class(
   "Eddington",
 
-  # Note cloneable because of XPtr see #4
-  # https://github.com/r-lib/R6/issues/178
-  # https://github.com/r-lib/R6/issues/179
+  # Not cloneable because it will not make a deep copy of the `hashtab` object.
   cloneable = FALSE,
 
   public = list(

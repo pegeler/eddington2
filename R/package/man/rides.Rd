@@ -7,8 +7,8 @@
 \format{
 A data frame with 250 rows and 2 variables:
 \describe{
-  \item{ride_date}{date the ride occurred}
-  \item{ride_length}{the length in miles}
+\item{ride_date}{date the ride occurred}
+\item{ride_length}{the length in miles}
 }
 }
 \usage{

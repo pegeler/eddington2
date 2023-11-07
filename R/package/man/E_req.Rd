@@ -15,7 +15,7 @@ day.}
 }
 \value{
 An integer vector of length 1. Returns \code{0L} if \emph{E} is
-  already achieved.
+already achieved.
 }
 \description{
 Determine the number of additional rides required to achieve a specified
@@ -23,5 +23,5 @@ Eddington number.
 }
 \seealso{
 \code{\link{E_cum}}, \code{\link{E_next}}, \code{\link{E_num}},
-  \code{\link{E_sat}}
+\code{\link{E_sat}}
 }

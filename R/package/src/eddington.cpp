@@ -41,8 +41,7 @@
 //' @export
 // [[Rcpp::export]]
 int E_num(const Rcpp::IntegerVector &rides) {
-  auto e = Eddington(rides, false);
-  return e.getEddingtonNumber();
+  return Eddington(rides, false).getEddingtonNumber();
 }
 
 //' Calculate the cumulative Eddington number
@@ -58,8 +57,7 @@ int E_num(const Rcpp::IntegerVector &rides) {
 //' @export
 // [[Rcpp::export]]
 Rcpp::IntegerVector E_cum(const Rcpp::IntegerVector &rides) {
-  auto e = Eddington(rides, true);
-  return e.getCumulativeEddingtonNumber().get();
+  return Eddington(rides, true).getCumulativeEddingtonNumber().get();
 }
 
 //' Get the number of rides required to increment to the next Eddington number

@@ -20,5 +20,5 @@ Indicates whether a certain Eddington number is satisfied, given the data.
 }
 \seealso{
 \code{\link{E_cum}}, \code{\link{E_next}}, \code{\link{E_num}},
-  \code{\link{E_req}}
+\code{\link{E_req}}
 }
