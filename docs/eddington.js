@@ -36,22 +36,22 @@ var getFile = function() {
 }
 
 var submitText = function() {
-   var rides = parseText(document.getElementById('text-input').value)
-   document.getElementById('E').innerHTML = eddington(rides)
+  var rides = parseText(document.getElementById('text-input').value)
+  document.getElementById('E').innerHTML = eddington(rides)
 }
 
 var loadTab = function(evt, tab_content_id) {
-    var tab_contents = document.getElementsByClassName("tab-content");
-    for (var i = 0; i < tab_contents.length; i++) {
-      tab_contents[i].style.display = "none";
-    }
-    document.getElementById(tab_content_id).style.display = "block";
+  var tab_contents = document.getElementsByClassName("tab-content");
+  for (var i = 0; i < tab_contents.length; i++) {
+    tab_contents[i].style.display = "none";
+  }
+  document.getElementById(tab_content_id).style.display = "block";
 
-    var tabs = document.getElementsByClassName("tab");
-    for (var i = 0; i < tabs.length; i++) {
-      tabs[i].className = tabs[i].className.replace(" active", "");
-    }
-    evt.currentTarget.className += " active";
+  var tabs = document.getElementsByClassName("tab");
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].className = tabs[i].className.replace(" active", "");
+  }
+  evt.currentTarget.className += " active";
 }
 
 window.onload = function() {
