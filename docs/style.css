@@ -6,23 +6,8 @@ body {
   padding: 1em;
 }
 
-h1 {
-  margin-top: 0;
-  color: #f8f8f8;
-  background-color: #487da3;
-  border: 1px solid #333;
-  border-radius: 5px;
-  padding: 1em;
-}
-
-h2 {
+h1, h2 {
   border-bottom: 3px solid #333;
-}
-
-.file-input{
-  background-color: #eee;
-  border-radius: 5px;
-  padding: 1em;
 }
 
 textarea {
@@ -33,6 +18,7 @@ textarea {
   border-radius: 4px;
   background-color: #fefefe;
   height: 150px;
+  resize: none;
 }
 
 p {
@@ -40,26 +26,51 @@ p {
 }
 
 footer {
-  color: #f8f8f8;
-  background-color: #487da3;
-  border: 1px solid #333;
-  border-radius: 5px;
   padding: 20px;
   text-align: center;
-}
-
-footer a {
-  color: #f8f8f8;
+  font-style: italic;
+  font-size: x-small;
 }
 
 a:link {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 a:visited {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
+}
+
+.tab {
+  font-weight: bold;
+  background-color: #ccc;
+  border: none;
+  border-bottom: none;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  padding: 1em;
+  margin-bottom: 0;
+}
+
+.tab:hover:not(.active) {
+  color: #eee;
+  background-color: #487da3;
+}
+
+.tab.active {
+  background-color: #eee;
+}
+
+.tab-content {
+  background-color: #eee;
+  border: none;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding: 1em;
+  display: none;
+  height: 200px;
 }

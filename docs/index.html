@@ -13,41 +13,52 @@
 
 <h1>Eddington Number Online Calculator</h1>
 
-<p>This page takes ride mileages and will return the
-<a href="https://en.wikipedia.org/wiki/Arthur_Eddington#Eddington_number_for_cycling">Eddington number</a> for cycling.
-There are two ways to calculate your Eddington number:
+<p>This page takes daily ride mileages and will return the
+  <a href="https://en.wikipedia.org/wiki/Arthur_Eddington#Eddington_number_for_cycling">
+  Eddington number</a> for cycling.
+  There are two ways to calculate your Eddington number:
 
 <ul>
-<li>Select a <em>.txt</em> or <em>.dat</em> file.</li>
-<li>Enter your rides in the text box and click "Calculate!"</li>
+  <li>Enter your rides in the text box and click "Calculate!"</li>
+  <li>Load a <em>.txt</em> or <em>.dat</em> file.</li>
 </ul>
 
 <p>Both methods allow your distance entries to be either newline separated
-(<em>e.g.</em>, one mileage per line), comma separated, or a combination of both.
+  (<em>e.g.</em>, one mileage per line), comma separated, or a
+  combination of both.
 
-<h2>File Selection</h2>
-
-<div class='file-input'>
-<label for='file-input'>Select a file:</label>
-<input type='file' id='file-input' name='file-input' accept='.dat,.txt'>
-</div>
-
-<h2>Manual Entry</h2>
-
-<div>
-<label for="text-input">Enter rides below:</label>
-<textarea id="text-input" name="text-input"></textarea>
-<button type="button" onclick="submitText();">Calculate!</button>
-</div>
+<p> Note that this site can also be used to compute an author's
+  <a href='https://en.wikipedia.org/wiki/H-index'><em>h-index</em></a>.
 
 <h2>Result</h2>
 
 <p><span id='E'><em>no data entered...</em></span>
 
+<h2>Input</h2>
+
+<div class='tab-row'>
+<button id='default-tab' class='tab' onclick='loadTab(event, "manual-tab")'>Manual Entry</button>
+<button class='tab' onclick='loadTab(event, "file-tab")'>File Selection</button>
+</div> <!-- tab-row -->
+
+<div id='manual-tab' class='tab-content'>
+  <label for="text-input">Enter rides below:</label>
+  <textarea id="text-input" name="text-input"></textarea>
+  <button type="button" onclick="submitText();">Calculate!</button>
+</div> <!-- manual-tab -->
+
+<div id='file-tab' class='tab-content'>
+<div class='file-input'>
+<label for='file-input'>Select a file:</label>
+<input type='file' id='file-input' name='file-input' accept='.dat,.txt'>
+</div> <!-- file-input -->
+</div> <!-- file-tab -->
+
 <footer>
-&copy;2019 <a href='https://paul.egeler.us/'>Paul Egeler</a> | 
+&copy;2019 <a href='https://paul.egeler.us/'>Paul Egeler</a> |
 <a href='https://github.com/pegeler/eddington2/tree/master/docs'>View source on Github</a> |
-Licensed under <a href='https://github.com/pegeler/eddington2/blob/master/LICENSE'>GPL v3</a>
+Licensed under <a href='https://github.com/pegeler/eddington2/blob/master/LICENSE'>GPL v3</a> |
+NO WARRANTY
 </footer>
 
 </body>
