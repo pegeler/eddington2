@@ -4,9 +4,9 @@
 #'
 #' @section Warning:
 #'
-#' `EddingtonModule` objects cannot be serialized; they cannot be carried
-#' between sessions using [base::saveRDS] or [base::save] and then loaded later
-#' using [base::readRDS] or [base::load].
+#' `EddingtonModule` objects cannot be serialized at this time; they cannot be
+#' carried between sessions using [base::saveRDS] or [base::save] and then
+#' loaded later using [base::readRDS] or [base::load].
 #'
 #' @param rides An optional vector of values used to initialize the class.
 #' @param store_cumulative Whether to store a vector of the cumulative Eddington

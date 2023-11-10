@@ -1,4 +1,4 @@
-#' @useDynLib eddington
+#' @useDynLib eddington, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 NULL
 
@@ -15,9 +15,7 @@ NULL
 #' @return A logical vector of length 1.
 #' @export
 E_sat <- function(rides, candidate) {
-
   length(rides) >= candidate && sum(rides >= candidate) >= candidate
-
 }
 
 #' Determine the number of additional rides required to achieve a specified
@@ -34,9 +32,7 @@ E_sat <- function(rides, candidate) {
 #'   already achieved.
 #' @export
 E_req <- function(rides, candidate) {
-
   max(as.integer(candidate) - sum(rides >= candidate), 0L)
-
 }
 
 # Custom print methods -------------------------------------------------------

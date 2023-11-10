@@ -5,12 +5,8 @@
 
 <!-- badges: start -->
 
-[![CRAN\_version](http://www.r-pkg.org/badges/version/eddington)](https://cran.r-project.org/package=eddington)
-[![Number\_of\_Downloads](https://cranlogs.r-pkg.org/badges/grand-total/eddington)](https://cran.r-project.org/package=eddington)
-[![Travis-CI Build
-Status](https://travis-ci.org/pegeler/eddington2.svg?branch=master)](https://travis-ci.org/pegeler/eddington2)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/pegeler/eddington2?branch=master&svg=true)](https://ci.appveyor.com/project/pegeler/eddington2)
+[![CRAN_version](http://www.r-pkg.org/badges/version/eddington)](https://cran.r-project.org/package=eddington)
+[![Number_of_Downloads](https://cranlogs.r-pkg.org/badges/grand-total/eddington)](https://cran.r-project.org/package=eddington)
 <!-- badges: end -->
 
 One statistic that cyclists are known to track is their Eddington

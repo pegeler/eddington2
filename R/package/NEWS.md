@@ -1,3 +1,17 @@
+# eddington 4.0.1 (Release date: 2023-11-07)
+
+Changes:
+
+- Minimum R version is now 4.3.0 and requires compiler capable of C++17 standard.
+- Full re-implementation of C++ code. As a result, memory usage will be reduced
+  for typical datasets.
+- Introduction of `EddingtonModule` Rcpp module. This class maintains algorithm
+  state, and so can be updated multiple times as new data comes in.
+- Introduction of `Eddington` R6 class. This provides similar functionality to
+  the `EddingtonModule` Rcpp module. All methods are implemented in pure R. It
+  uses R's new `hashtab` data structure, which is experimental as of this
+  package release.
+
 # eddington 2.1.2 (Release date: 2020-03-24)
 
 Changes:

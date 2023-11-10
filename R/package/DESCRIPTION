@@ -1,6 +1,6 @@
 Package: eddington
 Title: Compute a Cyclist's Eddington Number
-Version: 4.0.1
+Version: 4.0.2
 Authors@R: c(
     person('Paul', 'Egeler', email = 'paulegeler@gmail.com', role = c('aut','cre')),
     person('Tashi', 'Reigle', role = 'ctb'))

@@ -11,9 +11,8 @@
 //' The Eddington Number for cycling is related to computing the rank of an
 //' integer partition, which is the same as computing the side length of its
 //' \href{https://en.wikipedia.org/wiki/Durfee_square}{Durfee square}. Another
-//' relevant application of this metric is computing the
-//' \href{https://doi.org/10.1073/pnas.0507655102}{Hirsch index} for
-//' publications.
+//' relevant application of this metric is computing the Hirsch index
+//' (\doi{10.1073/pnas.0507655102}) for publications.
 //'
 //' This is not to be confused with the
 //' \href{https://en.wikipedia.org/wiki/Eddington_number}{Eddington Number in

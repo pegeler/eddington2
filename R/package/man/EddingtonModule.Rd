@@ -38,9 +38,9 @@ reach a target Eddington number.}
 \section{Warning}{
 
 
-\code{EddingtonModule} objects cannot be serialized; they cannot be carried
-between sessions using \link[base:readRDS]{base::saveRDS} or \link[base:save]{base::save} and then loaded later
-using \link[base:readRDS]{base::readRDS} or \link[base:load]{base::load}.
+\code{EddingtonModule} objects cannot be serialized at this time; they cannot be
+carried between sessions using \link[base:readRDS]{base::saveRDS} or \link[base:save]{base::save} and then
+loaded later using \link[base:readRDS]{base::readRDS} or \link[base:load]{base::load}.
 }
 
 \examples{
