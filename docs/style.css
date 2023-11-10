@@ -1,9 +1,15 @@
+html {
+  background: url("bike_wallpaper.png");
+  background-size: 25%;
+}
+
 body {
   margin: 0 auto;
   max-width: 750px;
   font-family: Sans-Serif;
   color: #333;
   padding: 1em;
+  background-color: #fefefe;
 }
 
 h1, h2 {
@@ -32,6 +38,11 @@ footer {
   font-size: x-small;
 }
 
+a {
+  color: #333;
+  font-weight: bold;
+}
+
 a:link {
   text-decoration: none;
 }
@@ -48,7 +59,6 @@ a:hover {
   font-weight: bold;
   background-color: #ccc;
   border: none;
-  border-bottom: none;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
   padding: 1em;
