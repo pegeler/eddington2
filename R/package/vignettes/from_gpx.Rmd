@@ -1,0 +1,21 @@
+---
+title: "Getting Eddington Numbers from GPX files"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Eddington Numbers from GPX files}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(dplyr)
+```
+
+```{r setup}
+library(eddington)
+library(dplyr)
+```
