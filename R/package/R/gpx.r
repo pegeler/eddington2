@@ -38,11 +38,12 @@ get_trkseg_coords <- function(x) {
   )
 }
 
-get_trkseg_dist <- function(x) {
+get_trkseg_dist <- function(x, r) {
   lapply(
     XML::getNodeSet(x, "//d:trkseg", namespaces = NAMESPACES),
     \(trkseg) {
       trkpts <- XML::xmlChildren(trkseg)
+      if (length(trkpts) < 2) return(0.)
       Reduce(
         `+`,
         apply(
@@ -53,7 +54,7 @@ get_trkseg_dist <- function(x) {
             as.double(XML::xmlGetAttr(pair[[1]], "lon")),
             as.double(XML::xmlGetAttr(pair[[2]], "lat")),
             as.double(XML::xmlGetAttr(pair[[2]], "lon")),
-            R_E_MI
+            r
           )
         )
       )
@@ -62,10 +63,12 @@ get_trkseg_dist <- function(x) {
 
 #' @export
 read_gpx <- function(file, units = c("miles", "kilometers")) {
-  match.arg(units, ...)  # TODO
+  r <- switch(match.arg(units), miles = R_E_MI, kilometers = R_E_KM)
+
   x <- XML::xmlInternalTreeParse(file)
   on.exit(XML::free(x))
-  dist <- data.frame(dist = unlist(get_trkseg_dist(x)))
+
+  dist <- data.frame(dist = unlist(get_trkseg_dist(x, r)))
   dates <- get_dates(x)
   dist$date <- ifelse(length(dates) == nrow(dist), do.call(c, dates), NA)
   dist

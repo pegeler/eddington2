@@ -1,4 +1,5 @@
 #include <cmath>
+#include <algorithm>
 
 static inline double hav(double theta) {
   return pow(sin(theta / 2), 2);
@@ -23,15 +24,9 @@ double get_haversine_distance(double lat_1,
                               double r) {
   const double dlat = deg2rad(lat_2 - lat_1);
   const double dlong = deg2rad(long_2 - long_1);
-  double h = hav(dlat) + cos(deg2rad(lat_1)) * cos(deg2rad(lat_2))* hav(dlong);
+  const double h = hav(dlat) + cos(deg2rad(lat_1)) * cos(deg2rad(lat_2)) * hav(dlong);
 
-  // Validating h to prevent domain errors.
-  if (h <= 0) {
-    return 0;
-  } else if (h > 1) {
-    h = 1;
-  }
-  return 2 * r * asin(sqrt(h));
+  return 2 * r * asin(sqrt(std::clamp(h, 0.0, 1.0)));
 }
 
 /*** R
