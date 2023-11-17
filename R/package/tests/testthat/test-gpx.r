@@ -18,3 +18,17 @@ test_that("d is real for edge cases", {
   # Antipodal points: h = 1
   expect_equal(get_haversine_distance(-90, -90, 90, 90, 1), pi)
 })
+
+test_that("one mile is one mile", {
+  # In NYC, 20 blocks == 1 mile
+  w59 <- c(40.76684156255418, -73.97908243833855)
+  w39 <- c(40.75406905512651, -73.98830604245481)
+
+  # TODO: update with new units API
+  d <- get_haversine_distance(w39[1], w39[2], w59[1], w59[2], R_E_MI)
+  expect_equal(d, 1., tolerance = 0.01)
+
+  d <- get_haversine_distance(w39[1], w39[2], w59[1], w59[2], R_E_KM)
+  expect_equal(d, 1.62, tolerance = 0.01)
+
+})
