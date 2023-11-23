@@ -9,19 +9,12 @@ static inline double deg2rad(double deg) {
   return deg * 2 * M_PI / 360;
 }
 
-//' Compute the distance between two points using the Haversine formula
-//'
-//' @param lat_1,long_1,lat_2,long_2 The coordinates
-//'    used to compute the distance.
-//' @param r The radius of the Earth.
-//' @references <https://en.wikipedia.org/wiki/Haversine_formula>
-//' @export
 // [[Rcpp::export]]
-double get_haversine_distance(double lat_1,
-                              double long_1,
-                              double lat_2,
-                              double long_2,
-                              double r) {
+double get_haversine_distance_(double lat_1,
+                               double long_1,
+                               double lat_2,
+                               double long_2,
+                               double r) {
   const double dlat = deg2rad(lat_2 - lat_1);
   const double dlong = deg2rad(long_2 - long_1);
   const double h = hav(dlat) + cos(deg2rad(lat_1)) * cos(deg2rad(lat_2)) * hav(dlong);

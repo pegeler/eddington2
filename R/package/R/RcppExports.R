@@ -70,15 +70,8 @@ E_next <- function(rides) {
     .Call(`_eddington_E_next`, rides)
 }
 
-#' Compute the distance between two points using the Haversine formula
-#'
-#' @param lat_1,long_1,lat_2,long_2 The coordinates
-#'    used to compute the distance.
-#' @param r The radius of the Earth.
-#' @references <https://en.wikipedia.org/wiki/Haversine_formula>
-#' @export
-get_haversine_distance <- function(lat_1, long_1, lat_2, long_2, r) {
-    .Call(`_eddington_get_haversine_distance`, lat_1, long_1, lat_2, long_2, r)
+get_haversine_distance_ <- function(lat_1, long_1, lat_2, long_2, r) {
+    .Call(`_eddington_get_haversine_distance_`, lat_1, long_1, lat_2, long_2, r)
 }
 
 # Register entry points for exported C++ functions

@@ -115,9 +115,9 @@ RcppExport SEXP _eddington_E_next(SEXP ridesSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// get_haversine_distance
-double get_haversine_distance(double lat_1, double long_1, double lat_2, double long_2, double r);
-RcppExport SEXP _eddington_get_haversine_distance(SEXP lat_1SEXP, SEXP long_1SEXP, SEXP lat_2SEXP, SEXP long_2SEXP, SEXP rSEXP) {
+// get_haversine_distance_
+double get_haversine_distance_(double lat_1, double long_1, double lat_2, double long_2, double r);
+RcppExport SEXP _eddington_get_haversine_distance_(SEXP lat_1SEXP, SEXP long_1SEXP, SEXP lat_2SEXP, SEXP long_2SEXP, SEXP rSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -126,7 +126,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type lat_2(lat_2SEXP);
     Rcpp::traits::input_parameter< double >::type long_2(long_2SEXP);
     Rcpp::traits::input_parameter< double >::type r(rSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_haversine_distance(lat_1, long_1, lat_2, long_2, r));
+    rcpp_result_gen = Rcpp::wrap(get_haversine_distance_(lat_1, long_1, lat_2, long_2, r));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -157,7 +157,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_eddington_E_num", (DL_FUNC) &_eddington_E_num, 1},
     {"_eddington_E_cum", (DL_FUNC) &_eddington_E_cum, 1},
     {"_eddington_E_next", (DL_FUNC) &_eddington_E_next, 1},
-    {"_eddington_get_haversine_distance", (DL_FUNC) &_eddington_get_haversine_distance, 5},
+    {"_eddington_get_haversine_distance_", (DL_FUNC) &_eddington_get_haversine_distance_, 5},
     {"_rcpp_module_boot_eddington_mod", (DL_FUNC) &_rcpp_module_boot_eddington_mod, 0},
     {"_eddington_RcppExport_registerCCallable", (DL_FUNC) &_eddington_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}
