@@ -23,22 +23,22 @@ get_haversine_distance <- function(lat_1,
 
 #' Read a GPX file into a data frame containing dates and distances
 #'
-#' Reads in data from a GPS Exchange Format XML document and outputs a
-#' `data.frame` containing distances. The corresponding dates for each track
-#' segment (`trkseg`) will be included if present in the source file, else
-#' the `date` column will be populated with `NA`s.
+#' Reads in a GPS Exchange Format XML document and outputs a `data.frame`
+#' containing distances. The corresponding dates for each track segment
+#' (`trkseg`) will be included if present in the source file, else the `date`
+#' column will be populated with `NA`s.
 #'
 #' Distances are computed using the Haversine formula and do not account for
 #' elevation changes.
 #'
-#' This function treats the fist timestamp of each `trkseg` as the date of
+#' This function treats the first timestamp of each `trkseg` as the date of
 #' record. Thus overnight track segments will all count toward the day in which
 #' the journey began.
 #'
 #' @param file The input file to be parsed.
 #' @param units The units desired for the distance metric.
 #' @returns A data frame containing up to two columns:
-#'  \desribe{
+#'  \describe{
 #'    \item{distance}{The distance of the track segment in the requested units.}
 #'    \item{date}{The date of the ride. See description and details.}
 #'  }

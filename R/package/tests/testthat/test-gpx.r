@@ -30,7 +30,6 @@ test_that("one mile is one mile", {
   w59 <- c(40.76684156255418, -73.97908243833855)  # W 59th St and 7th Ave
   w39 <- c(40.75406905512651, -73.98830604245481)  # W 39th St and 7th Ave
 
-  # TODO: update with new units API
   d <- get_haversine_distance(w39[1], w39[2], w59[1], w59[2], "miles")
   expect_equal(d, 1., tolerance = 0.01)
 
