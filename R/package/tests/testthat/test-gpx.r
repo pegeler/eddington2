@@ -1,19 +1,34 @@
 context("GPX file processing")
 
-test_that("...", {
-  # Base case
-
-
-  # Multiple trkseg nodes in the same file
-
-
-  # 0 and 1 trkpt nodes in a trkseg node
-
-
-  # time node presence
-
-
+test_that("GPX file base case works", {
+  d <- read_gpx("base-case.gpx")
+  expect_equal(d$date, as.Date("2023-12-01"))
+  expect_equal(d$distance, 3., tolerance = 0.01)
 })
+
+test_that("Multiple trkseg nodes in same file are processed correctly", {
+  d <- read_gpx("multi-trkseg.gpx")
+  expect_equal(d$date, c(as.Date("2023-12-01"), as.Date("2023-12-02")))
+  expect_equal(d$distance, c(3., 1.), tolerance = 0.01)
+})
+
+test_that("trkseg nodes with 0 or 1 trkpt nodes result in distance of 0", {
+  d <- read_gpx("zero-node-trkseg.gpx")
+  expect_equal(d$date, as.Date("2023-12-01"))
+  expect_equal(d$distance, 0.)
+
+  d <- read_gpx("one-node-trkseg.gpx")
+  expect_equal(d$date, as.Date("2023-12-01"))
+  expect_equal(d$distance, 0.)
+})
+
+test_that("correctly handles time nodes", {
+  d <- read_gpx("no-time-nodes.gpx")
+  expect_equal(is.na(d$date))
+  expect_equal(d$distance, 3., tolerance = 0.01)
+})
+
+
 
 context("Haversine distance formula")
 
