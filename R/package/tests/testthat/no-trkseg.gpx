@@ -4,8 +4,7 @@
   xmlns="http://www.topografix.com/GPX/1/1"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <trk>
-    <name>Park Ave Empty trkseg</name>
+    <name>Park Ave Missing trkseg</name>
     <type>walk</type>
-    <trkseg></trkseg>
   </trk>
 </gpx>

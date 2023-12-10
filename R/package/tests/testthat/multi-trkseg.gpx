@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx creator="Hand-written" version="1.1"
+  xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/11.xsd"
+  xmlns="http://www.topografix.com/GPX/1/1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <trk>
+    <name>Park Ave Multiple Track Segments</name>
+    <type>walk</type>
+
+    <!-- One-mile trip on 2023-12-01 -->
+    <trkseg>
+      <trkpt lat="40.76684156255418" lon="-73.97908243833855">
+        <time>2023-12-01T23:59:59.000Z</time>
+        <desc>7 Ave and W 59 St</desc>
+      </trkpt>
+      <trkpt lat="40.75406905512651" lon="-73.98830604245481">
+        <time>2023-12-02T00:59:59.000Z</time>
+        <desc>7 Ave and W 39 St</desc>
+      </trkpt>
+    </trkseg>
+
+    <!-- Second leg of 3-mile trip on 2023-12-02 -->
+    <trkseg>
+      <trkpt lat="40.76026319186414" lon="-73.97149360922498">
+        <time>2023-12-02T01:59:59.000Z</time>
+        <desc>Park Ave and E 55 St</desc>
+      </trkpt>
+      <trkpt lat="40.77301604875587" lon="-73.96217737679450">
+        <time>2023-12-02T02:59:59.000Z</time>
+        <desc>Park Ave and E 75 St</desc>
+      </trkpt>
+    </trkseg>
+
+    <!-- First leg of 3-mile trip on 2023-12-02 -->
+    <trkseg>
+      <trkpt lat="40.735337983655434" lon="-73.98973648773142">
+        <time>2023-12-02T00:00:59.000Z</time>
+        <desc>Park Ave and E 15 St</desc>
+      </trkpt>
+      <trkpt lat="40.74772623378332" lon="-73.98066078090876">
+        <time>2023-12-02T00:59:59.000Z</time>
+        <desc>Park Ave and E 35 St</desc>
+      </trkpt>
+      <trkpt lat="40.76026319186414" lon="-73.97149360922498">
+        <time>2023-12-02T01:59:59.000Z</time>
+        <desc>Park Ave and E 55 St</desc>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

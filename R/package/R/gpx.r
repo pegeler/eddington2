@@ -39,20 +39,33 @@ get_haversine_distance <- function(lat_1,
 #' @param units The units desired for the distance metric.
 #' @returns A data frame containing up to two columns:
 #'  \describe{
-#'    \item{distance}{The distance of the track segment in the requested units.}
 #'    \item{date}{The date of the ride. See description and details.}
+#'    \item{distance}{The distance of the track segment in the requested units.}
 #'  }
 #' @export
 read_gpx <- function(file, units = c("miles", "kilometers")) {
   x <- XML::xmlInternalTreeParse(file)
   on.exit(XML::free(x))
 
-  out <- data.frame(distance = unlist(get_trkseg_dist(x, match.arg(units))))
+  distances <- get_trkseg_dist(x, match.arg(units))
+
+  if (!length(distances)) {
+    # No trkseg nodes were found. Returning an empty data frame
+    return(
+      data.frame(
+        date = double(0L),
+        distance = double(0L)
+      )
+    )
+  }
 
   dates <- get_dates(x)
-  out$date <- if (length(dates) == nrow(out)) do.call(c, dates) else as.Date(NA)
 
-  out
+  data.frame(
+    # do.call preserves "Date" class
+    date = if (length(dates) == length(distances)) do.call(c, dates) else as.Date(NA),
+    distance = unlist(distances)
+  )
 }
 
 # XML parsing helper functions --------------------------------------------

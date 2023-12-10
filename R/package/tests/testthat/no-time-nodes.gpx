@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx creator="Hand-written" version="1.1"
+  xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/11.xsd"
+  xmlns="http://www.topografix.com/GPX/1/1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <trk>
+    <name>Park Ave Time Nodes Missing</name>
+    <type>walk</type>
+    <trkseg>
+      <trkpt lat="40.735337983655434" lon="-73.98973648773142">
+        <desc>Park Ave and E 15 St</desc>
+      </trkpt>
+      <trkpt lat="40.74772623378332" lon="-73.98066078090876">
+        <desc>Park Ave and E 35 St</desc>
+      </trkpt>
+      <trkpt lat="40.76026319186414" lon="-73.97149360922498">
+        <desc>Park Ave and E 55 St</desc>
+      </trkpt>
+      <trkpt lat="40.77301604875587" lon="-73.96217737679450">
+        <desc>Park Ave and E 75 St</desc>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

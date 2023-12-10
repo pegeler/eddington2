@@ -13,22 +13,22 @@ read_gpx(file, units = c("miles", "kilometers"))
 }
 \value{
 A data frame containing up to two columns:
-\desribe{
-\item{distance}{The distance of the track segment in the requested units.}
+\describe{
 \item{date}{The date of the ride. See description and details.}
+\item{distance}{The distance of the track segment in the requested units.}
 }
 }
 \description{
-Reads in data from a GPS Exchange Format XML document and outputs a
-\code{data.frame} containing distances. The corresponding dates for each track
-segment (\code{trkseg}) will be included if present in the source file, else
-the \code{date} column will be populated with \code{NA}s.
+Reads in a GPS Exchange Format XML document and outputs a \code{data.frame}
+containing distances. The corresponding dates for each track segment
+(\code{trkseg}) will be included if present in the source file, else the \code{date}
+column will be populated with \code{NA}s.
 }
 \details{
 Distances are computed using the Haversine formula and do not account for
 elevation changes.
 
-This function treats the fist timestamp of each \code{trkseg} as the date of
+This function treats the first timestamp of each \code{trkseg} as the date of
 record. Thus overnight track segments will all count toward the day in which
 the journey began.
 }
