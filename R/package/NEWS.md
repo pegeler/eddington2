@@ -1,3 +1,16 @@
+# eddington 4.1.1 (Release date: 2023-12-11)
+
+Changes:
+
+- Adding examples for `read_gpx` and `get_haversine_distance`.
+
+# eddington 4.1.0 (Release date: 2023-11-24)
+
+Changes:
+
+- Supports ingesting GPS Exchange Format (GPX) files. Creates a `data.frame`
+  where each row contains the distance of a track segment and date.
+
 # eddington 4.0.1 (Release date: 2023-11-07)
 
 Changes:

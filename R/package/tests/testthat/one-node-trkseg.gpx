@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx creator="Hand-written" version="1.1"
+  xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/11.xsd"
+  xmlns="http://www.topografix.com/GPX/1/1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <trk>
+    <name>Park Ave Single trkpt Node</name>
+    <type>walk</type>
+    <trkseg>
+      <trkpt lat="40.735337983655434" lon="-73.98973648773142">
+        <time>2023-12-01T23:59:59.000Z</time>
+        <desc>Park Ave and E 15 St</desc>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

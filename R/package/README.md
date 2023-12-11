@@ -20,9 +20,12 @@ including efficiently computing cumulative *E* over a vector. These
 functions may also be used for *h*-indices for authors. Both are
 specific applications of computing the side length of a Durfee square.
 
+The package can also be used to ingest GPS Exchange Format (GPX) files
+into a `data.frame` format conducive to computing the Eddington number.
+
 ## Installation
 
-You can install the released version of eddington from
+You can install the released version of `eddington` from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
@@ -32,8 +35,8 @@ install.packages("eddington")
 And the development version from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("pegeler/eddington2/R/package")
+# install.packages("remotes")
+remotes::install_github("pegeler/eddington2/R/package")
 ```
 
 ## Example

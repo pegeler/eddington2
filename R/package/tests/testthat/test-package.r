@@ -1,4 +1,4 @@
-context("Testing output")
+context("Package functions")
 
 simdata <- readRDS("simdata.rds")
 refdata <- readRDS("refdata.rds")
@@ -35,7 +35,7 @@ test_that("E_req works",{
   expect_equal(E_req(simdata, ref_next), x$req)
 })
 
-context("Testing R6 class")
+context("R6 class")
 
 test_that("Eddington class works",{
 
@@ -83,7 +83,7 @@ test_that("Eddington class works",{
 })
 
 
-context("Testing Rcpp Module class")
+context("Rcpp Module class")
 
 test_that("EddingtonModule class works",{
 
