@@ -32,3 +32,17 @@ This function treats the first timestamp of each \code{trkseg} as the date of
 record. Thus overnight track segments will all count toward the day in which
 the journey began.
 }
+\examples{
+\dontrun{
+# Get a list of all GPX export files in a directory tree
+gpx_export_files <- list.files(
+  "/path/to/gpx/exports/",
+  pattern = "\\\\.gpx$",
+  full.names = TRUE,
+  recursive = TRUE
+)
+
+# Read in all files and combine them into a single data frame
+rides <- do.call(rbind, lapply(activity_files, read_gpx))
+}
+}

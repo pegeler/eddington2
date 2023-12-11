@@ -25,6 +25,41 @@ The distance between two points in the requested units.
 Uses the Haversine great-circle distance formula to compute the distance
 between two latitude/longitude points.
 }
+\examples{
+# In NYC, 20 blocks == 1 mile. Thus, computing the distance of two points along
+# 7th Ave from W 39 St to W 59 St should return ~1 mile.
+w39_coords <- list(lat=40.75406905512651, long=-73.98830604245481)
+w59_coords <- list(lat=40.76684156255418, long=-73.97908243833855)
+
+get_haversine_distance(
+  w39_coords$lat,
+  w39_coords$long,
+  w59_coords$lat,
+  w59_coords$long,
+  "miles"
+)
+
+# The combined distance of multiple points on a track can be computed as well.
+park_ave_coords <- list(
+  list(lat=40.735337983655434, long=-73.98973648773142),  # E 15 St / Park Ave
+  list(lat=40.74772623378332, long=-73.98066078090876),   # E 35 St / Park Ave
+  list(lat=40.76026319186414, long=-73.97149360922498),   # E 55 St / Park Ave
+  list(lat=40.77301604875587, long=-73.96217737679450)    # E 75 St / Park Ave
+)
+
+sum(
+  sapply(
+    seq_along(park_ave_coords)[-1],
+    \(i) get_haversine_distance(
+      park_ave_coords[[i]]$lat,
+      park_ave_coords[[i]]$long,
+      park_ave_coords[[i - 1]]$lat,
+      park_ave_coords[[i - 1]]$long,
+      "miles"
+    )
+  )
+)
+}
 \references{
 \url{https://en.wikipedia.org/wiki/Haversine_formula}
 }

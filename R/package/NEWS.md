@@ -1,3 +1,9 @@
+# eddington 4.1.1 (Release date: 2023-12-11)
+
+Changes:
+
+- Adding examples for `read_gpx` and `get_haversine_distance`.
+
 # eddington 4.1.0 (Release date: 2023-11-24)
 
 Changes:

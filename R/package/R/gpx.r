@@ -9,6 +9,40 @@ TIMESTAMP_FORMAT <- "%FT%T.000Z"
 #' @param lat_1,long_1,lat_2,long_2 The coordinates
 #'    used to compute the distance.
 #' @param units The units of the output distance.
+#' @examples
+#' # In NYC, 20 blocks == 1 mile. Thus, computing the distance of two points along
+#' # 7th Ave from W 39 St to W 59 St should return ~1 mile.
+#' w39_coords <- list(lat=40.75406905512651, long=-73.98830604245481)
+#' w59_coords <- list(lat=40.76684156255418, long=-73.97908243833855)
+#'
+#' get_haversine_distance(
+#'   w39_coords$lat,
+#'   w39_coords$long,
+#'   w59_coords$lat,
+#'   w59_coords$long,
+#'   "miles"
+#' )
+#'
+#' # The combined distance of multiple points on a track can be computed as well.
+#' park_ave_coords <- list(
+#'   list(lat=40.735337983655434, long=-73.98973648773142),  # E 15 St / Park Ave
+#'   list(lat=40.74772623378332, long=-73.98066078090876),   # E 35 St / Park Ave
+#'   list(lat=40.76026319186414, long=-73.97149360922498),   # E 55 St / Park Ave
+#'   list(lat=40.77301604875587, long=-73.96217737679450)    # E 75 St / Park Ave
+#' )
+#'
+#' sum(
+#'   sapply(
+#'     seq_along(park_ave_coords)[-1],
+#'     \(i) get_haversine_distance(
+#'       park_ave_coords[[i]]$lat,
+#'       park_ave_coords[[i]]$long,
+#'       park_ave_coords[[i - 1]]$lat,
+#'       park_ave_coords[[i - 1]]$long,
+#'       "miles"
+#'     )
+#'   )
+#' )
 #' @returns The distance between two points in the requested units.
 #' @references <https://en.wikipedia.org/wiki/Haversine_formula>
 #' @export
@@ -37,6 +71,19 @@ get_haversine_distance <- function(lat_1,
 #'
 #' @param file The input file to be parsed.
 #' @param units The units desired for the distance metric.
+#' @examples
+#' \dontrun{
+#' # Get a list of all GPX export files in a directory tree
+#' gpx_export_files <- list.files(
+#'   "/path/to/gpx/exports/",
+#'   pattern = "\\.gpx$",
+#'   full.names = TRUE,
+#'   recursive = TRUE
+#' )
+#'
+#' # Read in all files and combine them into a single data frame
+#' rides <- do.call(rbind, lapply(activity_files, read_gpx))
+#' }
 #' @returns A data frame containing up to two columns:
 #'  \describe{
 #'    \item{date}{The date of the ride. See description and details.}
