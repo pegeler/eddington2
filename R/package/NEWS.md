@@ -1,8 +1,15 @@
+# eddington 4.1.2 (Release date: 2023-12-12)
+
+Changes:
+
+- Enhanced and fixed typos in examples.
+- Changed API to `get_haversine_distance()`.
+
 # eddington 4.1.1 (Release date: 2023-12-11)
 
 Changes:
 
-- Adding examples for `read_gpx` and `get_haversine_distance`.
+- Adding examples for `read_gpx()` and `get_haversine_distance()`.
 
 # eddington 4.1.0 (Release date: 2023-11-24)
 
@@ -18,11 +25,11 @@ Changes:
 - Minimum R version is now 4.3.0 and requires compiler capable of C++17 standard.
 - Full re-implementation of C++ code. As a result, memory usage will be reduced
   for typical datasets.
-- Introduction of `EddingtonModule` Rcpp module. This class maintains algorithm
+- Introduction of `EddingtonModule()` Rcpp module. This class maintains algorithm
   state, and so can be updated multiple times as new data comes in.
-- Introduction of `Eddington` R6 class. This provides similar functionality to
-  the `EddingtonModule` Rcpp module. All methods are implemented in pure R. It
-  uses R's new `hashtab` data structure, which is experimental as of this
+- Introduction of `Eddington()` R6 class. This provides similar functionality to
+  the `EddingtonModule()` Rcpp module. All methods are implemented in pure R. It
+  uses R's new `hashtab()` data structure, which is experimental as of this
   package release.
 
 # eddington 2.1.2 (Release date: 2020-03-24)
@@ -58,9 +65,9 @@ Changes:
 Changes:
 
 - R version of `Eddington_number` and c++ `E_fast` are now defunct.
-- `E_num` is now the method for getting the single maximum Eddington number of a dataset.
-- Added `E_sat` that checks to see if a dataset satisfies a certain Eddington number.
-- Added `E_req` that determines the minimum number of rides to increment Eddington number.
+- `E_num()` is now the method for getting the single maximum Eddington number of a dataset.
+- Added `E_sat()` that checks to see if a dataset satisfies a certain Eddington number.
+- Added `E_req()` that determines the minimum number of rides to increment Eddington number.
 
 # eddington 0.1.1 (Release date: 2018-12-15)
 
@@ -72,7 +79,7 @@ Changes:
 
 Changes:
 
-- Added cumulative function, `E_cum`.
+- Added cumulative function, `E_cum()`.
 
 # eddington 0.0.0 (Release date: 2018-11-27)
 

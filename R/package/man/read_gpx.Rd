@@ -43,6 +43,6 @@ gpx_export_files <- list.files(
 )
 
 # Read in all files and combine them into a single data frame
-rides <- do.call(rbind, lapply(activity_files, read_gpx))
+rides <- do.call(rbind, lapply(gpx_export_files, read_gpx))
 }
 }

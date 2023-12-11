@@ -116,17 +116,17 @@ RcppExport SEXP _eddington_E_next(SEXP ridesSEXP) {
     return rcpp_result_gen;
 }
 // get_haversine_distance_
-double get_haversine_distance_(double lat_1, double long_1, double lat_2, double long_2, double r);
-RcppExport SEXP _eddington_get_haversine_distance_(SEXP lat_1SEXP, SEXP long_1SEXP, SEXP lat_2SEXP, SEXP long_2SEXP, SEXP rSEXP) {
+double get_haversine_distance_(double lat_1, double lon_1, double lat_2, double lon_2, double r);
+RcppExport SEXP _eddington_get_haversine_distance_(SEXP lat_1SEXP, SEXP lon_1SEXP, SEXP lat_2SEXP, SEXP lon_2SEXP, SEXP rSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type lat_1(lat_1SEXP);
-    Rcpp::traits::input_parameter< double >::type long_1(long_1SEXP);
+    Rcpp::traits::input_parameter< double >::type lon_1(lon_1SEXP);
     Rcpp::traits::input_parameter< double >::type lat_2(lat_2SEXP);
-    Rcpp::traits::input_parameter< double >::type long_2(long_2SEXP);
+    Rcpp::traits::input_parameter< double >::type lon_2(lon_2SEXP);
     Rcpp::traits::input_parameter< double >::type r(rSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_haversine_distance_(lat_1, long_1, lat_2, long_2, r));
+    rcpp_result_gen = Rcpp::wrap(get_haversine_distance_(lat_1, lon_1, lat_2, lon_2, r));
     return rcpp_result_gen;
 END_RCPP
 }

@@ -6,53 +6,61 @@ TIMESTAMP_FORMAT <- "%FT%T.000Z"
 #' Uses the Haversine great-circle distance formula to compute the distance
 #' between two latitude/longitude points.
 #'
-#' @param lat_1,long_1,lat_2,long_2 The coordinates
+#' @param lat_1,lon_1,lat_2,lon_2 The coordinates
 #'    used to compute the distance.
 #' @param units The units of the output distance.
 #' @examples
-#' # In NYC, 20 blocks == 1 mile. Thus, computing the distance of two points along
-#' # 7th Ave from W 39 St to W 59 St should return ~1 mile.
-#' w39_coords <- list(lat=40.75406905512651, long=-73.98830604245481)
-#' w59_coords <- list(lat=40.76684156255418, long=-73.97908243833855)
+#' # In NYC, 20 blocks == 1 mile. Thus, computing the distance between two
+#' # points along 7th Ave from W 39 St to W 59 St should return ~1 mile.
+#' w39_coords <- list(lat=40.75406905512651, lon=-73.98830604245481)
+#' w59_coords <- list(lat=40.76684156255418, lon=-73.97908243833855)
 #'
 #' get_haversine_distance(
 #'   w39_coords$lat,
-#'   w39_coords$long,
+#'   w39_coords$lon,
 #'   w59_coords$lat,
-#'   w59_coords$long,
+#'   w59_coords$lon,
 #'   "miles"
 #' )
 #'
-#' # The combined distance of multiple points on a track can be computed as well.
+#' # The total distance along a sequence of points can be computed. Consider the
+#' # following sequence of points along Park Ave in the form of a list of points
+#' # where each point is a list containing a `lat` and `lon` tag.
 #' park_ave_coords <- list(
-#'   list(lat=40.735337983655434, long=-73.98973648773142),  # E 15 St / Park Ave
-#'   list(lat=40.74772623378332, long=-73.98066078090876),   # E 35 St / Park Ave
-#'   list(lat=40.76026319186414, long=-73.97149360922498),   # E 55 St / Park Ave
-#'   list(lat=40.77301604875587, long=-73.96217737679450)    # E 75 St / Park Ave
+#'   list(lat=40.735337983655434, lon=-73.98973648773142),  # E 15 St
+#'   list(lat=40.74772623378332, lon=-73.98066078090876),   # E 35 St
+#'   list(lat=40.76026319186414, lon=-73.97149360922498),   # E 55 St
+#'   list(lat=40.77301604875587, lon=-73.96217737679450)    # E 75 St
 #' )
 #'
-#' sum(
-#'   sapply(
-#'     seq_along(park_ave_coords)[-1],
-#'     \(i) get_haversine_distance(
-#'       park_ave_coords[[i]]$lat,
-#'       park_ave_coords[[i]]$long,
-#'       park_ave_coords[[i - 1]]$lat,
-#'       park_ave_coords[[i - 1]]$long,
-#'       "miles"
+#' # We can create a function to compute the total distance as follows:
+#' compute_total_distance <- function(coords) {
+#'   sum(
+#'     sapply(
+#'       seq_along(coords)[-1],
+#'       \(i) get_haversine_distance(
+#'         coords[[i]]$lat,
+#'         coords[[i]]$lon,
+#'         coords[[i - 1]]$lat,
+#'         coords[[i - 1]]$lon,
+#'         "miles"
+#'       )
 #'     )
 #'   )
-#' )
+#' }
+#'
+#' # Then applying the function to our sequence results in a total distance.
+#' compute_total_distance(park_ave_coords)
 #' @returns The distance between two points in the requested units.
 #' @references <https://en.wikipedia.org/wiki/Haversine_formula>
 #' @export
 get_haversine_distance <- function(lat_1,
-                                   long_1,
+                                   lon_1,
                                    lat_2,
-                                   long_2,
+                                   lon_2,
                                    units = c("miles", "kilometers")) {
   r <- switch(match.arg(units), miles = R_E_MI, kilometers = R_E_KM)
-  .Call(`_eddington_get_haversine_distance_`, lat_1, long_1, lat_2, long_2, r)
+  .Call(`_eddington_get_haversine_distance_`, lat_1, lon_1, lat_2, lon_2, r)
 }
 
 #' Read a GPX file into a data frame containing dates and distances
@@ -82,7 +90,7 @@ get_haversine_distance <- function(lat_1,
 #' )
 #'
 #' # Read in all files and combine them into a single data frame
-#' rides <- do.call(rbind, lapply(activity_files, read_gpx))
+#' rides <- do.call(rbind, lapply(gpx_export_files, read_gpx))
 #' }
 #' @returns A data frame containing up to two columns:
 #'  \describe{

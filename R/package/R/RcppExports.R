@@ -70,8 +70,8 @@ E_next <- function(rides) {
     .Call(`_eddington_E_next`, rides)
 }
 
-get_haversine_distance_ <- function(lat_1, long_1, lat_2, long_2, r) {
-    .Call(`_eddington_get_haversine_distance_`, lat_1, long_1, lat_2, long_2, r)
+get_haversine_distance_ <- function(lat_1, lon_1, lat_2, lon_2, r) {
+    .Call(`_eddington_get_haversine_distance_`, lat_1, lon_1, lat_2, lon_2, r)
 }
 
 # Register entry points for exported C++ functions

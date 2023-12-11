@@ -11,13 +11,13 @@ static inline double deg2rad(double deg) {
 
 // [[Rcpp::export]]
 double get_haversine_distance_(double lat_1,
-                               double long_1,
+                               double lon_1,
                                double lat_2,
-                               double long_2,
+                               double lon_2,
                                double r) {
   const double dlat = deg2rad(lat_2 - lat_1);
-  const double dlong = deg2rad(long_2 - long_1);
-  const double h = hav(dlat) + cos(deg2rad(lat_1)) * cos(deg2rad(lat_2)) * hav(dlong);
+  const double dlon = deg2rad(lon_2 - lon_1);
+  const double h = hav(dlat) + cos(deg2rad(lat_1)) * cos(deg2rad(lat_2)) * hav(dlon);
 
   return 2 * r * asin(sqrt(std::clamp(h, 0.0, 1.0)));
 }
