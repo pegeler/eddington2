@@ -5,10 +5,12 @@ Tools to compute the Eddington number for cycling.
 
 Can compute both summary Eddington number and a vector of cumulative
 statistics in linear asymptotic time, with relatively low memory overhead.
-The `get_cumulative_eddington_number` function uses a variant of the algorithm
+The ``get_cumulative_eddington_number`` function uses a variant of the algorithm
 that is a "streaming" algorithm, which can track the cumulative Eddington number
 over inputs of unknown size.
 """
+__version__ = '3.0.0'
+
 import argparse
 import sys
 
@@ -17,8 +19,6 @@ from collections.abc import Iterable
 from collections.abc import Iterator
 from collections.abc import Sized
 from typing import Optional
-
-__version__ = '3.0.0'
 
 
 class Eddington:
@@ -63,7 +63,7 @@ class Eddington:
 
     def required(self, target: int) -> int:
         """
-        Report how many distances must be accumulated at or above the `target`
+        Report how many distances must be accumulated at or above the ``target``
         Eddington number to achieve that number, given the current state.
         """
         if target <= self.current:
@@ -106,7 +106,7 @@ def get_cumulative_eddington_number(distances: Iterable[float]) -> Iterator[int]
     """
     Compute the cumulative Eddington Number for cycling.
 
-    :param Iterable distances: An iterable of distances for each day.
+    :param distances: An iterable of distances for each day.
     :return: The Eddington number, E, for each element in the data.
     """
     current = 0
@@ -161,7 +161,6 @@ def is_satisfied(distances: Iterable[float], candidate: int) -> bool:
 
 def _parse_args(argv=None):
     parser = argparse.ArgumentParser(
-        prog='python3 -m eddington',
         description='Compute the Eddington number for cycling.')
     parser.add_argument(
         'files',
