@@ -27,7 +27,7 @@ Imports:
     R6,
     methods,
     stats,
-    XML
+    xml2
 Suggests: 
     testthat,
     knitr,
