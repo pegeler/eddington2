@@ -135,22 +135,26 @@ get_trkseg_dist <- function(x, units = c("miles", "kilometers")) {
 
   lapply(
     xml2::xml_find_all(x, "//d:trkseg", ns = NAMESPACES),
-    \(trkseg) {
+    \(trkseg) {  # get sum of distances for a single trkseg
       trkpts <- xml2::xml_children(trkseg)
-      if (length(trkpts) < 2) return(0.)
-      Reduce(
-        `+`,
-        apply(
-          cbind(trkpts[-1], trkpts[-length(trkpts)]),
-          1,
-          \(pair) .Call(`_eddington_get_haversine_distance_`,
-            as.double(xml2::xml_attr(pair[[1]], "lat")),
-            as.double(xml2::xml_attr(pair[[1]], "lon")),
-            as.double(xml2::xml_attr(pair[[2]], "lat")),
-            as.double(xml2::xml_attr(pair[[2]], "lon")),
+
+      if (length(trkpts) < 2L)
+        return(0)
+
+      sum(
+        vapply(
+          seq_along(trkpts[-1L]),
+          \(i) .Call(
+            `_eddington_get_haversine_distance_`,
+            as.double(xml2::xml_attr(trkpts[[i]], "lat")),
+            as.double(xml2::xml_attr(trkpts[[i]], "lon")),
+            as.double(xml2::xml_attr(trkpts[[i + 1L]], "lat")),
+            as.double(xml2::xml_attr(trkpts[[i + 1L]], "lon")),
             r
-          )
+          ),
+          double(1)
         )
       )
-    })
+    }
+  )
 }
