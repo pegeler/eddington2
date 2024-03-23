@@ -1,3 +1,9 @@
+# eddington 4.2.0 (Release date: 2024-03-23)
+
+Changes:
+
+- Substituted `XML` package dependency for `xml2`.
+
 # eddington 4.1.2 (Release date: 2023-12-12)
 
 Changes:

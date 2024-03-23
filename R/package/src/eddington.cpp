@@ -33,7 +33,7 @@
 //' rides <- rgamma(15, shape = 2, scale = 10)
 //'
 //' # View the rides sorted in decreasing order
-//' setNames(sort(rides, decreasing = TRUE), seq_along(rides))
+//' stats::setNames(sort(rides, decreasing = TRUE), seq_along(rides))
 //'
 //' # Get the Eddington number
 //' E_num(rides)
