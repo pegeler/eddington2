@@ -1,6 +1,6 @@
 Package: eddington
 Title: Compute a Cyclist's Eddington Number
-Version: 4.1.3
+Version: 4.2.0
 Authors@R: c(
     person('Paul', 'Egeler', email = 'paulegeler@gmail.com', role = c('aut','cre')),
     person('Tashi', 'Reigle', role = 'ctb'))
@@ -26,12 +26,12 @@ Imports:
     Rcpp,
     R6,
     methods,
-    stats,
     xml2
 Suggests: 
     testthat,
     knitr,
     rmarkdown,
+    stats,
     dplyr
 SystemRequirements: C++17
 VignetteBuilder: knitr
