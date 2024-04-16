@@ -28,7 +28,7 @@ or \link[base:load]{base::load}.
 rides <- rgamma(15, shape = 2, scale = 10)
 
 # View the rides sorted in decreasing order
-setNames(sort(rides, decreasing = TRUE), seq_along(rides))
+stats::setNames(sort(rides, decreasing = TRUE), seq_along(rides))
 
 # Create the Eddington object
 e <- Eddington$new(rides, store.cumulative = TRUE)

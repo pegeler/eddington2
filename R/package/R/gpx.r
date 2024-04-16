@@ -99,8 +99,7 @@ get_haversine_distance <- function(lat_1,
 #'  }
 #' @export
 read_gpx <- function(file, units = c("miles", "kilometers")) {
-  x <- XML::xmlInternalTreeParse(file)
-  on.exit(XML::free(x))
+  x <- xml2::read_xml(file)
 
   distances <- get_trkseg_dist(x, match.arg(units))
 
@@ -108,7 +107,7 @@ read_gpx <- function(file, units = c("miles", "kilometers")) {
     # No trkseg nodes were found. Returning an empty data frame
     return(
       data.frame(
-        date = double(0L),
+        date = structure(double(0L), class = "Date"),
         distance = double(0L)
       )
     )
@@ -117,8 +116,7 @@ read_gpx <- function(file, units = c("miles", "kilometers")) {
   dates <- get_dates(x)
 
   data.frame(
-    # do.call preserves "Date" class
-    date = if (length(dates) == length(distances)) do.call(c, dates) else as.Date(NA),
+    date = if (length(dates) == length(distances)) dates else as.Date(NA),
     distance = unlist(distances)
   )
 }
@@ -126,58 +124,37 @@ read_gpx <- function(file, units = c("miles", "kilometers")) {
 # XML parsing helper functions --------------------------------------------
 
 get_dates <- function(x) {
-  timestamps <- XML::xpathApply(
-    x,
-    "//d:trkseg/d:trkpt[1]/d:time",
-    XML::xmlValue,
-    namespaces = NAMESPACES
-  )
-  lapply(timestamps, as.Date, TIMESTAMP_FORMAT)
+  x |>
+    xml2::xml_find_all("//d:trkseg/d:trkpt[1]/d:time", ns = NAMESPACES) |>
+    xml2::xml_text() |>
+    as.Date.character(TIMESTAMP_FORMAT)
 }
 
 get_trkseg_dist <- function(x, units = c("miles", "kilometers")) {
   r <- switch(match.arg(units), miles = R_E_MI, kilometers = R_E_KM)
 
   lapply(
-    XML::getNodeSet(x, "//d:trkseg", namespaces = NAMESPACES),
-    \(trkseg) {
-      trkpts <- XML::xmlChildren(trkseg)
-      if (length(trkpts) < 2) return(0.)
-      Reduce(
-        `+`,
-        apply(
-          cbind(trkpts[-1], trkpts[-length(trkpts)]),
-          1,
-          \(pair) .Call(`_eddington_get_haversine_distance_`,
-            as.double(XML::xmlGetAttr(pair[[1]], "lat")),
-            as.double(XML::xmlGetAttr(pair[[1]], "lon")),
-            as.double(XML::xmlGetAttr(pair[[2]], "lat")),
-            as.double(XML::xmlGetAttr(pair[[2]], "lon")),
+    xml2::xml_find_all(x, "//d:trkseg", ns = NAMESPACES),
+    \(trkseg) {  # get sum of distances for a single trkseg
+      trkpts <- xml2::xml_children(trkseg)
+
+      if (length(trkpts) < 2L)
+        return(0)
+
+      sum(
+        vapply(
+          seq_along(trkpts[-1L]),
+          \(i) .Call(
+            `_eddington_get_haversine_distance_`,
+            as.double(xml2::xml_attr(trkpts[[i]], "lat")),
+            as.double(xml2::xml_attr(trkpts[[i]], "lon")),
+            as.double(xml2::xml_attr(trkpts[[i + 1L]], "lat")),
+            as.double(xml2::xml_attr(trkpts[[i + 1L]], "lon")),
             r
-          )
+          ),
+          double(1)
         )
       )
-    })
-}
-
-# Unused ------------------------------------------------------------------
-
-get_trkseg_coords <- function(x) {
-  trksegs <- lapply(
-    XML::getNodeSet(x, "//d:trkseg", namespaces = NAMESPACES),
-    \(trkseg) XML::xmlApply(
-      trkseg,
-      \(trkpt) as.double(c(XML::xmlGetAttr(trkpt, "lat"),
-                           XML::xmlGetAttr(trkpt, "lon")))
-    )
-  )
-  lapply(
-    trksegs,
-    \(trkseg) stats::setNames(
-      as.data.frame(
-        do.call(rbind, trkseg),
-        row.names = FALSE),
-      c("lat", "lon")
-    )
+    }
   )
 }
