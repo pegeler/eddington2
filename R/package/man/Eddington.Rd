@@ -4,11 +4,6 @@
 \alias{Eddington}
 \title{An R6 Class for Tracking Eddington Numbers for Cycling}
 \description{
-An R6 Class for Tracking Eddington Numbers for Cycling
-
-An R6 Class for Tracking Eddington Numbers for Cycling
-}
-\details{
 The class will maintain the state of the algorithm, allowing for efficient
 updates as new rides come in.
 }

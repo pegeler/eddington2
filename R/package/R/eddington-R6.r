@@ -1,5 +1,6 @@
 #' An R6 Class for Tracking Eddington Numbers for Cycling
 #'
+#' @description
 #' The class will maintain the state of the algorithm, allowing for efficient
 #' updates as new rides come in.
 #'
