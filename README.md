@@ -37,6 +37,7 @@ number, check out the online calculator
 * [Java](java/)
 * [Javascript](docs/)
 * [Julia](julia/)
+* [Lua](lua/)
 * [MySQL](mysql/)
 * [Perl 5](perl/)
 * [PHP](php/)
