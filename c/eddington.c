@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
+#include <string.h>
 
 #define MAX_LEN 1000
 
@@ -10,7 +11,7 @@ void usage(char *prog) {
     "Usage:\n  %s"
     " [-c|--cumulative]"
     " [-h|--help]"
-    /* " [FILE [FILE...]]" TODO */
+    " [FILE|-]"
     "\n",
     prog
   );
@@ -19,10 +20,12 @@ void usage(char *prog) {
 int main(int argc, char *argv[])
 {
 
+  FILE *file = stdin;
+  int is_stdin = 1;
   char line[MAX_LEN];
-  int len = 10;
+  int len = 1024;
   int n, c, opt;
-  int *r = calloc(len, sizeof(int));
+  int *r = malloc(len * sizeof(int));
 
   n = c = opt = 0;
 
@@ -45,8 +48,13 @@ int main(int argc, char *argv[])
         return 1;
     }
 
+  if (optind < argc && strncmp(argv[optind], "-", 1)) {
+    is_stdin = 0;
+    file = fopen(argv[optind], "r"); 
+  }
+
   // Read in file
-  while (fgets(line, MAX_LEN, stdin) != NULL) {
+  while (fgets(line, MAX_LEN, file) != NULL) {
     if (n >= len) {
       len *= 2;
       r = realloc(r, len * sizeof(int));
@@ -54,7 +62,7 @@ int main(int argc, char *argv[])
     r[n++] = atoi(line);
   }
 
-  r = realloc(r, n * sizeof(int));
+  if (!is_stdin) fclose(file);
 
   // Initialize histogram
   int *h = calloc(n + 1, sizeof(int));
@@ -63,9 +71,8 @@ int main(int argc, char *argv[])
   int E = 0;
   for (int i=0, above=0; i < n; i++) {
     if (r[i] > E) {
-      above++;
       if (r[i] < n) h[r[i]]++;
-      if (above > E) above -= h[++E];
+      if (++above > E) above -= h[++E];
     }
 
     if (c) /* Cumulative print */
