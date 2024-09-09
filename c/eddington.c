@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define MAX_LEN 1000
 
@@ -42,15 +43,18 @@ int main(int argc, char *argv[])
         break;
       case 'h':
         usage(argv[0]);
-        return 0;
+        return EXIT_SUCCESS;
       case '?':
         usage(argv[0]);
-        return 1;
+        return EXIT_FAILURE;
     }
 
   if (optind < argc && strncmp(argv[optind], "-", 1)) {
     is_stdin = 0;
-    file = fopen(argv[optind], "r"); 
+    if ((file = fopen(argv[optind], "r")) == NULL) {
+      fprintf(stderr, "Could not open file %s\n", argv[optind]);
+      return EXIT_FAILURE;
+    }
   }
 
   // Read in file
@@ -82,5 +86,5 @@ int main(int argc, char *argv[])
   if (!c) /* Summary print if no cumulative */
     printf("%d\n", E);
 
-  return 0;
+  return EXIT_SUCCESS;
 }
