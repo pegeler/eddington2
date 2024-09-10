@@ -6,6 +6,11 @@
 
 #define MAX_LEN 1000
 
+typedef struct {
+  int *data;
+  int n;
+} Vector;
+
 void usage(char *prog) {
   fprintf(
     stderr,
@@ -18,38 +23,37 @@ void usage(char *prog) {
   );
 }
 
-/** Read lines from file stream and return them as an integer array
+/** Read lines from file stream and return them as an integer vector
  *
  *  @param[in] file the file stream to read from
- *  @param[out] n will be written with the number of values read in
  */
-int *read_values(FILE *file, int *n) {
+Vector read_values(FILE *file) {
+  Vector v = {0};
   char line[MAX_LEN];
   int len = 1024;
-  int *r = malloc(len * sizeof(int));
+  v.data = malloc(len * sizeof(int));
   while (fgets(line, MAX_LEN, file) != NULL) {
-    if (*n >= len) {
+    if (v.n >= len) {
       len *= 2;
-      r = realloc(r, len * sizeof(int));
+      v.data = realloc(v.data, len * sizeof(int));
     }
-    r[(*n)++] = atoi(line);
+    v.data[v.n++] = atoi(line);
   }
-  return r;
+  return v;
 }
 
-/** Compute the eddington number of an integer array and print the results
+/** Compute the eddington number of an integer vector and print the results
  *
- *  @param[in] r the integer array to compute the Eddington number on
- *  @param[in] n the length of \p r
+ *  @param[in] v the integer vector to compute the Eddington number on
  *  @param[in] c whether to print the cumulative result
  */
-void compute_eddington_number(int *r, int n, int c) {
-  int *h = calloc(n + 1, sizeof(int));
-
+void compute_eddington_number(Vector v, int c) {
   int E = 0;
-  for (int i=0, above=0; i < n; i++) {
-    if (r[i] > E) {
-      if (r[i] < n) h[r[i]]++;
+  int *h = calloc(v.n + 1, sizeof(int));
+
+  for (int i=0, above=0; i < v.n; i++) {
+    if (v.data[i] > E) {
+      if (v.data[i] < v.n) h[v.data[i]]++;
       if (++above > E) above -= h[++E];
     }
 
@@ -59,13 +63,15 @@ void compute_eddington_number(int *r, int n, int c) {
 
   if (!c) /* Summary print if no cumulative */
     printf("%d\n", E);
+
+  free(h);
 }
 
 int main(int argc, char *argv[]) {
-  int *r;
-  int n, c, opt;
+  Vector v;
+  int c, opt;
 
-  n = c = opt = 0;
+  c = opt = 0;
 
   struct option long_options[] = {
     {"help",       no_argument, NULL, 'h'},
@@ -92,13 +98,15 @@ int main(int argc, char *argv[]) {
       fprintf(stderr, "Could not open file %s\n", argv[optind]);
       return EXIT_FAILURE;
     }
-    r = read_values(file, &n);
+    v = read_values(file);
     fclose(file);
   } else {
-    r = read_values(stdin, &n);
+    v = read_values(stdin);
   }
 
-  compute_eddington_number(r, n, c);
+  compute_eddington_number(v, c);
+
+  free(v.data);
 
   return EXIT_SUCCESS;
 }
