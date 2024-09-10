@@ -8,7 +8,7 @@
 
 typedef struct {
   int *data;
-  int n;
+  int size;
 } Vector;
 
 void usage(char *prog) {
@@ -28,16 +28,21 @@ void usage(char *prog) {
  *  @param[in] file the file stream to read from
  */
 Vector read_values(FILE *file) {
-  Vector v = {0};
-  char line[MAX_LEN];
   int len = 1024;
-  v.data = malloc(len * sizeof(int));
+  Vector v = {
+    malloc(len * sizeof(int)),
+    0
+  };
+  char line[MAX_LEN];
   while (fgets(line, MAX_LEN, file) != NULL) {
-    if (v.n >= len) {
+    if (v.size >= len) {
       len *= 2;
-      v.data = realloc(v.data, len * sizeof(int));
+      if ((v.data = realloc(v.data, len * sizeof(int))) == NULL) {
+        fprintf(stderr, "Failed to allocate memory\n");
+        exit(EXIT_FAILURE);
+      }
     }
-    v.data[v.n++] = atoi(line);
+    v.data[v.size++] = atoi(line);
   }
   return v;
 }
@@ -49,11 +54,11 @@ Vector read_values(FILE *file) {
  */
 void compute_eddington_number(Vector v, int c) {
   int E = 0;
-  int *h = calloc(v.n + 1, sizeof(int));
+  int *h = calloc(v.size + 1, sizeof(int));
 
-  for (int i=0, above=0; i < v.n; i++) {
+  for (int i=0, above=0; i < v.size; i++) {
     if (v.data[i] > E) {
-      if (v.data[i] < v.n) h[v.data[i]]++;
+      if (v.data[i] < v.size) h[v.data[i]]++;
       if (++above > E) above -= h[++E];
     }
 
