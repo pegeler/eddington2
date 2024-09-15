@@ -16,9 +16,10 @@ void usage(char *prog) {
     " [FILE|-]"
     "\n\n"
     "  Where METHOD is...\n"
-    "    0: counting sort\n"
+    "    0: counting sort (default)\n"
     "    1: stdlib's qsort\n"
-    "    2: bubble sort\n",
+    "    2: bubble sort\n"
+    "    3: optimized bubble sort\n",
     prog
   );
 }
@@ -78,6 +79,12 @@ int main(int argc, char *argv[]) {
     case 2:
       bubble_sort(&v);
       break;
+    case 3:
+      optimized_bubble_sort(&v);
+      break;
+    default:
+      usage(argv[0]);
+      return EXIT_FAILURE;
     // TODO: More sorting algorithms
   }
 

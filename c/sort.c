@@ -63,14 +63,31 @@ void bubble_sort(Vector *v) {
   }
 }
 
-void quick_sort(Vector *v) {
+void optimized_bubble_sort(Vector *v) {
+  int n = v->size;
+  while (n > 1) {
+    int swapped = 0;
+    int i = 1, j = 1;
+    for (; i < n; i++) {
+      if (v->data[i - 1] < v->data[i]) {  /* Descending */
+        swapped = 1;
+        j = i;
+        swap(v->data + i, v->data + i - 1);
+      }
+    }
+    if (!swapped) return;
+    n = j;
+  }
+}
 
+void quick_sort(Vector *v) {
+  /* TODO */
 }
 
 void merge_sort(Vector *v) {
-
+  /* TODO */
 }
 
 void insertion_sort(Vector *v) {
-
+  /* TODO */
 }
