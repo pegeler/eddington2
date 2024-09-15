@@ -5,7 +5,7 @@ CXXFLAGS = -O2
 
 all: eddington-deprecated eddington-hashmap eddington-tree eddington
 
-eddington-deprecated: eddington-deprecated.c sort.c read.c
+eddington-deprecated: eddington-deprecated.c sort.c read.c vector.c
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 eddington-hashmap: eddington-hashmap.c hashmap.c primes.c

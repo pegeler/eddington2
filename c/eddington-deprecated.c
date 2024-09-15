@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
 
   printf("%d\n", compute_eddington_number(v));
 
-  free(v.data);
+  v_cleanup(v);
 
   return EXIT_SUCCESS;
 }
