@@ -3,3 +3,5 @@ eddington-deprecated
 eddington-hashmap
 eddington-tree
 ride*
+.vscode/
+test_sort

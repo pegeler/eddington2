@@ -16,3 +16,6 @@ eddington-tree: eddington-tree.c tree.c
 
 eddington: eddington.c sort.c read.c
 	$(CXX) $(CXXFLAGS) $^ -o $@
+
+test_sort: test_sort.c sort.c vector.c
+	$(CXX) $(CXXFLAGS) $^ -o $@

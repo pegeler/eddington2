@@ -29,7 +29,7 @@ int compare_ints (const void *a, const void *b) {
   return *(int*)b - *(int*)a;
 }
 
-void sort(Vector *v) {
+void counting_sort(Vector *v) {
   if (min_element(v) < 0)
     error(1, 0, "All elements must be integers >= 0");
   volatile int max = max_element(v);
@@ -48,4 +48,29 @@ void sort(Vector *v) {
       v->data[i++] = max;
 
   free(a);
+}
+
+void bubble_sort(Vector *v) {
+  for (;;) {
+    int swapped = 0;
+    for (int i=1; i < v->size; i++) {
+      if (v->data[i - 1] < v->data[i]) {  /* Descending */
+        swapped = 1;
+        swap(v->data + i, v->data + i - 1);
+      }
+    }
+    if (!swapped) return;
+  }
+}
+
+void quick_sort(Vector *v) {
+
+}
+
+void merge_sort(Vector *v) {
+
+}
+
+void insertion_sort(Vector *v) {
+
 }

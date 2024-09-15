@@ -15,7 +15,10 @@ void usage(char *prog) {
     " [-h|--help]"
     " [FILE|-]"
     "\n\n"
-    "  Where METHOD 0=counting sort, 1=stdlib qsort\n",
+    "  Where METHOD is...\n"
+    "    0: counting sort\n"
+    "    1: stdlib's qsort\n"
+    "    2: bubble sort\n",
     prog
   );
 }
@@ -67,10 +70,13 @@ int main(int argc, char *argv[]) {
 
   switch (s) {
     case 0:
-      sort(&v);
+      counting_sort(&v);
       break;
     case 1:
       qsort(v.data, v.size, sizeof(int), compare_ints);
+      break;
+    case 2:
+      bubble_sort(&v);
       break;
     // TODO: More sorting algorithms
   }
