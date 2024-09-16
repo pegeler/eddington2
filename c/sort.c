@@ -29,9 +29,13 @@ int compare_ints (const void *a, const void *b) {
   return *(int*)b - *(int*)a;
 }
 
-void counting_sort(Vector *v) {
+static void validate_input(Vector *v) {
   if (min_element(v) < 0)
     error(1, 0, "All elements must be integers >= 0");
+}
+
+void counting_sort(Vector *v) {
+  validate_input(v);
   volatile int max = max_element(v);
   int *a = (int *) calloc((unsigned int) max + 1, sizeof(int));
 
@@ -80,14 +84,47 @@ void optimized_bubble_sort(Vector *v) {
   }
 }
 
-void quick_sort(Vector *v) {
+
+static void rs(int *a, int n, int digit) {
+  if (digit < 0) return;
+
+  int lo = 0, hi = n;
+  int mask = 1 << digit--;
+  while (lo < hi) {
+    if (!(a[lo] & mask)) {
+      swap(a + lo, a + --hi);
+    } else {
+      lo++;
+    }
+  }
+
+  if (lo) rs(a, lo, digit);
+  if (hi < n) rs(a + hi, n - hi, digit);
+}
+
+void radix_sort(Vector *v) {
+  validate_input(v);
+  rs(v->data, v->size, (sizeof(int) - 1) * 8);
+}
+
+
+static void hqs(int *a, int n) {
+  if (n < 2) return;
+  int pivot;
+  error(1, 0, "Algorithm not implemented yet!");
   /* TODO */
+}
+
+void hoares_quick_sort(Vector *v) {
+  hqs(v->data, v->size);
 }
 
 void merge_sort(Vector *v) {
   /* TODO */
+  error(1, 0, "Algorithm not implemented yet!");
 }
 
 void insertion_sort(Vector *v) {
   /* TODO */
+  error(1, 0, "Algorithm not implemented yet!");
 }

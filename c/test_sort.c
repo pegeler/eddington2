@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
     sscanf(argv[i + 1], "%i", &v.data[i]);
   }
 
-  bubble_sort(&v);
+  radix_sort(&v);
 
   for (int i=0; i < v.size; i++) {
     printf("%i ", v.data[i]);

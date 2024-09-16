@@ -19,7 +19,11 @@ void usage(char *prog) {
     "    0: counting sort (default)\n"
     "    1: stdlib's qsort\n"
     "    2: bubble sort\n"
-    "    3: optimized bubble sort\n",
+    "    3: optimized bubble sort\n"
+    "    4: radix sort\n"
+    "    5: Hoare's quick sort\n"
+    "    6: Merge sort\n"
+    "    7: Insertion sort\n",
     prog
   );
 }
@@ -81,6 +85,18 @@ int main(int argc, char *argv[]) {
       break;
     case 3:
       optimized_bubble_sort(&v);
+      break;
+    case 4:
+      radix_sort(&v);
+      break;
+    case 5:
+      hoares_quick_sort(&v);
+      break;
+    case 6:
+      merge_sort(&v);
+      break;
+    case 7:
+      insertion_sort(&v);
       break;
     default:
       usage(argv[0]);
