@@ -25,12 +25,19 @@ static int min_element(Vector *v) {
   return best;
 }
 
+static int any_negative(Vector *v) {
+  for (int i=0; i < v->size; i++)
+    if (v->data[i] < 0)
+      return 1;
+  return 0;
+}
+
 int compare_ints (const void *a, const void *b) {
   return *(int*)b - *(int*)a;
 }
 
 static void validate_input(Vector *v) {
-  if (min_element(v) < 0)
+  if (any_negative(v))
     error(1, 0, "All elements must be integers >= 0");
 }
 
