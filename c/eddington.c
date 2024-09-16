@@ -2,14 +2,9 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include <string.h>
-#include <stdlib.h>
 
-#define MAX_LEN 1000
-
-typedef struct {
-  int *data;
-  int size;
-} Vector;
+#include "vector.h"
+#include "read.h"
 
 void usage(char *prog) {
   fprintf(
@@ -21,30 +16,6 @@ void usage(char *prog) {
     "\n",
     prog
   );
-}
-
-/** Read lines from file stream and return them as an integer vector
- *
- *  @param[in] file the file stream to read from
- */
-Vector read_values(FILE *file) {
-  int len = 1024;
-  Vector v = {
-    malloc(len * sizeof(int)),
-    0
-  };
-  char line[MAX_LEN];
-  while (fgets(line, MAX_LEN, file) != NULL) {
-    if (v.size >= len) {
-      len *= 2;
-      if ((v.data = realloc(v.data, len * sizeof(int))) == NULL) {
-        fprintf(stderr, "Failed to allocate memory\n");
-        exit(EXIT_FAILURE);
-      }
-    }
-    v.data[v.size++] = atoi(line);
-  }
-  return v;
 }
 
 /** Compute the eddington number of an integer vector and print the results
@@ -111,7 +82,7 @@ int main(int argc, char *argv[]) {
 
   compute_eddington_number(v, c);
 
-  free(v.data);
+  v_cleanup(v);
 
   return EXIT_SUCCESS;
 }
