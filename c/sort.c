@@ -91,29 +91,39 @@ void optimized_bubble_sort(Vector *v) {
   }
 }
 
+static int partition_negatives(int *a, int n, int desc) {
+  int lo = 0, hi = n;
+  while (lo < hi) {
+    if (desc && a[lo] < 0 || !desc && a[lo] >= 0) {
+      swap(a + lo, a + --hi);
+    } else {
+      lo++;
+    }
+  }
+  return lo;
+}
 
-static void rs(int *a, int n, int digit) {
-  if (digit < 0) return;
+static void rs(int *a, int n, int digit, int desc) {
+  if (digit < 0 || n < 2) return;
 
+  int not = digit == sizeof(int) * 8 - 1 ? !desc : desc;
   int lo = 0, hi = n;
   int mask = 1 << digit--;
   while (lo < hi) {
-    if (!(a[lo] & mask)) {
+    if (not - !!(a[lo] & mask)) {
       swap(a + lo, a + --hi);
     } else {
       lo++;
     }
   }
 
-  if (lo) rs(a, lo, digit);
-  if (hi < n) rs(a + hi, n - hi, digit);
+  if (lo) rs(a, lo, digit, desc);
+  if (hi < n) rs(a + hi, n - hi, digit, desc);
 }
 
 void radix_sort(Vector *v) {
-  validate_input(v);
-  rs(v->data, v->size, (sizeof(int) - 1) * 8);
+  rs(v->data, v->size, sizeof(int) * 8 - 1, 1);
 }
-
 
 static void hqs(int *a, int n) {
   if (n < 2) return;
