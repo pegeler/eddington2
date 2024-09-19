@@ -1,28 +1,31 @@
-#ifndef EddingtonClass_H
-#define EddingtonClass_H
+#pragma once
 
 #include <iostream>
-#include <fstream>
-#include <vector>
+#include <optional>
 #include <unordered_map>
+#include <vector>
 
 class Eddington {
-  private:
+public:
+  // Constructors
+  Eddington();
+  Eddington(bool store_cumulative);
+  Eddington(const std::vector<int> &rides, bool store_cumulative = false);
 
-    int above=0;
-    int running=0;
-    std::vector<int> cumulative;
-    std::unordered_map<int, int> H = std::unordered_map<int, int>(150);
+  // Getters
+  int getEddingtonNumber();
+  std::optional<std::vector<int>> getCumulativeEddingtonNumber();
 
-  public:
+  // Member functions
+  int getNumberToNext();
+  int getNumberToTarget(int target);
+  void update(const std::vector<int> &rides);
+  void update(std::istream& rides);
+  void print();
 
-    int E();
-    std::vector<int> E_vec();
-    void update(std::istream& input, bool const verbose);
-    void print();
-    int next();
-    int required(int target);
-
-}; // Eddington
-
-#endif // EddingtonClass_H
+private:
+  int m_n_above = 0;
+  int m_eddington_number = 0;
+  std::unordered_map<int, int> m_hashmap;
+  std::optional<std::vector<int>> m_cumulative;
+};
