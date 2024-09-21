@@ -1,1 +1,2 @@
 python/docs/* linguist-documentation
+*.Rd linguist-documentation
