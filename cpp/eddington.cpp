@@ -1,85 +1,34 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include <string>
 #include <unistd.h>
 #include <cstring>
 #include <getopt.h>
+
 #include "EddingtonClass.h"
 
-
-using namespace std;
-
-void usage(char *prog)
-{
-  cerr
+void usage(char *prog) {
+  std::cerr
     << "Usage: "
     << prog
     << " [-h|--help] [-c|--cumulative] [-s|--stream]"
     << " [FILE [FILE...]]"
-    << endl;
+    << std::endl;
 }
 
-// Vector-based solution -----------------------------------------------------
-
-vector<double> get_rides(istream& input)
-{
+std::vector<int> get_rides(std::istream& input) {
   double ride;
-  vector<double> rides;
+  std::vector<int> rides;
 
-  while(input >> ride)
-  {
-    rides.push_back(ride);
+  while(input >> ride) {
+    rides.push_back(static_cast<int>(ride));
   }
 
   return rides;
-
 }
 
-int E_num(vector<double> &rides) {
-  int n = rides.size(), E = 0, ride = 0, above = 0;
-  vector<int> H(n + 1, 0);
-
-  for ( int i = 0; i < n; i++ ) {
-    ride = (int) rides[i];
-    if (ride > E) {
-      above++;
-      if (ride < n) H[ride]++;
-      if (above > E) above -= H[++E];
-    }
-  }
-
-  return E;
-
-}
-
-vector<int> E_cum(vector<double> &rides) {
-  int n = rides.size(), running = 0, ride = 0, above = 0;
-  vector<int> E(n, 0), H(n + 1, 0);
-
-  for ( int i = 0; i < n; i++ ) {
-    ride = (int) rides[i];
-    if (ride > running) {
-      above++;
-      if (ride < n) H[ride]++;
-      if (above > running) above -= H[++running];
-    }
-
-    E[i] = running;
-
-  }
-
-  return E;
-
-}
-
-// Main -----------------------------------------------------------------------
-
-int main(int argc, char *argv[])
-{
-
-  // Read in commandline args
-  int c = 0, s = 0;
+int main(int argc, char *argv[]) {
+  bool c = false, s = false;
   int opt;
 
   struct option long_options[] = {
@@ -92,79 +41,51 @@ int main(int argc, char *argv[])
   };
 
   while ((opt = getopt_long(argc, argv, "chs", long_options, NULL)) != -1)
-    switch (opt)
-      {
+    switch (opt) {
       case 'c':
-        c = 1;
+        c = true;
         break;
       case 'h':
         usage(argv[0]);
-        return 0;
+        return EXIT_SUCCESS;
       case 's':
-        s = 1;
+        s = true;
         break;
       case '?':
         usage(argv[0]);
-        return 1;
+        return EXIT_FAILURE;
       }
 
-  // Stream -------------------------------------------------------------------
+  Eddington e(c);
 
-  if (s)
-  {
-    Eddington e;
-
+  if (s) {
     if (optind == argc || !strcmp(argv[optind], "-")) {
-      e.update(cin, c);
-    }
-
-    else {
-      for ( int i = optind; i < argc; i++ ) {
-        ifstream file(argv[i]);
-        istream& file_stream = file;
-        e.update(file_stream, c);
+      e.update(std::cin);
+    } else {
+      for (int i = optind; i < argc; i++) {
+        std::ifstream file(argv[i]);
+        std::istream& file_stream = file;
+        e.update(file_stream);
       }
     }
-
-    if (!c) e.print();
-
-    return 0;
-
-  }
-
-
-  // Vector -------------------------------------------------------------------
-
-  // Read in ride data
-  vector<double> rides;
-
-  if (optind == argc || !strcmp(argv[optind], "-")) {
-    rides = get_rides(cin);
-  }
-
-  else {
-    for ( int i = optind; i < argc; i++ ) {
-      ifstream file(argv[i]);
-      istream& file_stream = file;
-      vector<double> tmp = get_rides(file_stream);
-      rides.insert(rides.end(), tmp.begin(), tmp.end());
+  } else {
+    if (optind == argc || !strcmp(argv[optind], "-")) {
+      e.update(get_rides(std::cin));
+    } else {
+      std::vector<int> rides;
+      for (int i = optind; i < argc; i++) {
+        std::ifstream file(argv[i]);
+        std::istream& file_stream = file;
+        e.update(get_rides(file_stream));
+      }
     }
   }
 
-  // Caluclate E_num and print
-  if (!c) {
-    cout << E_num(rides) << endl;
-  }
+  if (c)
+    for (auto n : *e.getCumulativeEddingtonNumber())
+      std::cout << n << std::endl;
+  else
+    e.print();
 
-  // Else print E_cum
-  else {
-    auto E = E_cum(rides);
-
-    for ( auto const &i : E ) {
-      cout << i << endl;
-    }
-  }
-
-  return 0;
-
+  return EXIT_SUCCESS;
 }
