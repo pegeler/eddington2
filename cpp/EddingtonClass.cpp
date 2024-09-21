@@ -1,57 +1,59 @@
+#include <vector>
+
 #include "EddingtonClass.h"
 
-int Eddington::E() {
-  return running;
+Eddington::Eddington() {}
+
+Eddington::Eddington(bool store_cumulative) {
+  if (store_cumulative) {
+    m_cumulative = std::vector<int>();
+  }
 }
 
-std::vector<int> Eddington::E_vec() {
-  return cumulative;
+Eddington::Eddington(const std::vector<int> &rides, bool store_cumulative)
+    : Eddington::Eddington(store_cumulative) {
+  update(rides);
 }
 
-void Eddington::update(std::istream& input, bool const verbose) {
-  int ride;
-  double line;
+int Eddington::getNumberToNext() { return m_eddington_number + 1 - m_n_above; }
 
-  while( input >> line )
-  {
-    ride = (int) line;
-
-    if ( ride > running ) {
-      above++;
-      H[ride]++;
-
-      if ( above > running ) {
-        running++;
-        above -= H[running];
-        H.erase(running);
-      }
-    }
-
-    if (verbose) print();
-    cumulative.push_back(running);
-
+int Eddington::getNumberToTarget(int target) {
+  if (target == m_eddington_number + 1) {
+    // Early exit for trivial case.
+    return getNumberToNext();
   }
 
+  int completed_rides = 0;
+  for (auto it = m_hashmap.begin(); it != m_hashmap.end(); ++it)
+    if (it->first >= target)
+      completed_rides += it->second;
+  return target - completed_rides;
+}
+
+void Eddington::update(int ride) {
+  if (ride > m_eddington_number) {
+    m_n_above++;
+    m_hashmap[ride]++;
+    if (m_n_above > m_eddington_number) {
+      m_n_above -= m_hashmap[++m_eddington_number];
+      m_hashmap.erase(m_eddington_number);
+    }
+  }
+  if (m_cumulative) {
+    m_cumulative->push_back(m_eddington_number);
+  }
+}
+
+void Eddington::update(const std::vector<int> &rides) {
+  for (auto ride : rides) update(ride);
+}
+
+
+void Eddington::update(std::istream& rides) {
+  double line;
+  while(rides >> line) update(static_cast<int>(line));
 }
 
 void Eddington::print() {
-  std::cout << running << std::endl;
-}
-
-int Eddington::next() {
-  return running + 1 - above;
-}
-
-int Eddington::required(int target) {
-  if ( running >= target ) return 0;
-  if ( target == running + 1 ) return this->next();
-
-  int sum=0;
-
-  for ( auto it = H.begin(); it != H.end(); ++it ) {
-    if ( it->first >= target ) sum += it->second;
-  }
-
-  return target - sum;
-
+  std::cout << m_eddington_number << std::endl;
 }
