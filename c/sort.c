@@ -1,8 +1,14 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
-#include <error.h>
 
 #include "vector.h"
+
+void error(int exit_code, char *msg) {
+  fflush(stdout);
+  fputs(msg, stderr);
+  exit(exit_code);
+}
 
 static void swap(int *a, int *b) {
     int tmp;
@@ -38,7 +44,7 @@ int compare_ints (const void *a, const void *b) {
 
 static void validate_input(Vector *v) {
   if (any_negative(v))
-    error(1, 0, "All elements must be integers >= 0");
+    error(1, "All elements must be integers >= 0\n");
 }
 
 void counting_sort(Vector *v) {
@@ -47,7 +53,7 @@ void counting_sort(Vector *v) {
   int *a = (int *) calloc((unsigned int) max + 1, sizeof(int));
 
   if (a == NULL)
-    error(1, 0, "Could not allocate memory");
+    error(1, "Could not allocate memory\n");
 
   /* make an array of counts */
   for (int i=0; i < v->size; i++)
@@ -103,10 +109,12 @@ static int partition_negatives(int *a, int n, int desc) {
   return lo;
 }
 
+#define MAX_SHIFT_BITS sizeof(int) * 8 - 1
+
 static void rs(int *a, int n, int digit, int desc) {
   if (digit < 0 || n < 2) return;
 
-  int not = digit == sizeof(int) * 8 - 1 ? !desc : desc;
+  int not = digit == MAX_SHIFT_BITS ? !desc : desc;
   int lo = 0, hi = n;
   int mask = 1 << digit--;
   while (lo < hi) {
@@ -122,13 +130,13 @@ static void rs(int *a, int n, int digit, int desc) {
 }
 
 void radix_sort(Vector *v) {
-  rs(v->data, v->size, sizeof(int) * 8 - 1, 1);
+  rs(v->data, v->size, MAX_SHIFT_BITS, 1);
 }
 
 static void hqs(int *a, int n) {
   if (n < 2) return;
   int pivot;
-  error(1, 0, "Algorithm not implemented yet!");
+  error(1, "Algorithm not implemented yet!\n");
   /* TODO */
 }
 
@@ -138,10 +146,10 @@ void hoares_quick_sort(Vector *v) {
 
 void merge_sort(Vector *v) {
   /* TODO */
-  error(1, 0, "Algorithm not implemented yet!");
+  error(1, "Algorithm not implemented yet!\n");
 }
 
 void insertion_sort(Vector *v) {
   /* TODO */
-  error(1, 0, "Algorithm not implemented yet!");
+  error(1, "Algorithm not implemented yet!\n");
 }

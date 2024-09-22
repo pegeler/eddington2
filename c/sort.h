@@ -2,7 +2,6 @@
 
 #include <stdlib.h>
 #include <limits.h>
-#include <error.h>
 
 #include "vector.h"
 
