@@ -10,9 +10,9 @@ proc eddington {} {
     }
     if {$above > $e} {
       incr e
-      if {[info exists h($ride)]} {
-        incr above -$h($ride)
-        unset h($ride)
+      if {[info exists h($e)]} {
+        incr above -$h($e)
+        unset h($e)
       }
     }
   }
