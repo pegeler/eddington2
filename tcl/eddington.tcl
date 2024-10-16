@@ -1,10 +1,10 @@
 #!/usr/bin/env tclsh
 
-proc eddington {file} {
+proc eddington {file_id} {
   set e 0
   set above 0
   array set h {}
-  while {[gets $file ride] >= 0} {
+  while {[gets $file_id ride] >= 0} {
     set ride [expr {int($ride)}]
     if {$ride > $e} {
       incr above
@@ -23,15 +23,22 @@ proc eddington {file} {
 
 proc get_file {} {
   global argc argv
-  if {$argc == 1} {
-    # TODO: close file!
-    return [open [lindex $argv 0] r]
-  } elseif {$argc == 0} {
+  if {$argc == 0} {
     return stdin
+  } elseif {$argc == 1} {
+    return [open [lindex $argv 0] r]
   } else {
     puts stderr "Must provide a file or stdin"
     exit 1
   }
 }
 
-puts [eddington [get_file]]
+proc main {} {
+  set file_id [get_file]
+  puts [eddington $file_id]
+  if {$file_id ne "stdin"} {
+    close $file_id
+  }
+}
+
+main
