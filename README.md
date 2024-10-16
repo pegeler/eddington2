@@ -34,6 +34,7 @@ number, check out the online calculator
 * [C](c/)
 * [C++](cpp/)
 * [FORTRAN 90](fortran/)
+* [Go](go/)
 * [Java](java/)
 * [Javascript](docs/)
 * [Julia](julia/)
