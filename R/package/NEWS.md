@@ -1,3 +1,11 @@
+# eddington 4.3.0 (Release date: TBD)
+
+Changes:
+
+- Added bibiliometric index calculations `h_index()`, `g_index()`,
+  and `i10_index()`.
+- Aliased `E_num()` to `durfee()` to aid in search.
+
 # eddington 4.2.0 (Release date: 2024-03-23)
 
 Changes:
