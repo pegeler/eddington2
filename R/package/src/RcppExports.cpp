@@ -13,6 +13,18 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// g_index
+int g_index(const Rcpp::NumericVector& citations, bool sorted);
+RcppExport SEXP _eddington_g_index(SEXP citationsSEXP, SEXP sortedSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type citations(citationsSEXP);
+    Rcpp::traits::input_parameter< bool >::type sorted(sortedSEXP);
+    rcpp_result_gen = Rcpp::wrap(g_index(citations, sorted));
+    return rcpp_result_gen;
+END_RCPP
+}
 // E_num
 int E_num(const Rcpp::IntegerVector& rides);
 static SEXP _eddington_E_num_try(SEXP ridesSEXP) {
@@ -154,6 +166,7 @@ RcppExport SEXP _eddington_RcppExport_registerCCallable() {
 RcppExport SEXP _rcpp_module_boot_eddington_mod();
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_eddington_g_index", (DL_FUNC) &_eddington_g_index, 2},
     {"_eddington_E_num", (DL_FUNC) &_eddington_E_num, 1},
     {"_eddington_E_cum", (DL_FUNC) &_eddington_E_cum, 1},
     {"_eddington_E_next", (DL_FUNC) &_eddington_E_next, 1},
