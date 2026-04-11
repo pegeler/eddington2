@@ -75,7 +75,7 @@ h_index <- function(citations, na.rm = FALSE) {
   if (!na.rm && has_na)
     return(NA_integer_)
 
-  if (is.double(citations) && any(citations > .Machine$integer.max))
+  if (is.double(citations) && any(citations > .Machine$integer.max, na.rm = TRUE))
     stop("Values exceed limits for the integer data type.")
 
   .Call(`_eddington_E_num`, if (has_na) filter_na(citations) else citations)
@@ -92,7 +92,11 @@ g_index <- function(citations, sorted = FALSE, na.rm = FALSE) {
   if (!na.rm && has_na)
     return(NA_integer_)
 
-  .Call(`_eddington_g_index`, if (has_na) filter_na(citations) else citations, sorted)
+  .Call(
+    `_eddington_g_index_`,
+    if (has_na) filter_na(citations) else citations,
+    sorted
+  )
 }
 
 filter_na <- \(x) Filter(Negate(is.na), x)

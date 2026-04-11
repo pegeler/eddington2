@@ -2,7 +2,7 @@
 #include <cmath>
 
 // [[Rcpp::export]]
-int g_index(const Rcpp::NumericVector &citations, bool sorted = false) {
+int g_index_(const Rcpp::NumericVector &citations, bool sorted = false) {
   if (!citations.size())
     return 0;  // Early exit
 

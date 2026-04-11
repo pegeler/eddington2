@@ -26,7 +26,7 @@ test_that("h-index works", {
   expect_identical(h_index(c(1:3, NA), na.rm = FALSE), NA_integer_)
 
   # Large value check
-  expect_error(h_index(c(3**31)), "exceed limits")
+  expect_error(h_index(c(3**31, NA_real_), na.rm = TRUE), "exceed limits")
 })
 
 test_that("i10-index works", {
