@@ -5,7 +5,7 @@
 \alias{daily_totals}
 \title{A year of simulated bicycle ride mileages, aggregated by day}
 \format{
-A data frame with 250 rows and 2 variables:
+A data frame with 178 rows and 2 variables:
 \describe{
 \item{ride_date}{date the ride occurred}
 \item{total_length}{the total length in miles for each day}

@@ -1,13 +1,8 @@
 #include <Rcpp.h>
 #include <cmath>
 
-//' @rdname h_index
-//' @export
 // [[Rcpp::export]]
 int g_index(const Rcpp::NumericVector &citations, bool sorted = false) {
-  // NOTE: The choice to use NumericVector instead of IntegerVector can push
-  //       the g-index higher on edge cases. Try using
-  //       `as.integer(daily_totals$total_length)` as an example.
   if (!citations.size())
     return 0;  // Early exit
 
@@ -16,10 +11,21 @@ int g_index(const Rcpp::NumericVector &citations, bool sorted = false) {
     c.sort(true);
 
   double cumsum = 0;
+  double prev = INFINITY;
+  bool warned = false;
   int g = 0;
   for (; g < c.size(); g++) {
-    cumsum += c(g);
-    if (cumsum < pow(g + 1, 2))
+    double cite = c(g);
+
+    // Sort check
+    if (sorted && !warned && prev < cite) {
+      Rcpp::warning("Data is unsorted, which may invalidate results");
+      warned = true;
+    }
+    prev = cite;
+
+    cumsum += cite;
+    if (cumsum < (g + 1) * (g + 1)) // reject `pow` to avoid floating point conversion
       break;
   }
 

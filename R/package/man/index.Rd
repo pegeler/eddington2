@@ -24,16 +24,16 @@ set.seed(2018)
 citations <- rgamma(30, shape = 2, scale = 10)
 
 # Create an h-index
-h_index <- index(force)
-h_index(citations)
+my_h_index <- index(force)
+my_h_index(citations)
 
 # Create a g-index function
-g_index <- index(\(i) i * i, cumulative = TRUE)
-g_index(citations)
+my_g_index <- index(\(i) i * i, cumulative = TRUE)
+my_g_index(citations)
 
 # Create an i10-index
-i10_index <- index(\(i) 10L)
-i10_index(citations)
+my_i10_index <- index(\(i) 10L)
+my_i10_index(citations)
 
 }
 \seealso{

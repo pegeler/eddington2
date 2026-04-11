@@ -22,7 +22,7 @@
 #' The dataset contains a total of 3,419 miles spread across 178
 #' unique days. The Eddington number for the year was 29.
 #'
-#' @format A data frame with 250 rows and 2 variables:
+#' @format A data frame with 178 rows and 2 variables:
 #' \describe{
 #'   \item{ride_date}{date the ride occurred}
 #'   \item{total_length}{the total length in miles for each day}

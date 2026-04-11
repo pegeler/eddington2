@@ -32,7 +32,8 @@ Suggests:
     knitr,
     rmarkdown,
     stats,
-    dplyr
+    dplyr,
+    tibble
 SystemRequirements: C++17
 VignetteBuilder: knitr
 RoxygenNote: 7.3.2
