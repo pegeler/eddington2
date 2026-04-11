@@ -1,3 +1,13 @@
+# eddington 4.3.0 (Release date: 2026-04-11)
+
+Changes:
+
+- Added bibliometric index calculations `h_index()`, `g_index()`,
+  and `i10_index()` as well as an `index()` function factory for making custom
+  index calculations.
+- Aliased `E_num()` to `durfee()` to aid in search.
+- Created a `daily_totals` dataset that aggregates the `rides` dataset by day.
+
 # eddington 4.2.0 (Release date: 2024-03-23)
 
 Changes:
