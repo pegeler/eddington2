@@ -11,7 +11,7 @@ h_index(citations, na.rm = FALSE)
 
 i10_index(citations, na.rm = FALSE)
 
-g_index(citations, sorted = FALSE, na.rm = FALSE)
+g_index(citations, is_sorted = FALSE, na.rm = FALSE)
 }
 \arguments{
 \item{citations}{A vector of citation counts.}
@@ -19,7 +19,7 @@ g_index(citations, sorted = FALSE, na.rm = FALSE)
 \item{na.rm}{If \code{TRUE}, \code{NA} values will be filtered out. Otherwise, any \code{NA}
 value found in the vector will propagate and \code{NA} will be returned.}
 
-\item{sorted}{Whether the data is pre-sorted in descending order. This may
+\item{is_sorted}{Whether the data is pre-sorted in descending order. This may
 speed up computations for some algorithms. The pre-sorted assumption is
 tested and a warning is emitted if unsorted data is detected.}
 }

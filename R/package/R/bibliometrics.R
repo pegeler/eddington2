@@ -1,3 +1,5 @@
+filter_na <- \(x) Filter(Negate(is.na), x)
+
 #' Define a custom bibliometric index function
 #'
 #' @param f A function to be applied to the index before comparison.
@@ -58,7 +60,7 @@ index <- function(f, cumulative = FALSE) {
 #' and may result in inaccurate outputs.
 #'
 #' @param citations A vector of citation counts.
-#' @param sorted Whether the data is pre-sorted in descending order. This may
+#' @param is_sorted Whether the data is pre-sorted in descending order. This may
 #'   speed up computations for some algorithms. The pre-sorted assumption is
 #'   tested and a warning is emitted if unsorted data is detected.
 #' @param na.rm If `TRUE`, `NA` values will be filtered out. Otherwise, any `NA`
@@ -87,7 +89,7 @@ i10_index <- function(citations, na.rm = FALSE) sum(citations >= 10L, na.rm = na
 
 #' @rdname h_index
 #' @export
-g_index <- function(citations, sorted = FALSE, na.rm = FALSE) {
+g_index <- function(citations, is_sorted = FALSE, na.rm = FALSE) {
   has_na <- anyNA(citations)
   if (!na.rm && has_na)
     return(NA_integer_)
@@ -95,31 +97,6 @@ g_index <- function(citations, sorted = FALSE, na.rm = FALSE) {
   .Call(
     `_eddington_g_index_`,
     if (has_na) filter_na(citations) else citations,
-    sorted
+    is_sorted
   )
-}
-
-filter_na <- \(x) Filter(Negate(is.na), x)
-
-
-if (FALSE) {  # Quick benchmark
-  h_alt <- index(force)
-  g_alt <- index(\(i) i * i, cumulative = TRUE)
-  i10_alt <- index(\(i) 10L)
-
-  # data(daily_totals)
-
-  xs <- daily_totals$total_length
-
-  microbenchmark::microbenchmark(
-    h_index(xs),
-    h_alt(xs),
-    g_index(xs),
-    g_alt(xs),
-    i10_index(xs),
-    i10_alt(xs)
-  )
-
-  # FINDING: way faster. as fun as the closure is for generalization,
-  # performance demands writing separate functions.
 }

@@ -14,14 +14,14 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // g_index_
-int g_index_(const Rcpp::NumericVector& citations, bool sorted);
-RcppExport SEXP _eddington_g_index_(SEXP citationsSEXP, SEXP sortedSEXP) {
+int g_index_(const Rcpp::NumericVector& citations, bool is_sorted);
+RcppExport SEXP _eddington_g_index_(SEXP citationsSEXP, SEXP is_sortedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type citations(citationsSEXP);
-    Rcpp::traits::input_parameter< bool >::type sorted(sortedSEXP);
-    rcpp_result_gen = Rcpp::wrap(g_index_(citations, sorted));
+    Rcpp::traits::input_parameter< bool >::type is_sorted(is_sortedSEXP);
+    rcpp_result_gen = Rcpp::wrap(g_index_(citations, is_sorted));
     return rcpp_result_gen;
 END_RCPP
 }
