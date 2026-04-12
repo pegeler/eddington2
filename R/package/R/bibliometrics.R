@@ -60,11 +60,11 @@ index <- function(f, cumulative = FALSE) {
 #' and may result in inaccurate outputs.
 #'
 #' @param citations A vector of citation counts.
+#' @param na.rm If `TRUE`, `NA` values will be filtered out. Otherwise, any `NA`
+#'   value found in the vector will propagate and `NA` will be returned.
 #' @param is_sorted Whether the data is pre-sorted in descending order. This may
 #'   speed up computations for some algorithms. The pre-sorted assumption is
 #'   tested and a warning is emitted if unsorted data is detected.
-#' @param na.rm If `TRUE`, `NA` values will be filtered out. Otherwise, any `NA`
-#'   value found in the vector will propagate and `NA` will be returned.
 #' @returns The summary number.
 #' @references <https://en.wikipedia.org/wiki/Author-level_metrics>,
 #' <https://en.wikipedia.org/wiki/G-index>
@@ -89,7 +89,7 @@ i10_index <- function(citations, na.rm = FALSE) sum(citations >= 10L, na.rm = na
 
 #' @rdname h_index
 #' @export
-g_index <- function(citations, is_sorted = FALSE, na.rm = FALSE) {
+g_index <- function(citations, na.rm = FALSE, is_sorted = FALSE) {
   has_na <- anyNA(citations)
   if (!na.rm && has_na)
     return(NA_integer_)

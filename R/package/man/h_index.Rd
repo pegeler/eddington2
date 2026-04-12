@@ -11,7 +11,7 @@ h_index(citations, na.rm = FALSE)
 
 i10_index(citations, na.rm = FALSE)
 
-g_index(citations, is_sorted = FALSE, na.rm = FALSE)
+g_index(citations, na.rm = FALSE, is_sorted = FALSE)
 }
 \arguments{
 \item{citations}{A vector of citation counts.}
