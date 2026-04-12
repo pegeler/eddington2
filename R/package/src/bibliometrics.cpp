@@ -2,12 +2,12 @@
 #include <cmath>
 
 // [[Rcpp::export]]
-int g_index_(const Rcpp::NumericVector &citations, bool sorted = false) {
+int g_index_(const Rcpp::NumericVector &citations, bool is_sorted = false) {
   if (!citations.size())
     return 0;  // Early exit
 
-  auto c = sorted ? citations : clone(citations);
-  if (!sorted)
+  auto c = is_sorted ? citations : clone(citations);
+  if (!is_sorted)
     c.sort(true);
 
   double cumsum = 0;
@@ -18,11 +18,13 @@ int g_index_(const Rcpp::NumericVector &citations, bool sorted = false) {
     double cite = c(g);
 
     // Sort check
-    if (sorted && !warned && prev < cite) {
-      Rcpp::warning("Data is unsorted, which may invalidate results");
-      warned = true;
+    if (is_sorted) {
+      if (!warned && prev < cite) {
+        Rcpp::warning("Data is unsorted, which may invalidate results");
+        warned = true;
+      }
+      prev = cite;
     }
-    prev = cite;
 
     cumsum += cite;
     if (cumsum < (g + 1) * (g + 1)) // reject `pow` to avoid floating point conversion
@@ -37,5 +39,5 @@ data(daily_totals)
 g_index(daily_totals$total_length)
 
 sorted_lens <- sort(daily_totals$total_length, decreasing = TRUE)
-g_index(sorted_lens, sorted = TRUE)
+g_index(sorted_lens, is_sorted = TRUE)
 */

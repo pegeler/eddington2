@@ -1,6 +1,6 @@
 context("Bibliometrics")
 
-data("daily_totals")
+data("daily_totals", package = "eddington")
 
 # Reference: https://en.wikipedia.org/wiki/G-index
 cites <- tibble::tribble(
@@ -17,6 +17,20 @@ cites <- tibble::tribble(
   10, 1, 1
 )
 
+test_that("index factory function works", {
+  xs <- daily_totals$total_length
+
+  h_alt <- index(force)
+  expect_identical(h_alt(xs), h_index(xs))
+
+  g_alt <- index(\(i) i * i, cumulative = TRUE)
+  expect_identical(g_alt(xs), g_index(xs))
+  expect_identical(g_alt(as.integer(xs)), g_index(as.integer(xs)))
+
+  i10_alt <- index(\(i) 10L)
+  expect_identical(i10_alt(xs), i10_index(xs))
+})
+
 test_that("h-index works", {
   expect_identical(h_index(cites$author1), 6L)
   expect_identical(h_index(cites$author2), 6L)
@@ -26,7 +40,9 @@ test_that("h-index works", {
   expect_identical(h_index(c(1:3, NA), na.rm = FALSE), NA_integer_)
 
   # Large value check
+  expect_error(h_index(3**31), "exceed limits")
   expect_error(h_index(c(3**31, NA_real_), na.rm = TRUE), "exceed limits")
+  expect_identical(h_index(c(3**31, NA_real_), na.rm = FALSE), NA_integer_)
 })
 
 test_that("i10-index works", {
@@ -40,8 +56,8 @@ test_that("g-index works", {
   expect_identical(g_index(d), 38L)
   expect_identical(g_index(as.integer(d)), 37L)
 
-  expect_identical(g_index(cites$author1, sorted = TRUE), 10L)
-  expect_identical(g_index(cites$author2, sorted = TRUE), 7L)
+  expect_identical(g_index(cites$author1, is_sorted = TRUE), 10L)
+  expect_identical(g_index(cites$author2, is_sorted = TRUE), 7L)
 
   # Edge cases
   expect_identical(g_index(integer()), 0L)
@@ -52,8 +68,10 @@ test_that("g-index works", {
 
   # Sort check
   expect_no_warning(g_index(1:3))  # sort is default
+  # If caller claims data is pre-sorted, we still check and emit warning if
+  # unsorted data is observed.
   expect_warning(
-    g_index(1:3, sorted = TRUE),  # if caller claims data is pre-sorted, we still check
+    g_index(1:3, is_sorted = TRUE),
     "unsorted"
   )
 })
